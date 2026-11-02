@@ -613,7 +613,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How much does shipping cost?",
+                "heading": "Do I need a paid Canva account?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -623,7 +623,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Shipping is calculated based on your location and the items in your order. You will always know the shipping price before you purchase.</p>",
+                    "text": "<p>No. A free Canva account works for most templates. Some elements may require Canva Pro, and those are noted in the download.</p><p></p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
