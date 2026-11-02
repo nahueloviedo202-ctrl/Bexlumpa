@@ -1366,11 +1366,11 @@
           "settings": {
             "show_rating": true,
             "rating": 5,
-            "heading": "Amazing Recipes!",
+            "heading": "Amazing Templates!",
             "heading_type_preset": "h4",
             "heading_font_size_desktop": 20,
             "heading_font_size_mobile": 18,
-            "text": "<p>The recipes were easy to follow and the meals looked amazing. I tried the pesto pasta on my first try and it turned out perfect.</p>",
+            "text": "<p>The templates were easy to edit and my posts looked amazing. I customized the first one in a few minutes and it turned out perfect.</p>",
             "author": "Sarah M."
           },
           "blocks": {}
@@ -1430,6 +1430,7 @@
         "autoplay": false,
         "autoplay_speed": 5,
         "rating_icon": "star",
+        "rating_icon_image": "shopify://shop_images/star_77949.svg",
         "rating_icon_size": 18,
         "star_color": "#ffcc00",
         "star_background_color": "#ffcc00",
