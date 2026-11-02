@@ -220,6 +220,7 @@
         "image_zwQBFL": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_fk6bl1fk6bl1fk6b.webp",
             "link": "",
             "image_ratio": "landscape",
             "width": "fill",
@@ -700,7 +701,7 @@
         "text_nwt8TW": {
           "type": "text",
           "settings": {
-            "text": "<p>Why Choose Our Vegan Recipe Book?</p>",
+            "text": "<p><strong>Why Choose Our Canva Templates?</strong></p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -727,37 +728,10 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Our vegan recipe book is made for people who want to enjoy delicious, wholesome meals without complicated ingredients or hours in the kitchen.<br/><br/>Each recipe is designed to be simple, flavorful and inspiring, helping you make plant-based cooking easy and enjoyable.</p>",
+            "text": "<p>Our Canva templates are made for people who want to create beautiful, professional designs without design experience or hours spent starting from scratch.</p><p>Each template is designed to be simple, stylish and easy to customize, helping you make creating content quick and enjoyable.</p><p>✓ Easy and fully editable Canva templates<br/>✓ Designed for busy everyday life<br/>✓ Simple drag-and-drop customization<br/>✓ Perfect for beginners and experienced creators<br/>✓ Stylish designs for every type of content<br/>✓ Digital download available instantly<br/>✓ No design skills or special software needed<br/>✓ Fresh, polished and professional results</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "center",
-            "type_preset": "paragraph",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "font_size_mobile": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "text_bdXnNV": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>✓ Easy and delicious plant-based recipes<br/>✓ Designed for busy everyday life<br/>✓ Simple ingredients you can find easily<br/>✓ Perfect for beginners and experienced cooks<br/>✓ Flavorful meals for every occasion<br/>✓ Digital download available instantly<br/>✓ No complicated cooking techniques<br/>✓ Fresh, wholesome and satisfying recipes<br/><br/></p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
             "type_preset": "paragraph",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
@@ -780,8 +754,7 @@
       },
       "block_order": [
         "text_nwt8TW",
-        "text_LL9FFL",
-        "text_bdXnNV"
+        "text_LL9FFL"
       ],
       "name": "t:names.pull_quote",
       "settings": {
