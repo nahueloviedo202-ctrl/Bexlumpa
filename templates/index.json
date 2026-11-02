@@ -283,7 +283,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<p>Design Made Simple, Beautiful and Effortless</p>",
+                "text": "<p><strong>Design Made Simple, Beautiful and Effortless</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -399,7 +399,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Frequently Asked Questions</h2>",
+            "text": "<h2><strong>Frequently Asked Questions</strong></h2>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
@@ -793,7 +793,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Everything You Need to Enjoy Vegan Cooking</p>",
+            "text": "<p><strong>Everything You Need to Create Stunning Designs</strong></p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -900,7 +900,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h4>🥑 Easy & Delicious Recipes</h4>",
+                    "text": "<h4>🎨 <strong>Easy & Beautiful Templates</strong></h4>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -927,7 +927,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Simple plant-based recipes packed with flavor and easy to prepare at home.</p>",
+                    "text": "<p>Simple, fully editable Canva templates packed with style and easy to customize in minutes.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -954,106 +954,6 @@
               "block_order": [
                 "text_zFYBdp",
                 "text_krWfVw"
-              ]
-            },
-            "group_6wqcez": {
-              "type": "group",
-              "name": "t:names.group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 20,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "background_color": "#b9a4e6",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 10,
-                "link": "",
-                "open_in_new_tab": false,
-                "placeholder": "",
-                "padding-block-start": 20,
-                "padding-block-end": 20,
-                "padding-inline-start": 20,
-                "padding-inline-end": 20
-              },
-              "blocks": {
-                "text_f9yeNH": {
-                  "type": "text",
-                  "name": "t:names.heading",
-                  "settings": {
-                    "text": "<h4>🌱 Perfect for Everyday Meals</h4>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "font_size_mobile": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "text_c6KqDc": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<p>Wholesome recipes made for breakfast, lunch, dinner, snacks and more.</p>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "font_size_mobile": "",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "text_color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 15,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_f9yeNH",
-                "text_c6KqDc"
               ]
             },
             "group_RnCptU": {
@@ -1100,7 +1000,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h4>✨ Flavorful Recipes, Real Results</h4>",
+                    "text": "<h4>✨ <strong>Polished Designs, Real Results</strong></h4>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1127,7 +1027,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Enjoy satisfying vegan meals without complicated ingredients or techniques.</p>",
+                    "text": "<p>Create professional-looking content without design skills or complicated tools.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1155,12 +1055,112 @@
                 "text_zVimxV",
                 "text_XNKFE8"
               ]
+            },
+            "group_6wqcez": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 20,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "#b9a4e6",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 10,
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 20,
+                "padding-block-end": 20,
+                "padding-inline-start": 20,
+                "padding-inline-end": 20
+              },
+              "blocks": {
+                "text_f9yeNH": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h4>📱 <strong>Perfect for Every Platform</strong></h4>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "font_size_mobile": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_c6KqDc": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Designs made for Instagram, stories, flyers, presentations and more.</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "font_size_mobile": "",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 15,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_f9yeNH",
+                "text_c6KqDc"
+              ]
             }
           },
           "block_order": [
             "group_pyfB99",
-            "group_6wqcez",
-            "group_RnCptU"
+            "group_RnCptU",
+            "group_6wqcez"
           ]
         }
       },
@@ -1245,7 +1245,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<p>Cook Delicious Vegan Meals, Even If You're Just Starting Out</p>",
+                "text": "<p><strong>Design Like a Pro, Even If You’re Just Starting Out</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1272,7 +1272,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Discover easy, flavorful vegan recipes made with simple ingredients and step-by-step guidance.</p>",
+                "text": "<p>Discover easy, beautiful Canva templates made with simple customization and ready to use in minutes.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1299,7 +1299,7 @@
               "type": "button",
               "name": "t:names.button",
               "settings": {
-                "label": "Get the Recipe Book",
+                "label": "Get the Templates",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button-custom",
