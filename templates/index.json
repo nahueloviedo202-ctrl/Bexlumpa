@@ -571,7 +571,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Can I view the eBook on my phone?",
+                "heading": "Can I use the templates on my phone?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -581,7 +581,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Yes. You can view the digital exercise guide from your phone, tablet or computer.</p>",
+                    "text": "<p>Yes. You can edit your templates from the Canva app on your phone, tablet or computer.</p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
