@@ -22,7 +22,7 @@
         "animation_speed": 1,
         "space_above": 0,
         "space_below": 0,
-        "background_color": "#F6F2EA"
+        "background_color": "#f6f2ea"
       }
     },
     "footer_m9NzUG": {
@@ -975,7 +975,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>© 2026 Green Plate Marketing LLC | EIN: 98-1967177 | All rights reserved.</p>",
+                    "text": "<p>© 2026 BEXLUMPA Marketing LLC | EIN: 98-1967177 | All rights reserved.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
