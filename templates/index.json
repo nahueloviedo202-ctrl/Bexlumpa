@@ -282,7 +282,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<p>Vegan Cooking Made Simple, Delicious and Enjoyable</p>",
+                "text": "<p>Design Made Simple, Beautiful and Effortless</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -308,7 +308,7 @@
             "text_rnp6Cj": {
               "type": "text",
               "settings": {
-                "text": "<p>Eating plant-based at home does not have to be complicated. Our digital vegan recipe guide features 10 simple, delicious recipes designed to help you cook with confidence. Whether you are just starting out or looking for new inspiration, our recipes make it easy to bring plant-based flavor into your everyday home.</p>",
+                "text": "<p>Creating great content does not have to be complicated. BEXLUMPA brings you a collection of fully editable Canva templates designed to help you look professional with confidence. Whether you are just starting out or looking for fresh ideas, our templates make it easy to bring a polished, consistent look to everything you share.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -2756,7 +2756,7 @@
         "section_height": "",
         "section_height_custom": 50,
         "background_media": "none",
-        "background_color": "#F6F2EA",
+        "background_color": "#f6f2ea",
         "video_position": "cover",
         "background_image_position": "cover",
         "toggle_overlay": false,
