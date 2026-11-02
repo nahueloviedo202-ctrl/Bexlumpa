@@ -1328,6 +1328,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
+        "image_1": "shopify://shop_images/Gemini_Generated_Image_uwosljuwosljuwos.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -1344,7 +1345,7 @@
         "vertical_alignment_flex_direction_column": "center",
         "gap": 16,
         "section_width": "page-width",
-        "section_height": "small",
+        "section_height": "medium",
         "section_height_custom": 50,
         "background_color": "",
         "toggle_overlay": true,
