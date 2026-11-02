@@ -1459,7 +1459,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Discover Our Premium Collection</h2>",
+            "text": "<p><strong>Discover Our Premium Collection</strong></p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -1593,7 +1593,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Handpicked recipes crafted with attention to detail. Each dish in our collection is selected to meet our high standards for flavor and results.</p>",
+                    "text": "<p>Handpicked templates crafted with attention to detail. Each design in our collection is selected to meet our high standards for style and usability.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1693,7 +1693,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Get your recipe guide delivered instantly. We ensure your digital download is ready to use the moment you purchase, on any device.</p>",
+                    "text": "<p>Get your templates delivered instantly. We ensure your digital download is ready to use the moment you purchase, on any device.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1793,7 +1793,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We're here to help! Our dedicated support team is ready to answer your questions and ensure you have the best experience possible.</p>",
+                    "text": "<p>We’re here to help! Our dedicated support team is ready to answer your questions and ensure you have the best experience possible.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
