@@ -428,7 +428,7 @@
           "settings": {
             "icon": "caret",
             "dividers": true,
-            "divider_color": "#b6b4b4",
+            "divider_color": "#2D1B4E",
             "type_preset": "paragraph",
             "limit_width_desktop": true,
             "max_width_desktop": 800,
@@ -488,7 +488,7 @@
             "accordion_row_bHEdG6": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "When will I receive the eBook?",
+                "heading": "When will I receive my templates?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -497,7 +497,7 @@
                 "text_yF9zXw": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>You will receive access to the digital product after purchase.</p>",
+                    "text": "<p>You will receive access to your templates right after purchase.</p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
@@ -529,7 +529,7 @@
               "type": "_accordion-row",
               "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Do I need cooking experience?",
+                "heading": "Do I need design experience?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
@@ -539,7 +539,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>No. The recipes are beginner-friendly and easy to follow.</p>",
+                    "text": "<p>No. The templates are beginner-friendly and easy to customize.</p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
