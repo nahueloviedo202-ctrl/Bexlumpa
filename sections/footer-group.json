@@ -638,7 +638,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Phone: +1 (681) 254-5147</p>",
+                    "text": "<p>Phone: +1 (661) 244-9822</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -665,7 +665,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Email: contact@.com</p>",
+                    "text": "<p>Email: info@bexlumpa.com</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -766,7 +766,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>BEXLUMPA Marketing LLC</p>",
+                    "text": "<p>BEXLUMPA LLC</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -975,7 +975,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>© 2026 BEXLUMPA Marketing LLC | EIN: 98-1967177 | All rights reserved.</p>",
+                    "text": "<p>© 2026 BEXLUMPA LLC | EIN: 43-2663062 | All rights reserved.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
