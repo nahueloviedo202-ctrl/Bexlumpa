@@ -138,7 +138,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>BEXLUMPA Marketing LLC</p>",
+                    "text": "<p>BEXLUMPA LLC</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -238,7 +238,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>98-1967177</p>",
+                    "text": "<p>43-2663062</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -338,7 +338,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Green Plate Marketing LLC is a Limited Liability Company registered in the United States.</p>",
+                    "text": "<p>BEXLUMPA LLC is a Limited Liability Company registered in the United States.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -438,7 +438,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>30 N. Gould St. Ste R, Sheridan, WY 82801</p>",
+                    "text": "<p>1209 MOUNTAIN ROAD PL NE, STE R, ALBUQUERQUE, NM 87110</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -538,7 +538,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Remote-first company. BEXLUMPA Marketing LLC operates globally and our operational team is based in United States (USA). All services are provided online to clients worldwide.</p>",
+                    "text": "<p>Remote-first company. BEXLUMPA LLC operates globally and our operational team is based in United States (USA). All services are provided online to clients worldwide.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
