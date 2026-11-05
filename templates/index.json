@@ -1642,7 +1642,7 @@
         "sticker_WRDAYd": {
           "type": "sticker",
           "settings": {
-            "text": "Full",
+            "text": "Instant",
             "bg": "#7fd6c2",
             "color": "",
             "rotation": -3
@@ -1651,7 +1651,7 @@
         "sticker_ciNFqU": {
           "type": "sticker",
           "settings": {
-            "text": "Waitlist",
+            "text": "Editable",
             "bg": "#ffd166",
             "color": "",
             "rotation": 2
@@ -1660,7 +1660,7 @@
         "sticker_ramNM8": {
           "type": "sticker",
           "settings": {
-            "text": "Enrolled",
+            "text": "Digital",
             "bg": "#5b3cc4",
             "color": "#ffffff",
             "rotation": -2
@@ -1669,7 +1669,7 @@
         "sticker_FkVtR4": {
           "type": "sticker",
           "settings": {
-            "text": "Term 1 to 3",
+            "text": "7 packs",
             "bg": "#f7f4ec",
             "color": "",
             "rotation": 3
@@ -1679,14 +1679,14 @@
           "type": "info",
           "settings": {
             "label": "Legal entity",
-            "body": "<p><strong>Your Company LLC</strong>EIN: 00-0000000</p>"
+            "body": "<p><strong>BEXLUMPA LLC</strong>EIN: 00-0000000</p>"
           }
         },
         "info_TwRMFm": {
           "type": "info",
           "settings": {
             "label": "Registered address",
-            "body": "<p>Street address, City, State ZIP, Country</p>"
+            "body": "<p>1209 Mountain Road Pl NE, Ste R, Albuquerque, NM 87110, US</p>"
           }
         },
         "info_43jTdc": {
@@ -1700,7 +1700,7 @@
           "type": "info",
           "settings": {
             "label": "Contact",
-            "body": "<p><a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Insert phone number here</p>"
+            "body": "<p><a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Phone: +1 (661) 244-9822</p>"
           }
         }
       },
@@ -1718,10 +1718,10 @@
       "settings": {
         "wordmark": "",
         "logo_width": 220,
-        "masthead": "Growth systems for swim schools and kids sports academies",
+        "masthead": "CANVA TEMPLATE PACKS FOR CREATORS AND SMALL BUSINESSES",
         "show_legal": true,
         "legal_label": "Disclaimer",
-        "legal_text": "<p>The information, digital products, and services provided on this website are for educational and informational purposes only and do not constitute legal, financial, tax, investment, child-safeguarding, coaching-qualification or professional advice. Users remain responsible for compliance with all safeguarding, licensing and insurance requirements applicable to working with children in their jurisdiction. Results are not typical and depend on individual effort, implementation, market conditions and many other factors outside our control.</p>",
+        "legal_text": "<p>The digital products provided on this website are design templates for personal and business use. They do not constitute legal, financial, tax or professional advice. A Canva account is required to edit the templates. Canva is a trademark of Canva Pty Ltd. BEXLUMPA is not affiliated with, endorsed by or sponsored by Canva. Results are not guaranteed and depend on how the templates are used.</p>",
         "copyright": "Copyright [year] [shop]. All rights reserved.",
         "show_policies": true,
         "section_width": "full-width",
