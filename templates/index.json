@@ -1052,16 +1052,16 @@
         "yqb_report_card_HXgEkK": {
           "type": "_yqb-report-card",
           "settings": {
-            "school": "Blue Lane Swim School",
-            "term": "After 2 terms",
-            "quote": "We were losing a third of families every January and calling it normal. The trial follow-up and the re-enrolment window filled term two before the holidays, with a waitlist.",
+            "school": "Sweet Crumb Bakery",
+            "term": "Pack 01",
+            "quote": "<em>I used to spend my whole Sunday designing posts for the week. Now I pick a template, swap the photo and I’m done before my coffee gets cold. My feed finally looks like one brand.</em>&nbsp;",
             "name": "Hannah Price",
-            "role": "Owner, Blue Lane Swim School, 310 swimmers",
+            "role": "Owner, Sweet Crumb Bakery",
             "show_avatar": true,
             "avatar_initial": "",
             "avatar_bg": "",
             "avatar_color": "",
-            "sticker": "Full",
+            "sticker": "PACK 01",
             "sticker_bg": "",
             "sticker_color": ""
           },
@@ -1069,9 +1069,9 @@
             "yqb_report_grade_JUtRXb": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Trial to enrolment",
-                "before": "38%",
-                "after": "74%",
+                "name": "Feed look",
+                "before": "Mixed",
+                "after": "Consistent",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1080,9 +1080,9 @@
             "yqb_report_grade_NRTTt9": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Re-enrolment",
-                "before": "64%",
-                "after": "92%",
+                "name": "Posting",
+                "before": "Irregular",
+                "after": "Weekly",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1097,16 +1097,16 @@
         "yqb_report_card_cTkcLH": {
           "type": "_yqb-report-card",
           "settings": {
-            "school": "Northside Football Academy",
-            "term": "After 1 season",
-            "quote": "Three primary schools now send us their reception classes for taster sessions. Easter camp sold out in four days off one email to existing families.",
+            "school": "Okoye Coaching",
+            "term": "Pack 03",
+            "quote": "<em>I needed flyers and a price list for my launch and had no idea where to start. The business pack had everything, and clients actually commented on how professional it looked.</em>&nbsp;",
             "name": "Marcus Okoye",
-            "role": "Founder, Northside Football Academy",
+            "role": "Founder, Okoye Coaching",
             "show_avatar": true,
             "avatar_initial": "",
             "avatar_bg": "",
             "avatar_color": "",
-            "sticker": "Waitlist",
+            "sticker": "Pack 03",
             "sticker_bg": "",
             "sticker_color": ""
           },
@@ -1114,9 +1114,9 @@
             "yqb_report_grade_w3iDJX": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Trials booked / month",
-                "before": "9",
-                "after": "31",
+                "name": "Flyers",
+                "before": "Plain text",
+                "after": "Designed",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1125,9 +1125,9 @@
             "yqb_report_grade_P4zmEE": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Camp places sold",
-                "before": "46",
-                "after": "140",
+                "name": "Launch prep",
+                "before": "Last minute",
+                "after": "Ready early",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1142,16 +1142,16 @@
         "yqb_report_card_pLhMba": {
           "type": "_yqb-report-card",
           "settings": {
-            "school": "Studio Rosa Dance",
+            "school": "Rosa Ferreira Boutique",
             "term": "After 2 terms",
-            "quote": "The progress reports changed how parents see us. They stopped asking if it was worth it and started asking about private lessons and the summer intensive.",
+            "quote": "<em>Sales, new arrivals, stories, flyers... everything matches now. I edit on my phone between customers and it still looks like an agency made it.</em>&nbsp;",
             "name": "Rosa Ferreira",
-            "role": "Owner, Studio Rosa Dance",
+            "role": "Owner, Rosa Ferreira Boutique",
             "show_avatar": true,
             "avatar_initial": "",
             "avatar_bg": "",
             "avatar_color": "",
-            "sticker": "Enrolled",
+            "sticker": "Pack 05",
             "sticker_bg": "",
             "sticker_color": ""
           },
@@ -1159,9 +1159,9 @@
             "yqb_report_grade_DfTzF3": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Drop-off at term end",
-                "before": "31%",
-                "after": "7%",
+                "name": "Campaigns",
+                "before": "Improvised",
+                "after": "Planned",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1170,9 +1170,9 @@
             "yqb_report_grade_mehM39": {
               "type": "_yqb-report-grade",
               "settings": {
-                "name": "Extras revenue",
-                "before": "0",
-                "after": "+28%",
+                "name": "Brand look",
+                "before": "Scattered",
+                "after": "One style",
                 "arrow": "→",
                 "after_bg": ""
               },
@@ -1192,11 +1192,11 @@
       ],
       "name": "YQB Reports",
       "settings": {
-        "tag_text": "Owner report cards",
+        "tag_text": "CUSTOMER REPORT CARDS",
         "show_tag_dot": true,
-        "heading": "Owners who stopped chasing parents and filled every group.",
+        "heading": "Creators who stopped starting from scratch.&nbsp;",
         "heading_tag": "h2",
-        "intro": "<p>Field reports from swim schools, football academies and dance and gymnastics schools running the playbooks across the US, UK and Europe. Numbers as reported by the owner.</p>",
+        "intro": "<p>Feedback from creators and small business owners using the template packs.</p>",
         "section_width": "full-width",
         "content_max_width": 1240,
         "heading_ratio": 52,
@@ -1252,55 +1252,55 @@
         "yes_item_J9irdg": {
           "type": "yes_item",
           "settings": {
-            "text": "You run a swim school, sports academy, dance, gymnastics or martial-arts school for children, with 50 to 800 students across one to three sites."
+            "text": "You run a small business, online shop, studio or personal brand, or you create content, and you post or promote regularly."
           }
         },
         "yes_item_8BnKqh": {
           "type": "yes_item",
           "settings": {
-            "text": "You are excellent with kids, but talking to parents about enrolment, re-enrolment and money is the part you avoid."
+            "text": "You want your designs to look professional, but starting from a blank canvas is the part you avoid."
           }
         },
         "yes_item_Rte4tB": {
           "type": "yes_item",
           "settings": {
-            "text": "You lose a quarter or more of your families every term end and have accepted it as normal."
+            "text": "You have a feed or a brand that looks different from one post to the next, and you want it to look like one style."
           }
         },
         "yes_item_6XcjtU": {
           "type": "yes_item",
           "settings": {
-            "text": "You want ready-to-use parent messages, trial scripts, progress report templates and camp launch sequences, not a theory course."
+            "text": "You want ready-to-use designs you can edit in minutes, not a design course."
           }
         },
         "yes_item_TNYxUy": {
           "type": "yes_item",
           "settings": {
-            "text": "You are ready to set a system up once, between terms, and run every intake on it from then on."
+            "text": "You are ready to download once and customize in Canva whenever you need a new design."
           }
         },
         "no_item_ndGhEn": {
           "type": "no_item",
           "settings": {
-            "text": "You want a booking app to fill the groups for you so you never have to talk to a parent."
+            "text": "You want a designer to create everything for you so you never have to open Canva."
           }
         },
         "no_item_nLdGVz": {
           "type": "no_item",
           "settings": {
-            "text": "You are going to buy the playbook and leave it unopened in your downloads folder."
+            "text": "You are going to buy the templates and leave them unopened in your downloads folder."
           }
         },
         "no_item_FQmfdk": {
           "type": "no_item",
           "settings": {
-            "text": "You believe the free trial plus a discount is the only way to enrol a family, and you are not willing to change how you run it."
+            "text": "You prefer to design every piece from scratch and do not want to start from a ready-made layout."
           }
         },
         "no_item_XtyE7p": {
           "type": "no_item",
           "settings": {
-            "text": "You run a national franchise or a leisure-centre chain with an in-house marketing team."
+            "text": "You run a large company or agency with an in-house design team and your own brand system."
           }
         }
       },
@@ -1317,13 +1317,13 @@
       ],
       "name": "YQB Eligibility",
       "settings": {
-        "tag_text": "Eligibility check",
+        "tag_text": "IS THIS FOR YOU?",
         "show_tag_dot": true,
-        "heading": "Built for owners who still coach on Saturdays. Not for everyone.",
+        "heading": "Built for creators who want to make their own designs. Not for everyone.&nbsp;",
         "heading_tag": "h2",
-        "intro": "<p>We would rather lose a sale than send a playbook to someone who will never open it between terms. Tick both columns honestly before checkout.</p>",
-        "form_label_left": "Enrolment form / owner",
-        "form_label_right": "Tick all that apply",
+        "intro": "<p>We would rather lose a sale than send a template pack to someone who will never open it. Read both columns honestly before checkout.</p>",
+        "form_label_left": "✓ This is for you if",
+        "form_label_right": "✗ This is not for you if",
         "yes_sub": "Section A",
         "yes_title": "This is for you if",
         "yes_icon": "✓",
@@ -1526,7 +1526,7 @@
         "button_yahcLG": {
           "type": "button",
           "settings": {
-            "label": "Browse the playbooks",
+            "label": "Browse the templates",
             "link": "shopify://collections/all",
             "open_new_tab": false,
             "style": "primary",
@@ -1546,29 +1546,29 @@
         "line_VNAJGg": {
           "type": "line",
           "settings": {
-            "label": "Trial to enrolment",
-            "value": "70% and up"
+            "label": "Templates in the library",
+            "value": "700"
           }
         },
         "line_krjdFQ": {
           "type": "line",
           "settings": {
-            "label": "Re-enrolment",
-            "value": "90% and up"
+            "label": "Editable in Canva",
+            "value": "100%"
           }
         },
         "line_9rL4xa": {
           "type": "line",
           "settings": {
-            "label": "Discount given",
+            "label": "Design skills neded",
             "value": "None"
           }
         },
         "line_M8txrp": {
           "type": "line",
           "settings": {
-            "label": "Camps",
-            "value": "Sold out"
+            "label": "Delivery",
+            "value": "Instant"
           }
         }
       },
@@ -1583,18 +1583,18 @@
       "name": "YQB CTA",
       "settings": {
         "tag_text": "Your move",
-        "heading": "Next term starts with one playbook.",
+        "heading": "Your next post starts with one template pack.&nbsp;",
         "heading_tag": "h2",
-        "subheading": "<p>Stop discounting the trial and hoping families come back in January. Pick the level where your groups are leaking, and run the next intake on a system built to enrol.</p>",
+        "subheading": "<p>Stop starting from a blank canvas and hoping your feed looks consistent. Pick the pack that fits your goal, and make your next post from a design that’s already built to look good.</p>",
         "show_proof": true,
         "stars_count": 5,
-        "proof_text": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+        "proof_text": "Instant download · 100% editable in Canva · Free account works",
         "show_card": true,
         "card_decorative": true,
-        "card_label_left": "Next term",
+        "card_label_left": "Next post",
         "card_label_right": "Status",
-        "sticker_text": "Enrolled",
-        "sticker_small": "Waitlist open",
+        "sticker_text": "READY",
+        "sticker_small": "EDITABLE IN CANVA",
         "sticker_rotation": -5,
         "section_width": "full-width",
         "content_max_width": 1240,
