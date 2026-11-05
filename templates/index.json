@@ -1353,7 +1353,7 @@
         "color_accent": "#2B2D31",
         "color_secondary": "#7fd6c2",
         "color_card": "#ffffff",
-        "color_form_head_bg": "#f7f4ec",
+        "color_form_head_bg": "{{ settings.color_palette.color2 }}",
         "color_no_box_bg": "#ffffff",
         "radius": 12,
         "form_shadow": 10,
