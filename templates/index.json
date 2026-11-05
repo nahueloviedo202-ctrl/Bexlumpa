@@ -730,16 +730,16 @@
         "level_VeUFUa": {
           "type": "level",
           "settings": {
-            "badge_text": "L3",
-            "badge_small": "Level",
+            "badge_text": "3",
+            "badge_small": "Goal",
             "badge_bg": "#f7f4ec",
             "badge_color": "",
             "label": "Keep",
-            "vol": "Vol. 03",
-            "title": "Keep families term after term",
-            "body": "<p>The retention system that catches drop-off before it happens: progress reports parents actually read, the mid-term check-in, the level-up moment, and the re-enrolment window that fills next term before it opens.</p>",
+            "vol": "Pack 04",
+            "title": "<strong>Keep your brand consistent on every platform</strong>&nbsp;",
+            "body": "<p>Reels covers, YouTube thumbnails, Pinterest pins and posts that share one look, so people recognize you wherever they find you.</p>",
             "outcome_label": "Outcome",
-            "outcome": "Term-to-term re-enrolment above 90 percent",
+            "outcome": "One recognizable brand across every channel&nbsp;",
             "show_in_index": true
           }
         },
