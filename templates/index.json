@@ -897,7 +897,7 @@
         "color_accent": "#2B2D31",
         "color_secondary": "#FFD23F",
         "color_highlight": "#ffd166",
-        "color_alert": "#E8735A",
+        "color_alert": "#2B2D31",
         "color_on_alert": "#ffffff",
         "leak_bg_opacity": 10,
         "color_card": "#ffffff",
