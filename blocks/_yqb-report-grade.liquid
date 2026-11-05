@@ -1,0 +1,114 @@
+{%- liquid
+  assign b = block.settings
+-%}
+
+<div class="yqb-rep__grade" {{ block.shopify_attributes }}>
+  <span class="yqb-rep__grade-name">{{ b.name | escape }}</span>
+  {%- if b.before != blank -%}
+    <span class="yqb-rep__grade-before">{{ b.before | escape }}</span>
+  {%- endif -%}
+  {%- if b.before != blank and b.after != blank -%}
+    <span class="yqb-rep__grade-arrow" aria-hidden="true">{{ b.arrow | default: '→' | escape }}</span>
+  {%- endif -%}
+  {%- if b.after != blank -%}
+    <span
+      class="yqb-rep__grade-after"
+      {% if b.after_bg != blank %}
+        style="--yqb-grade-bg: {{ b.after_bg }};"
+      {% endif %}
+    >
+      {{- b.after | escape -}}
+    </span>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .yqb-rep .yqb-rep__grade {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--yqb-line);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .yqb-rep .yqb-rep__grade:last-child {
+    border-bottom: none;
+  }
+
+  .yqb-rep .yqb-rep__grade-name {
+    color: var(--yqb-ink-soft);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .yqb-rep .yqb-rep__grade-before {
+    color: var(--yqb-mute);
+    text-decoration: line-through;
+  }
+
+  .yqb-rep .yqb-rep__grade-arrow {
+    color: var(--yqb-violet);
+    font-weight: 800;
+  }
+
+  .yqb-rep .yqb-rep__grade-after {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    color: var(--yqb-ink);
+    background: var(--yqb-grade-bg, var(--yqb-aqua));
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-badge-radius);
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Métrica",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Nombre",
+      "default": "Trial to enrolment"
+    },
+    {
+      "type": "text",
+      "id": "before",
+      "label": "Valor anterior",
+      "default": "38%"
+    },
+    {
+      "type": "text",
+      "id": "after",
+      "label": "Valor actual",
+      "default": "74%"
+    },
+    {
+      "type": "text",
+      "id": "arrow",
+      "label": "Separador",
+      "default": "→"
+    },
+    {
+      "type": "color",
+      "id": "after_bg",
+      "label": "Fondo del valor actual",
+      "info": "Si se deja vacío usa el color secundario de la sección."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Métrica"
+    }
+  ]
+}
+{% endschema %}

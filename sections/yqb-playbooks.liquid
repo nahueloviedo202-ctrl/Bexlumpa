@@ -1,0 +1,1617 @@
+{%- comment -%}
+  YQB Playbooks: header (tag, heading, intro, "view all" link), a featured
+  bundle banner and a grid of product cards.
+
+  Product data (image, title, price, compare-at price, URL) comes from the
+  selected product; the text/image settings act as overrides or as fallback
+  when no product is selected.
+
+  Blocks:
+  - include: bullet in the bundle "includes" list
+  - card: product card in the grid
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign intro_ratio = 100 | minus: s.heading_ratio
+
+  assign include_blocks = section.blocks | where: 'type', 'include'
+  assign card_blocks = section.blocks | where: 'type', 'card'
+
+  assign bundle_text_60 = s.color_bundle_text | color_modify: 'alpha', 0.6
+  assign bundle_text_78 = s.color_bundle_text | color_modify: 'alpha', 0.78
+  assign bundle_text_50 = s.color_bundle_text | color_modify: 'alpha', 0.5
+  assign bundle_text_20 = s.color_bundle_text | color_modify: 'alpha', 0.2
+
+  assign bundle_product = s.bundle_product
+  assign bundle_url = s.bundle_link
+  if bundle_url == blank and bundle_product != blank
+    assign bundle_url = bundle_product.url
+  endif
+  assign bundle_title = s.bundle_title
+  if bundle_title == blank and bundle_product != blank
+    assign bundle_title = bundle_product.title
+  endif
+  assign bundle_image = s.bundle_image
+  if bundle_image == blank and bundle_product != blank
+    assign bundle_image = bundle_product.featured_image
+  endif
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+{%- comment -%}
+  Dynamic values live in a scoped <style> (not a style="" attribute): font
+  fallback_families can contain double quotes that would break the attribute.
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .yqb-play {
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-bundle-bg: {{ s.color_bundle_bg }};
+    --yqb-bundle-media-bg: {{ s.color_bundle_media_bg }};
+    --yqb-bundle-text: {{ s.color_bundle_text }};
+    --yqb-bundle-text-60: {{ bundle_text_60 }};
+    --yqb-bundle-text-78: {{ bundle_text_78 }};
+    --yqb-bundle-text-50: {{ bundle_text_50 }};
+    --yqb-bundle-text-20: {{ bundle_text_20 }};
+    --yqb-radius: {{ s.radius }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
+    --yqb-head-gap: {{ s.head_gap }}px;
+    --yqb-head-mb: {{ s.head_margin }}px;
+    --yqb-head-mb-mobile: {{ s.head_margin_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-bundle-shadow: {{ s.bundle_shadow }}px;
+    --yqb-bundle-media-min-height: {{ s.bundle_media_height }}px;
+    --yqb-bundle-title-size: {{ s.bundle_title_size }}px;
+    --yqb-bundle-price-size: {{ s.bundle_price_size }}px;
+    --yqb-bundle-mb: {{ s.bundle_margin }}px;
+    --yqb-cols: {{ s.columns_desktop }};
+    --yqb-cols-tablet: {{ s.columns_tablet }};
+    --yqb-cols-mobile: {{ s.columns_mobile }};
+    --yqb-grid-gap: {{ s.grid_gap }}px;
+    --yqb-card-shadow: {{ s.card_hover_shadow }}px;
+    --yqb-card-title-size: {{ s.card_title_size }}px;
+    --yqb-card-price-size: {{ s.card_price_size }}px;
+    --yqb-thumb-width: {{ s.thumb_width }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+  }
+</style>
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-play{% if s.hide_card_desc_mobile %} yqb-play--hide-desc-mobile{% endif %}">
+  <div class="yqb-play__inner">
+    {%- if s.tag_text != blank or s.heading != blank or s.intro != blank or s.viewall_label != blank -%}
+      <div class="yqb-play__head">
+        <div>
+          {%- if s.tag_text != blank -%}
+            <span class="yqb-term{% if s.show_tag_dot %} yqb-term--dot{% endif %}">{{ s.tag_text | escape }}</span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <{{ s.heading_tag }} class="yqb-play__heading">{{ s.heading }}</{{ s.heading_tag }}>
+          {%- endif -%}
+        </div>
+        <div>
+          {%- if s.intro != blank -%}
+            <div class="yqb-play__intro">{{ s.intro }}</div>
+          {%- endif -%}
+          {%- if s.viewall_label != blank -%}
+            <a
+              {% if s.viewall_link != blank %}
+                href="{{ s.viewall_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="yqb-play__viewall"
+            >
+              {{- s.viewall_label | escape -}}
+              {%- if s.viewall_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if s.show_bundle -%}
+      {%- if bundle_url != blank -%}
+        <a href="{{ bundle_url }}" class="yqb-bundle">
+      {%- else -%}
+        <div class="yqb-bundle">
+      {%- endif -%}
+        <div class="yqb-bundle__media{% if s.show_bundle_stripes %} yqb-bundle__media--stripes{% endif %}">
+          {%- if bundle_image != blank -%}
+            {{
+              bundle_image
+              | image_url: width: 900
+              | image_tag:
+                class: 'yqb-bundle__img',
+                loading: 'lazy',
+                widths: '300, 450, 600, 900',
+                sizes: '(min-width: 1025px) 40vw, 90vw',
+                alt: bundle_title
+            }}
+          {%- else -%}
+            <span class="yqb-bundle__placeholder">{{ s.bundle_placeholder | escape }}</span>
+          {%- endif -%}
+        </div>
+        <div class="yqb-bundle__copy">
+          {%- if s.bundle_sticker != blank or s.bundle_meta != blank -%}
+            <div class="yqb-bundle__meta">
+              {%- if s.bundle_sticker != blank -%}
+                <span class="yqb-sticker yqb-sticker--sun">{{ s.bundle_sticker | escape }}</span>
+              {%- endif -%}
+              {%- if s.bundle_meta != blank -%}
+                <span class="yqb-bundle__vol">{{ s.bundle_meta | escape }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- if bundle_title != blank -%}
+            <h3 class="yqb-bundle__title">{{ bundle_title | escape }}</h3>
+          {%- endif -%}
+          {%- if s.bundle_desc != blank -%}
+            <p class="yqb-bundle__desc">{{ s.bundle_desc | escape }}</p>
+          {%- endif -%}
+          {%- if include_blocks.size > 0 -%}
+            <ul class="yqb-bundle__includes">
+              {%- for block in include_blocks -%}
+                <li {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <div class="yqb-bundle__foot">
+            <div class="yqb-price">
+              {%- if bundle_product != blank -%}
+                {%- if bundle_product.compare_at_price > bundle_product.price -%}
+                  <span class="yqb-price__was">{% render 'format-price', price: bundle_product.compare_at_price %}</span>
+                {%- endif -%}
+                <span class="yqb-price__now">{% render 'format-price', price: bundle_product.price %}</span>
+              {%- else -%}
+                {%- if s.bundle_price_was != blank -%}
+                  <span class="yqb-price__was">{{ s.bundle_price_was | escape }}</span>
+                {%- endif -%}
+                {%- if s.bundle_price_now != blank -%}
+                  <span class="yqb-price__now">{{ s.bundle_price_now | escape }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+            {%- if s.bundle_button != blank -%}
+              <span class="yqb-btn">
+                {{- s.bundle_button | escape -}}
+                {%- if s.bundle_button_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- if bundle_url != blank -%}
+        </a>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if card_blocks.size > 0 -%}
+      <div class="yqb-grid">
+        {%- for block in card_blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign p = b.product
+
+            assign card_url = b.link
+            if card_url == blank and p != blank
+              assign card_url = p.url
+            endif
+            assign card_title = b.title
+            if card_title == blank and p != blank
+              assign card_title = p.title
+            endif
+            assign card_image = b.image
+            if card_image == blank and p != blank
+              assign card_image = p.featured_image
+            endif
+          -%}
+          {%- if card_url != blank -%}
+            <a href="{{ card_url }}" class="yqb-card" {{ block.shopify_attributes }}>
+          {%- else -%}
+            <div class="yqb-card" {{ block.shopify_attributes }}>
+          {%- endif -%}
+            <div class="yqb-card__thumb">
+              {%- if card_image != blank -%}
+                {{
+                  card_image
+                  | image_url: width: 400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200, 300, 400',
+                    sizes: '(min-width: 901px) 150px, 100px',
+                    alt: card_title
+                }}
+              {%- else -%}
+                <span class="yqb-card__placeholder">{{ s.card_placeholder | escape }}</span>
+              {%- endif -%}
+              {%- if b.sticker != blank -%}
+                <span class="yqb-sticker yqb-sticker--aqua yqb-card__sticker">{{ b.sticker | escape }}</span>
+              {%- endif -%}
+            </div>
+            <div class="yqb-card__body">
+              {%- if b.level != blank -%}
+                <p class="yqb-card__level">{{ b.level | escape }}</p>
+              {%- endif -%}
+              {%- if card_title != blank -%}
+                <h3 class="yqb-card__title">{{ card_title | escape }}</h3>
+              {%- endif -%}
+              {%- if b.desc != blank -%}
+                <p class="yqb-card__desc">{{ b.desc | escape }}</p>
+              {%- endif -%}
+              <div class="yqb-card__foot">
+                <div class="yqb-price">
+                  {%- if p != blank -%}
+                    {%- if p.compare_at_price > p.price -%}
+                      <span class="yqb-price__was">{% render 'format-price', price: p.compare_at_price %}</span>
+                    {%- endif -%}
+                    <span class="yqb-price__now">{% render 'format-price', price: p.price %}</span>
+                  {%- else -%}
+                    {%- if b.price_was != blank -%}
+                      <span class="yqb-price__was">{{ b.price_was | escape }}</span>
+                    {%- endif -%}
+                    {%- if b.price_now != blank -%}
+                      <span class="yqb-price__now">{{ b.price_now | escape }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+                {%- if b.cta != blank -%}
+                  <span class="yqb-card__cta">{{ b.cta | escape }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- if card_url != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-play {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-play *,
+  .yqb-play *::before,
+  .yqb-play *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-play .yqb-play__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  /* Head */
+  .yqb-play .yqb-play__head {
+    display: grid;
+    grid-template-columns: var(--yqb-head-cols);
+    gap: var(--yqb-head-gap);
+    align-items: end;
+    margin-bottom: var(--yqb-head-mb);
+  }
+
+  .yqb-play .yqb-term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: 3px 3px 0 var(--yqb-violet);
+  }
+
+  .yqb-play .yqb-term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-aqua);
+    border: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-play .yqb-play__heading {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-weight: 800;
+    font-size: clamp(34px, 4.4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0;
+    max-width: var(--yqb-heading-max-width);
+  }
+
+  .yqb-play .yqb-play__heading em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-play .yqb-play__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    margin: 0 0 18px;
+    max-width: var(--yqb-intro-max-width);
+  }
+
+  .yqb-play .yqb-play__intro p {
+    margin: 0;
+  }
+
+  .yqb-play .yqb-play__intro p + p {
+    margin-top: 1em;
+  }
+
+  .yqb-play .yqb-play__viewall {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--yqb-ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--yqb-ink);
+    padding-bottom: 3px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .yqb-play .yqb-play__viewall:hover {
+    color: var(--yqb-violet);
+    border-color: var(--yqb-violet);
+  }
+
+  /* Stickers */
+  .yqb-play .yqb-sticker {
+    display: inline-block;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 6px;
+    white-space: nowrap;
+    transform: rotate(-3deg);
+  }
+
+  .yqb-play .yqb-sticker--sun {
+    background: var(--yqb-sun);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-play .yqb-sticker--aqua {
+    background: var(--yqb-aqua);
+    color: var(--yqb-ink);
+  }
+
+  /* Prices */
+  .yqb-play .yqb-price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .yqb-play .yqb-price__was {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: line-through;
+    color: var(--yqb-bundle-text-50);
+  }
+
+  .yqb-play .yqb-price__now {
+    font-family: var(--yqb-font-heading);
+    font-size: var(--yqb-bundle-price-size);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--yqb-sun);
+  }
+
+  /* Bundle banner */
+  .yqb-play .yqb-bundle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    background: var(--yqb-bundle-bg);
+    color: var(--yqb-bundle-text);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    box-shadow: var(--yqb-bundle-shadow) var(--yqb-bundle-shadow) 0 var(--yqb-violet);
+    text-decoration: none;
+    overflow: hidden;
+    margin-bottom: var(--yqb-bundle-mb);
+    transition: transform 0.2s ease;
+  }
+
+  .yqb-play a.yqb-bundle:hover {
+    transform: translate(-2px, -2px);
+  }
+
+  .yqb-play .yqb-bundle__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px;
+    min-height: var(--yqb-bundle-media-min-height);
+    background: var(--yqb-bundle-media-bg);
+    border-right: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-play .yqb-bundle__media--stripes::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, rgb(255 255 255 / 0.06) 0 14px, transparent 14px 28px);
+    pointer-events: none;
+  }
+
+  .yqb-play .yqb-bundle__img {
+    position: relative;
+    display: block;
+    height: 100%;
+    max-height: 380px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 26px rgb(0 0 0 / 0.35));
+  }
+
+  .yqb-play .yqb-bundle__placeholder {
+    position: relative;
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--yqb-bundle-text);
+    border: 2px dashed var(--yqb-bundle-text-50);
+    border-radius: 8px;
+    padding: 100px 32px;
+  }
+
+  .yqb-play .yqb-bundle__copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 40px 40px 36px;
+  }
+
+  .yqb-play .yqb-bundle__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .yqb-play .yqb-bundle__vol {
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-bundle-text-60);
+  }
+
+  .yqb-play .yqb-bundle__title {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-size: clamp(28px, 3vw, var(--yqb-bundle-title-size));
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-bundle-text);
+    margin: 0 0 14px;
+  }
+
+  .yqb-play .yqb-bundle__desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--yqb-bundle-text-78);
+    margin: 0 0 22px;
+    max-width: 560px;
+  }
+
+  .yqb-play .yqb-bundle__includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--yqb-bundle-text);
+  }
+
+  .yqb-play .yqb-bundle__includes li {
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .yqb-play .yqb-bundle__includes li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--yqb-aqua);
+    border: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-play .yqb-bundle__foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 22px;
+    border-top: 1px solid var(--yqb-bundle-text-20);
+  }
+
+  .yqb-play .yqb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 14px 22px;
+    background: var(--yqb-sun);
+    color: var(--yqb-ink);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    white-space: nowrap;
+  }
+
+  /* Card grid */
+  .yqb-play .yqb-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-cols), minmax(0, 1fr));
+    gap: var(--yqb-grid-gap);
+  }
+
+  .yqb-play .yqb-card {
+    display: grid;
+    grid-template-columns: var(--yqb-thumb-width) minmax(0, 1fr);
+    gap: 24px;
+    min-width: 0;
+    padding: 22px;
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    text-decoration: none;
+    color: var(--yqb-ink);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .yqb-play a.yqb-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--yqb-card-shadow) var(--yqb-card-shadow) 0 var(--yqb-violet);
+  }
+
+  .yqb-play .yqb-card__thumb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--yqb-thumb-width);
+    height: calc(var(--yqb-thumb-width) * 1.2667);
+    background: var(--yqb-bg);
+    border: 2px dashed var(--yqb-line);
+    border-radius: 8px;
+  }
+
+  .yqb-play .yqb-card__thumb img {
+    display: block;
+    height: 90%;
+    width: auto;
+    max-width: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgb(26 27 31 / 0.22));
+  }
+
+  .yqb-play .yqb-card__placeholder {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--yqb-mute);
+    padding: 8px;
+  }
+
+  .yqb-play .yqb-card__sticker {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+  }
+
+  .yqb-play .yqb-card__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .yqb-play .yqb-card__level {
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    margin: 0 0 8px;
+  }
+
+  .yqb-play .yqb-card__title {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-size: var(--yqb-card-title-size);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 8px;
+  }
+
+  .yqb-play .yqb-card__desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--yqb-mute);
+    margin: 0 0 16px;
+    flex-grow: 1;
+  }
+
+  .yqb-play .yqb-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--yqb-line);
+  }
+
+  .yqb-play .yqb-card .yqb-price__was {
+    color: var(--yqb-mute);
+  }
+
+  .yqb-play .yqb-card .yqb-price__now {
+    color: var(--yqb-ink);
+    font-size: var(--yqb-card-price-size);
+  }
+
+  .yqb-play .yqb-card__cta {
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--yqb-ink);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 8px;
+    padding: 9px 14px;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .yqb-play a.yqb-card:hover .yqb-card__cta {
+    background: var(--yqb-aqua);
+  }
+
+  .yqb-play a:focus-visible {
+    outline: 2px solid var(--yqb-violet);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-play .yqb-bundle,
+    .yqb-play .yqb-card {
+      transition: none;
+    }
+
+    .yqb-play a.yqb-bundle:hover,
+    .yqb-play a.yqb-card:hover {
+      transform: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-play .yqb-bundle {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .yqb-play .yqb-bundle__media {
+      border-right: none;
+      border-bottom: 2px solid var(--yqb-ink);
+      min-height: calc(var(--yqb-bundle-media-min-height) * 0.765);
+    }
+
+    .yqb-play .yqb-bundle__img {
+      max-height: 300px;
+    }
+
+    .yqb-play .yqb-grid {
+      grid-template-columns: repeat(var(--yqb-cols-tablet), minmax(0, 1fr));
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-play {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-play .yqb-play__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-play .yqb-play__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: var(--yqb-head-mb-mobile);
+    }
+
+    .yqb-play .yqb-bundle {
+      box-shadow: calc(var(--yqb-bundle-shadow) * 0.8) calc(var(--yqb-bundle-shadow) * 0.8) 0 var(--yqb-violet);
+    }
+
+    .yqb-play .yqb-bundle__copy {
+      padding: 26px 22px;
+    }
+
+    .yqb-play .yqb-bundle__includes {
+      grid-template-columns: 1fr;
+    }
+
+    .yqb-play .yqb-grid {
+      grid-template-columns: repeat(var(--yqb-cols-mobile), minmax(0, 1fr));
+    }
+
+    .yqb-play .yqb-card {
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .yqb-play .yqb-card__thumb {
+      width: 100px;
+      height: 128px;
+    }
+
+    .yqb-play .yqb-card__title {
+      font-size: calc(var(--yqb-card-title-size) * 0.834);
+    }
+
+    .yqb-play--hide-desc-mobile .yqb-card__desc {
+      display: none;
+    }
+
+    .yqb-play .yqb-card__foot {
+      flex-wrap: wrap;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Playbooks",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "include",
+      "name": "Ítem incluido (kit)",
+      "limit": 16,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Vol. 01 The Parent Pipeline"
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Tarjeta de producto",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Producto",
+          "info": "Usa la imagen, título, precio y enlace del producto."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen (reemplaza la del producto)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título (reemplaza el del producto)",
+          "default": "The Parent Pipeline"
+        },
+        {
+          "type": "text",
+          "id": "level",
+          "label": "Nivel",
+          "default": "Level 1 / Attract"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Descripción",
+          "default": "Become the name parents mention, through schools, nurseries, referrals and a local presence that fills trials without ads."
+        },
+        {
+          "type": "text",
+          "id": "sticker",
+          "label": "Sticker",
+          "default": "Instant"
+        },
+        {
+          "type": "text",
+          "id": "cta",
+          "label": "Texto del botón",
+          "default": "View playbook"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace (reemplaza el del producto)"
+        },
+        {
+          "type": "header",
+          "content": "Precio sin producto"
+        },
+        {
+          "type": "text",
+          "id": "price_was",
+          "label": "Precio anterior",
+          "info": "Solo se usa si no hay producto seleccionado.",
+          "default": "$59.99"
+        },
+        {
+          "type": "text",
+          "id": "price_now",
+          "label": "Precio actual",
+          "info": "Solo se usa si no hay producto seleccionado.",
+          "default": "$49.99"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "The enrolment kit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "Usa cursiva para resaltar con el color de acento.",
+      "default": "Four levels. Or the whole academy in one kit."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introducción",
+      "default": "<p>Pick the level where your families are leaking this term. Instant download, yours forever. Read once, set up once, run every intake on the new system.</p>"
+    },
+    {
+      "type": "text",
+      "id": "viewall_label",
+      "label": "Texto del enlace",
+      "default": "View all playbooks"
+    },
+    {
+      "type": "url",
+      "id": "viewall_link",
+      "label": "Enlace"
+    },
+    {
+      "type": "checkbox",
+      "id": "viewall_arrow",
+      "label": "Mostrar flecha en el enlace",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Kit destacado"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bundle",
+      "label": "Mostrar kit destacado",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "bundle_product",
+      "label": "Producto",
+      "info": "Usa la imagen, título, precio y enlace del producto."
+    },
+    {
+      "type": "image_picker",
+      "id": "bundle_image",
+      "label": "Imagen (reemplaza la del producto)",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_placeholder",
+      "label": "Texto sin imagen",
+      "default": "Kit cover",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_sticker",
+      "label": "Sticker",
+      "default": "Full kit",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_meta",
+      "label": "Texto junto al sticker",
+      "default": "Vol. 05 / Complete system",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_title",
+      "label": "Título (reemplaza el del producto)",
+      "default": "The Full-Enrolment Academy System",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_desc",
+      "label": "Descripción",
+      "default": "All four playbooks connected end to end, plus the operating blueprints that run them in two hours a week and keep every group full, every term, with a waitlist behind it.",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_price_was",
+      "label": "Precio anterior (sin producto)",
+      "default": "$119.99",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_price_now",
+      "label": "Precio actual (sin producto)",
+      "default": "$79.99",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "text",
+      "id": "bundle_button",
+      "label": "Texto del botón",
+      "default": "Get the full kit",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "bundle_button_arrow",
+      "label": "Mostrar flecha en el botón",
+      "default": true,
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "url",
+      "id": "bundle_link",
+      "label": "Enlace (reemplaza el del producto)",
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bundle_stripes",
+      "label": "Rayas en el fondo de la imagen",
+      "default": true,
+      "visible_if": "{{ section.settings.show_bundle }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "heading_ratio",
+      "label": "Ancho de la columna del título",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "head_gap",
+      "label": "Espacio entre título e introducción",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "head_margin",
+      "label": "Espacio bajo el encabezado",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "head_margin_mobile",
+      "label": "Espacio bajo el encabezado (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "bundle_margin",
+      "label": "Espacio bajo el kit destacado",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas de tarjetas en desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columnas de tarjetas en tablet",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas de tarjetas en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Espacio entre tarjetas",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "thumb_width",
+      "label": "Ancho de la imagen de la tarjeta",
+      "min": 100,
+      "max": 240,
+      "step": 2,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "text",
+      "id": "card_placeholder",
+      "label": "Texto de tarjeta sin imagen",
+      "default": "Cover"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_card_desc_mobile",
+      "label": "Ocultar descripción de tarjetas en mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva, usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 34,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la introducción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la introducción",
+      "min": 280,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "bundle_title_size",
+      "label": "Tamaño del título del kit",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "bundle_price_size",
+      "label": "Tamaño del precio del kit",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Tamaño del título de tarjeta",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_price_size",
+      "label": "Tamaño del precio de tarjeta",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de la introducción",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Separadores",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (sombras, nivel, hover)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (puntos, sticker de tarjeta)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (botón, precio del kit)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_bundle_bg",
+      "label": "Fondo del kit",
+      "default": "#231A4D"
+    },
+    {
+      "type": "color",
+      "id": "color_bundle_media_bg",
+      "label": "Fondo de la imagen del kit",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_bundle_text",
+      "label": "Texto del kit",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de tarjetas y botones",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "bundle_shadow",
+      "label": "Sombra del kit",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_hover_shadow",
+      "label": "Sombra de tarjeta al pasar el mouse",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "bundle_media_height",
+      "label": "Alto mínimo de la imagen del kit",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 340
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Playbooks",
+      "settings": {
+        "viewall_link": "shopify://collections/all"
+      },
+      "blocks": [
+        { "type": "include", "settings": { "text": "Vol. 01 The Parent Pipeline" } },
+        { "type": "include", "settings": { "text": "Vol. 02 The Trial Conversion" } },
+        { "type": "include", "settings": { "text": "Vol. 03 The Term Retention" } },
+        { "type": "include", "settings": { "text": "Vol. 04 The Camp and Extras Engine" } },
+        { "type": "include", "settings": { "text": "Operating blueprints" } },
+        { "type": "include", "settings": { "text": "Academy year calendar" } },
+        { "type": "include", "settings": { "text": "62 scripts and templates" } },
+        { "type": "include", "settings": { "text": "36 AI prompts" } },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The Parent Pipeline",
+            "level": "Level 1 / Attract",
+            "desc": "Become the name parents mention, through schools, nurseries, referrals and a local presence that fills trials without ads.",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The Trial Conversion",
+            "level": "Level 2 / Convert",
+            "desc": "Turn the free trial into an enrolment within 48 hours, without a discount, with the place already held.",
+            "price_was": "$64.99",
+            "price_now": "$54.99"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The Term Retention",
+            "level": "Level 3 / Keep",
+            "desc": "Keep families term after term with progress parents can see and a re-enrolment window that fills before it opens.",
+            "price_was": "$69.99",
+            "price_now": "$59.99"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The Camp and Extras Engine",
+            "level": "Level 4 / Grow",
+            "desc": "Sell out holiday camps, intensives, privates and parties to the families you already have.",
+            "price_was": "$79.99",
+            "price_now": "$69.99"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

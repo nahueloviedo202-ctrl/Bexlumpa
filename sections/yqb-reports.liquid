@@ -1,0 +1,821 @@
+{%- comment -%}
+  YQB Reports: header (tag, heading, intro) and a grid of owner report cards.
+
+  Blocks (theme blocks, nested):
+  - _yqb-report-card: report card
+    - _yqb-report-grade: before/after metric row
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign intro_ratio = 100 | minus: s.heading_ratio
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_italic = body_font | font_modify: 'style', 'italic'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_italic %}{{ body_italic | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-rep{% if s.intro_align == 'end' %} yqb-rep--intro-end{% endif %}{% if s.hover_effect %} yqb-rep--hover{% endif %}"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-on-accent: {{ s.color_on_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-card-head: {{ s.color_card_head }};
+    --yqb-tag-bg: {{ s.color_tag_bg }};
+    --yqb-radius: {{ s.card_radius }}px;
+    --yqb-badge-radius: {{ s.badge_radius }}px;
+    --yqb-border: {{ s.border_width }}px;
+    --yqb-sticker-rotate: {{ s.sticker_rotation }}deg;
+    --yqb-tag-shadow: {{ s.tag_shadow }}px;
+    --yqb-hover-shadow: {{ s.hover_shadow }}px;
+    --yqb-quote-style: {% if s.quote_italic %}italic{% else %}normal{% endif %};
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
+    --yqb-head-gap: {{ s.head_gap }}px;
+    --yqb-head-mb: {{ s.head_margin }}px;
+    --yqb-head-mb-mobile: {{ s.head_margin_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-quote-size: {{ s.quote_size }}px;
+    --yqb-cols-desktop: {{ s.columns_desktop }};
+    --yqb-cols-tablet: {{ s.columns_tablet }};
+    --yqb-cols-mobile: {{ s.columns_mobile }};
+    --yqb-cards-gap: {{ s.cards_gap }}px;
+    --yqb-cards-gap-tablet: {{ s.cards_gap_tablet }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family | escape }}, {{ heading_font.fallback_families | escape }};
+      --yqb-font-body: {{ body_font.family | escape }}, {{ body_font.fallback_families | escape }};
+    {%- endif %}
+  "
+>
+  <div class="yqb-rep__inner">
+    {%- if s.tag_text != blank or s.heading != blank or s.intro != blank -%}
+      <div class="yqb-rep__head">
+        <div>
+          {%- if s.tag_text != blank -%}
+            <span class="yqb-rep__term{% if s.show_tag_dot %} yqb-rep__term--dot{% endif %}">
+              {{- s.tag_text | escape -}}
+            </span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <{{ s.heading_tag }} class="yqb-rep__heading">{{ s.heading }}</{{ s.heading_tag }}>
+          {%- endif -%}
+        </div>
+        {%- if s.intro != blank -%}
+          <div class="yqb-rep__intro">{{ s.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="yqb-rep__cards">
+      {%- content_for 'blocks' -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-rep {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    background: var(--yqb-bg);
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-rep *,
+  .yqb-rep *::before,
+  .yqb-rep *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-rep .yqb-rep__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  /* Header */
+  .yqb-rep .yqb-rep__head {
+    display: grid;
+    grid-template-columns: var(--yqb-head-cols);
+    gap: var(--yqb-head-gap);
+    align-items: end;
+    margin-bottom: var(--yqb-head-mb);
+  }
+
+  .yqb-rep .yqb-rep__term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-tag-bg);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: var(--yqb-tag-shadow) var(--yqb-tag-shadow) 0 var(--yqb-violet);
+  }
+
+  .yqb-rep .yqb-rep__term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-sun);
+    border: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  .yqb-rep .yqb-rep__heading {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-heading-size-mobile), 4.4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    max-width: var(--yqb-heading-max-width);
+    margin: 0;
+  }
+
+  /* Italic text in the heading is rendered as the accent highlight */
+  .yqb-rep .yqb-rep__heading em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-rep .yqb-rep__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    max-width: var(--yqb-intro-max-width);
+    margin: 0;
+  }
+
+  .yqb-rep--intro-end .yqb-rep__intro {
+    justify-self: end;
+  }
+
+  .yqb-rep .yqb-rep__intro > * {
+    margin: 0;
+  }
+
+  .yqb-rep .yqb-rep__intro > * + * {
+    margin-top: 1em;
+  }
+
+  .yqb-rep .yqb-rep__intro a {
+    color: inherit;
+  }
+
+  /* Cards grid */
+  .yqb-rep .yqb-rep__cards {
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-cols-desktop), minmax(0, 1fr));
+    gap: var(--yqb-cards-gap);
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-rep .yqb-rep__cards {
+      grid-template-columns: repeat(var(--yqb-cols-tablet), minmax(0, 1fr));
+      gap: var(--yqb-cards-gap-tablet);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-rep {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-rep .yqb-rep__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-rep .yqb-rep__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: var(--yqb-head-mb-mobile);
+    }
+
+    .yqb-rep--intro-end .yqb-rep__intro {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .yqb-rep .yqb-rep__cards {
+      grid-template-columns: repeat(var(--yqb-cols-mobile), minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Reports",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "_yqb-report-card"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "Owner report cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "El texto en cursiva se muestra con el color de acento.",
+      "default": "Owners who stopped chasing parents and filled every group."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Descripción",
+      "default": "<p>Field reports from swim schools, football academies and dance and gymnastics schools running the playbooks across the US, UK and Europe. Numbers as reported by the owner.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "heading_ratio",
+      "label": "Ancho de la columna del título",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "select",
+      "id": "intro_align",
+      "label": "Alineación de la descripción en desktop",
+      "options": [
+        { "value": "start", "label": "Izquierda" },
+        { "value": "end", "label": "Derecha" }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "range",
+      "id": "head_gap",
+      "label": "Espacio entre título y descripción",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "head_margin",
+      "label": "Espacio bajo la cabecera (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "head_margin_mobile",
+      "label": "Espacio bajo la cabecera (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas en desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columnas en tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Espacio entre tarjetas (desktop)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "cards_gap_tablet",
+      "label": "Espacio entre tarjetas (tablet y mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño máximo del título",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño mínimo del título",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la descripción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la descripción",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "label": "Tamaño de las citas",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "checkbox",
+      "id": "quote_italic",
+      "label": "Citas en cursiva",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de descripción y métricas",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Separadores de métricas",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (etiqueta, flechas, avatar, sombras)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_on_accent",
+      "label": "Texto sobre acento",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (valor actual de métricas)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (punto y stickers)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_tag_bg",
+      "label": "Fondo de la etiqueta superior",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_card_head",
+      "label": "Fondo de cabecera de tarjetas",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Radio de tarjetas",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Radio de valores y stickers",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Grosor de bordes",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "sticker_rotation",
+      "label": "Rotación de stickers",
+      "min": -8,
+      "max": 8,
+      "step": 1,
+      "unit": "°",
+      "default": -3
+    },
+    {
+      "type": "range",
+      "id": "tag_shadow",
+      "label": "Sombra de la etiqueta superior",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Efecto hover en tarjetas",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hover_shadow",
+      "label": "Sombra hover de tarjetas",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6,
+      "visible_if": "{{ section.settings.hover_effect }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Reports",
+      "blocks": {
+        "card_1": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Blue Lane Swim School",
+            "term": "After 2 terms",
+            "quote": "We were losing a third of families every January and calling it normal. The trial follow-up and the re-enrolment window filled term two before the holidays, with a waitlist.",
+            "name": "Hannah Price",
+            "role": "Owner, Blue Lane Swim School, 310 swimmers",
+            "sticker": "Full"
+          },
+          "blocks": {
+            "grade_1": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Trial to enrolment", "before": "38%", "after": "74%" }
+            },
+            "grade_2": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Re-enrolment", "before": "64%", "after": "92%" }
+            }
+          },
+          "block_order": ["grade_1", "grade_2"]
+        },
+        "card_2": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Northside Football Academy",
+            "term": "After 1 season",
+            "quote": "Three primary schools now send us their reception classes for taster sessions. Easter camp sold out in four days off one email to existing families.",
+            "name": "Marcus Okoye",
+            "role": "Founder, Northside Football Academy",
+            "sticker": "Waitlist"
+          },
+          "blocks": {
+            "grade_1": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Trials booked / month", "before": "9", "after": "31" }
+            },
+            "grade_2": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Camp places sold", "before": "46", "after": "140" }
+            }
+          },
+          "block_order": ["grade_1", "grade_2"]
+        },
+        "card_3": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Studio Rosa Dance",
+            "term": "After 2 terms",
+            "quote": "The progress reports changed how parents see us. They stopped asking if it was worth it and started asking about private lessons and the summer intensive.",
+            "name": "Rosa Ferreira",
+            "role": "Owner, Studio Rosa Dance",
+            "sticker": "Enrolled"
+          },
+          "blocks": {
+            "grade_1": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Drop-off at term end", "before": "31%", "after": "7%" }
+            },
+            "grade_2": {
+              "type": "_yqb-report-grade",
+              "settings": { "name": "Extras revenue", "before": "0", "after": "+28%" }
+            }
+          },
+          "block_order": ["grade_1", "grade_2"]
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3"]
+    }
+  ]
+}
+{% endschema %}

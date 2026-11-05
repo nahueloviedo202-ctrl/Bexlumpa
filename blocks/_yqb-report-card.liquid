@@ -1,0 +1,370 @@
+{%- liquid
+  assign b = block.settings
+
+  if b.avatar_initial != blank
+    assign avatar_initial = b.avatar_initial
+  else
+    assign avatar_initial = b.name | strip | slice: 0 | upcase
+  endif
+
+  assign avatar_style = ''
+  if b.avatar_bg != blank
+    assign avatar_style = avatar_style | append: '--yqb-avatar-bg: ' | append: b.avatar_bg | append: ';'
+  endif
+  if b.avatar_color != blank
+    assign avatar_style = avatar_style | append: '--yqb-avatar-color: ' | append: b.avatar_color | append: ';'
+  endif
+
+  assign sticker_style = ''
+  if b.sticker_bg != blank
+    assign sticker_style = sticker_style | append: '--yqb-sticker-bg: ' | append: b.sticker_bg | append: ';'
+  endif
+  if b.sticker_color != blank
+    assign sticker_style = sticker_style | append: '--yqb-sticker-color: ' | append: b.sticker_color | append: ';'
+  endif
+-%}
+
+{%- capture grades -%}
+  {%- content_for 'blocks' -%}
+{%- endcapture -%}
+
+<div class="yqb-rep__card" {{ block.shopify_attributes }}>
+  {%- if b.school != blank or b.term != blank -%}
+    <div class="yqb-rep__card-head">
+      {%- if b.school != blank -%}
+        <p class="yqb-rep__school">{{ b.school | escape }}</p>
+      {%- endif -%}
+      {%- if b.term != blank -%}
+        <span class="yqb-rep__term-label">{{ b.term | escape }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if grades != blank -%}
+    <div class="yqb-rep__grades">{{ grades }}</div>
+  {%- endif -%}
+
+  {%- if b.quote != blank -%}
+    <p class="yqb-rep__quote">{{ b.quote }}</p>
+  {%- else -%}
+    <div class="yqb-rep__spacer"></div>
+  {%- endif -%}
+
+  {%- if b.name != blank or b.role != blank or b.sticker != blank -%}
+    <div class="yqb-rep__author">
+      {%- if b.show_avatar -%}
+        <div class="yqb-rep__avatar"{% if avatar_style != blank %} style="{{ avatar_style }}"{% endif %}>
+          {%- if b.avatar_image != blank -%}
+            {{
+              b.avatar_image
+              | image_url: width: 120
+              | image_tag: width: 40, height: 40, loading: 'lazy', alt: b.name, class: 'yqb-rep__avatar-img'
+            }}
+          {%- else -%}
+            <span aria-hidden="true">{{ avatar_initial | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="yqb-rep__person">
+        {%- if b.name != blank -%}
+          <span class="yqb-rep__name">{{ b.name | escape }}</span>
+        {%- endif -%}
+        {%- if b.role != blank -%}
+          <span class="yqb-rep__role">{{ b.role | escape }}</span>
+        {%- endif -%}
+      </div>
+      {%- if b.sticker != blank -%}
+        <span class="yqb-rep__sticker"{% if sticker_style != blank %} style="{{ sticker_style }}"{% endif %}>
+          {{- b.sticker | escape -}}
+        </span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .yqb-rep .yqb-rep__card {
+    background: var(--yqb-card);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .yqb-rep--hover .yqb-rep__card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--yqb-hover-shadow) var(--yqb-hover-shadow) 0 var(--yqb-violet);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-rep .yqb-rep__card {
+      transition: none;
+    }
+
+    .yqb-rep--hover .yqb-rep__card:hover {
+      transform: none;
+    }
+  }
+
+  .yqb-rep .yqb-rep__card-head {
+    padding: 16px 22px;
+    background: var(--yqb-card-head);
+    border-bottom: var(--yqb-border) solid var(--yqb-ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .yqb-rep .yqb-rep__school {
+    font-family: var(--yqb-font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--yqb-ink);
+    margin: 0;
+  }
+
+  .yqb-rep .yqb-rep__term-label {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+    white-space: nowrap;
+  }
+
+  .yqb-rep .yqb-rep__grades {
+    padding: 8px 22px;
+    border-bottom: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  .yqb-rep .yqb-rep__quote {
+    padding: 20px 22px 0;
+    font-size: var(--yqb-quote-size);
+    line-height: 1.55;
+    font-style: var(--yqb-quote-style);
+    color: var(--yqb-ink);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .yqb-rep .yqb-rep__quote a {
+    color: inherit;
+  }
+
+  .yqb-rep .yqb-rep__spacer {
+    flex-grow: 1;
+  }
+
+  .yqb-rep .yqb-rep__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px 22px;
+  }
+
+  .yqb-rep .yqb-rep__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--yqb-avatar-bg, var(--yqb-violet));
+    color: var(--yqb-avatar-color, var(--yqb-on-accent));
+    border: var(--yqb-border) solid var(--yqb-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--yqb-font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .yqb-rep .yqb-rep__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .yqb-rep .yqb-rep__person {
+    min-width: 0;
+  }
+
+  .yqb-rep .yqb-rep__name {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-rep .yqb-rep__role {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-rep .yqb-rep__sticker {
+    margin-left: auto;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-badge-radius);
+    background: var(--yqb-sticker-bg, var(--yqb-sun));
+    color: var(--yqb-sticker-color, var(--yqb-ink));
+    transform: rotate(var(--yqb-sticker-rotate));
+    white-space: nowrap;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Tarjeta de reporte",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_yqb-report-grade"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cabecera"
+    },
+    {
+      "type": "text",
+      "id": "school",
+      "label": "Escuela",
+      "default": "Blue Lane Swim School"
+    },
+    {
+      "type": "text",
+      "id": "term",
+      "label": "Periodo",
+      "default": "After 2 terms"
+    },
+    {
+      "type": "header",
+      "content": "Testimonio"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "quote",
+      "label": "Cita",
+      "default": "We were losing a third of families every January and calling it normal."
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Nombre",
+      "default": "Hannah Price"
+    },
+    {
+      "type": "text",
+      "id": "role",
+      "label": "Cargo",
+      "default": "Owner, Blue Lane Swim School"
+    },
+    {
+      "type": "header",
+      "content": "Avatar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_avatar",
+      "label": "Mostrar avatar",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_image",
+      "label": "Imagen",
+      "info": "Si no hay imagen se muestra la inicial.",
+      "visible_if": "{{ block.settings.show_avatar }}"
+    },
+    {
+      "type": "text",
+      "id": "avatar_initial",
+      "label": "Inicial",
+      "info": "Si se deja vacío usa la primera letra del nombre.",
+      "visible_if": "{{ block.settings.show_avatar }}"
+    },
+    {
+      "type": "color",
+      "id": "avatar_bg",
+      "label": "Fondo del avatar",
+      "info": "Si se deja vacío usa el color de acento.",
+      "visible_if": "{{ block.settings.show_avatar }}"
+    },
+    {
+      "type": "color",
+      "id": "avatar_color",
+      "label": "Texto del avatar",
+      "visible_if": "{{ block.settings.show_avatar }}"
+    },
+    {
+      "type": "header",
+      "content": "Sticker"
+    },
+    {
+      "type": "text",
+      "id": "sticker",
+      "label": "Texto",
+      "default": "Full"
+    },
+    {
+      "type": "color",
+      "id": "sticker_bg",
+      "label": "Fondo",
+      "info": "Si se deja vacío usa el color destacado de la sección."
+    },
+    {
+      "type": "color",
+      "id": "sticker_color",
+      "label": "Texto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tarjeta de reporte",
+      "blocks": {
+        "grade_1": {
+          "type": "_yqb-report-grade",
+          "settings": {
+            "name": "Trial to enrolment",
+            "before": "38%",
+            "after": "74%"
+          }
+        },
+        "grade_2": {
+          "type": "_yqb-report-grade",
+          "settings": {
+            "name": "Re-enrolment",
+            "before": "64%",
+            "after": "92%"
+          }
+        }
+      },
+      "block_order": ["grade_1", "grade_2"]
+    }
+  ]
+}
+{% endschema %}
