@@ -1,0 +1,1320 @@
+{%- comment -%}
+  YQB Hero: two-column hero with a tag, highlighted heading, CTAs, social proof
+  and a "timetable board" card made of repeatable rows.
+
+  Blocks:
+  - button: call to action rendered in the CTA group
+  - row: timetable row rendered inside the board
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign copy_ratio = s.copy_ratio
+  assign board_ratio = 100 | minus: copy_ratio
+
+  assign button_blocks = section.blocks | where: 'type', 'button'
+  assign row_blocks = section.blocks | where: 'type', 'row'
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-hero{% if s.show_stripes %} yqb-hero--stripes{% endif %}{% if s.board_position == 'left' %} yqb-hero--board-left{% endif %}{% if s.board_first_mobile %} yqb-hero--board-first-mobile{% endif %}"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-violet-deep: {{ s.color_accent_hover }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-on-accent: {{ s.color_on_accent }};
+    --yqb-radius: {{ s.radius }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-cols: minmax(0, {{ copy_ratio }}fr) minmax(0, {{ board_ratio }}fr);
+    --yqb-gap: {{ s.gap }}px;
+    --yqb-gap-tablet: {{ s.gap_tablet }}px;
+    --yqb-gap-mobile: {{ s.gap_mobile }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-sub-size: {{ s.subheading_size }}px;
+    --yqb-sub-size-mobile: {{ s.subheading_size_mobile }}px;
+    --yqb-sub-max-width: {{ s.subheading_max_width }}px;
+    --yqb-board-shadow: {{ s.board_shadow }}px;
+    --yqb-button-shadow: {{ s.button_shadow }}px;
+    --yqb-stripe-height: {{ s.stripe_height }}px;
+    --yqb-stripe-opacity: {{ s.stripe_opacity | divided_by: 100.0 }};
+  "
+>
+  <div class="yqb-hero__inner">
+    <div class="yqb-hero__copy">
+      {%- if s.tag_text != blank -%}
+        <span class="yqb-term{% if s.show_tag_dot %} yqb-term--dot{% endif %}">{{ s.tag_text }}</span>
+      {%- endif -%}
+
+      {%- if s.heading != blank -%}
+        <{{ s.heading_tag }} class="yqb-hero__heading">{{ s.heading }}</{{ s.heading_tag }}>
+      {%- endif -%}
+
+      {%- if s.subheading != blank -%}
+        <div class="yqb-hero__sub">{{ s.subheading }}</div>
+      {%- endif -%}
+
+      {%- if button_blocks.size > 0 -%}
+        <div class="yqb-hero__ctas">
+          {%- for block in button_blocks -%}
+            <a
+              {% if block.settings.link != blank %}
+                href="{{ block.settings.link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              {% if block.settings.open_new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+              class="yqb-btn yqb-btn--{{ block.settings.style }}"
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.label | escape -}}
+              {%- if block.settings.show_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if s.show_proof -%}
+        <div class="yqb-hero__proof">
+          {%- if s.stars_count > 0 -%}
+            <span class="yqb-hero__proof-stars" aria-hidden="true">
+              {%- for i in (1..s.stars_count) -%}&#9733;{%- endfor -%}
+            </span>
+          {%- endif -%}
+          {%- if s.proof_text != blank -%}
+            <span>{{ s.proof_text }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if s.show_board -%}
+      <div class="yqb-board__wrap">
+        <div class="yqb-board" role="group" aria-label="{{ s.board_aria_label | escape }}">
+          {%- if s.board_title != blank or s.board_label != blank -%}
+            <div class="yqb-board__head">
+              {%- if s.board_title != blank -%}
+                <p class="yqb-board__title">{{ s.board_title | escape }}</p>
+              {%- endif -%}
+              {%- if s.board_label != blank -%}
+                <span class="yqb-board__week">{{ s.board_label | escape }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if row_blocks.size > 0 -%}
+            <div class="yqb-board__rows">
+              {%- for block in row_blocks -%}
+                <div class="yqb-row" {{ block.shopify_attributes }}>
+                  <span class="yqb-row__time">{{ block.settings.time | escape }}</span>
+                  <div>
+                    <p class="yqb-row__name">{{ block.settings.name | escape }}</p>
+                    {%- if block.settings.level != blank -%}
+                      <p class="yqb-row__level">{{ block.settings.level | escape }}</p>
+                    {%- endif -%}
+                  </div>
+                  {%- if block.settings.status_label != blank -%}
+                    <span class="yqb-sticker yqb-sticker--{{ block.settings.status }}">
+                      {{- block.settings.status_label | escape -}}
+                    </span>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if s.show_board_footer -%}
+            <div class="yqb-board__foot">
+              <div class="yqb-board__meter-label">
+                <span>{{ s.meter_label | escape }}</span>
+                <strong>{{ s.meter_value | escape }}</strong>
+              </div>
+              <div
+                class="yqb-board__meter"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="{{ s.meter_fill }}"
+                aria-label="{{ s.meter_label | escape }}"
+              >
+                <div class="yqb-board__meter-fill" style="--fill: {{ s.meter_fill }}%;"></div>
+              </div>
+              {%- if s.meter_note != blank -%}
+                <p class="yqb-board__delta">{{ s.meter_note | escape }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-hero {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+    overflow: hidden;
+  }
+
+  .yqb-hero *,
+  .yqb-hero *::before,
+  .yqb-hero *::after {
+    box-sizing: border-box;
+  }
+
+  /* Lane stripes at the bottom edge */
+  .yqb-hero--stripes::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: var(--yqb-stripe-height);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--yqb-aqua) 0 var(--yqb-stripe-height),
+      transparent var(--yqb-stripe-height) calc(var(--yqb-stripe-height) * 2)
+    );
+    opacity: var(--yqb-stripe-opacity);
+    pointer-events: none;
+  }
+
+  .yqb-hero .yqb-hero__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+    display: grid;
+    grid-template-columns: var(--yqb-cols);
+    gap: var(--yqb-gap);
+    align-items: center;
+  }
+
+  .yqb-hero--board-left .yqb-board__wrap {
+    order: -1;
+  }
+
+  /* Term tag */
+  .yqb-hero .yqb-term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 32px;
+    box-shadow: 3px 3px 0 var(--yqb-violet);
+  }
+
+  .yqb-hero .yqb-term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-aqua);
+    border: 2px solid var(--yqb-ink);
+  }
+
+  /* Heading */
+  .yqb-hero .yqb-hero__heading {
+    position: relative;
+    isolation: isolate;
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-weight: 800;
+    font-size: clamp(calc(var(--yqb-heading-size) * 0.55), 5.2vw, var(--yqb-heading-size));
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 28px;
+    max-width: var(--yqb-heading-max-width);
+  }
+
+  .yqb-hero .yqb-hero__heading em {
+    position: relative;
+    display: inline-block;
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-hero .yqb-hero__heading em::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0.06em;
+    height: 0.22em;
+    background: var(--yqb-aqua);
+    z-index: -1;
+    border-radius: 4px;
+  }
+
+  /* Subheading */
+  .yqb-hero .yqb-hero__sub {
+    font-size: var(--yqb-sub-size);
+    line-height: 1.65;
+    color: var(--yqb-ink-soft);
+    max-width: var(--yqb-sub-max-width);
+    margin: 0 0 40px;
+  }
+
+  .yqb-hero .yqb-hero__sub p {
+    margin: 0;
+  }
+
+  .yqb-hero .yqb-hero__sub p + p {
+    margin-top: 1em;
+  }
+
+  /* CTAs */
+  .yqb-hero .yqb-hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .yqb-hero .yqb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 17px 28px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .yqb-hero .yqb-btn--primary {
+    background: var(--yqb-violet);
+    color: var(--yqb-on-accent);
+    box-shadow: var(--yqb-button-shadow) var(--yqb-button-shadow) 0 var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-btn--primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--yqb-button-shadow) + 2px) calc(var(--yqb-button-shadow) + 2px) 0 var(--yqb-ink);
+    background: var(--yqb-violet-deep);
+    color: var(--yqb-on-accent);
+  }
+
+  .yqb-hero .yqb-btn--ghost {
+    background: var(--yqb-card);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-btn--ghost:hover {
+    background: var(--yqb-aqua);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-btn:focus-visible {
+    outline: 2px solid var(--yqb-violet);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-hero .yqb-btn {
+      transition: none;
+    }
+
+    .yqb-hero .yqb-btn--primary:hover {
+      transform: none;
+    }
+  }
+
+  /* Social proof */
+  .yqb-hero .yqb-hero__proof {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--yqb-mute);
+    font-weight: 600;
+    flex-wrap: wrap;
+  }
+
+  .yqb-hero .yqb-hero__proof-stars {
+    color: var(--yqb-sun);
+    letter-spacing: 0.08em;
+    font-size: 16px;
+    -webkit-text-stroke: 1px var(--yqb-ink);
+  }
+
+  /* Timetable board */
+  .yqb-hero .yqb-board__wrap {
+    padding: 0 var(--yqb-board-shadow) var(--yqb-board-shadow) 0;
+    min-width: 0;
+  }
+
+  .yqb-hero .yqb-board {
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    box-shadow: var(--yqb-board-shadow) var(--yqb-board-shadow) 0 var(--yqb-violet);
+    overflow: hidden;
+  }
+
+  .yqb-hero .yqb-board__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: 2px solid var(--yqb-ink);
+    background: var(--yqb-bg);
+  }
+
+  .yqb-hero .yqb-board__title {
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--yqb-ink);
+    margin: 0;
+  }
+
+  .yqb-hero .yqb-board__week {
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    white-space: nowrap;
+  }
+
+  .yqb-hero .yqb-board__rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .yqb-hero .yqb-row {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    padding: 13px 22px;
+    border-bottom: 1px solid var(--yqb-line);
+  }
+
+  .yqb-hero .yqb-row:last-child {
+    border-bottom: none;
+  }
+
+  .yqb-hero .yqb-row__time {
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-row__name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yqb-ink);
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .yqb-hero .yqb-row__level {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--yqb-mute);
+    margin: 2px 0 0;
+    font-weight: 600;
+  }
+
+  .yqb-hero .yqb-sticker {
+    display: inline-block;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 6px;
+    white-space: nowrap;
+    transform: rotate(-3deg);
+  }
+
+  .yqb-hero .yqb-sticker--full {
+    background: var(--yqb-sun);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-sticker--waitlist {
+    background: var(--yqb-violet);
+    color: var(--yqb-on-accent);
+  }
+
+  .yqb-hero .yqb-sticker--open {
+    background: var(--yqb-aqua);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-hero .yqb-board__foot {
+    padding: 18px 22px 20px;
+    border-top: 2px solid var(--yqb-ink);
+    background: var(--yqb-bg);
+  }
+
+  .yqb-hero .yqb-board__meter-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+    margin-bottom: 8px;
+  }
+
+  .yqb-hero .yqb-board__meter-label strong {
+    color: var(--yqb-ink);
+    white-space: nowrap;
+  }
+
+  .yqb-hero .yqb-board__meter {
+    height: 12px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--yqb-card);
+  }
+
+  .yqb-hero .yqb-board__meter-fill {
+    height: 100%;
+    width: var(--fill, 88%);
+    background: var(--yqb-violet);
+  }
+
+  .yqb-hero .yqb-board__delta {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--yqb-violet);
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-hero .yqb-hero__inner {
+      gap: var(--yqb-gap-tablet);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-hero {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-hero .yqb-hero__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--yqb-gap-mobile);
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-hero--board-left .yqb-board__wrap {
+      order: 0;
+    }
+
+    .yqb-hero--board-first-mobile .yqb-board__wrap {
+      order: -1;
+    }
+
+    .yqb-hero .yqb-hero__heading {
+      font-size: clamp(36px, 10vw, var(--yqb-heading-size-mobile));
+      margin-bottom: 22px;
+    }
+
+    .yqb-hero .yqb-hero__sub {
+      font-size: var(--yqb-sub-size-mobile);
+      margin-bottom: 32px;
+    }
+
+    .yqb-hero .yqb-btn {
+      width: 100%;
+    }
+
+    .yqb-hero .yqb-board__wrap {
+      padding: 0 calc(var(--yqb-board-shadow) * 0.8) calc(var(--yqb-board-shadow) * 0.8) 0;
+    }
+
+    .yqb-hero .yqb-board {
+      box-shadow: calc(var(--yqb-board-shadow) * 0.8) calc(var(--yqb-board-shadow) * 0.8) 0 var(--yqb-violet);
+    }
+
+    .yqb-hero .yqb-board__head,
+    .yqb-hero .yqb-row,
+    .yqb-hero .yqb-board__foot {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .yqb-hero .yqb-row {
+      grid-template-columns: 52px minmax(0, 1fr) auto;
+      gap: 12px;
+    }
+
+    .yqb-hero .yqb-row__level {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Hero",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Botón",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Browse the playbooks"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "Abrir en una pestaña nueva",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Estilo",
+          "options": [
+            { "value": "primary", "label": "Primario" },
+            { "value": "ghost", "label": "Secundario" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_arrow",
+          "label": "Mostrar flecha",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Fila del tablero",
+      "settings": [
+        {
+          "type": "text",
+          "id": "time",
+          "label": "Hora",
+          "default": "09:00"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre",
+          "default": "Ducklings swim"
+        },
+        {
+          "type": "text",
+          "id": "level",
+          "label": "Detalle",
+          "info": "Se oculta en mobile",
+          "default": "Ages 3 to 4, stage 1"
+        },
+        {
+          "type": "select",
+          "id": "status",
+          "label": "Estilo de etiqueta",
+          "options": [
+            { "value": "full", "label": "Destacado (amarillo)" },
+            { "value": "waitlist", "label": "Acento (violeta)" },
+            { "value": "open", "label": "Secundario (aqua)" }
+          ],
+          "default": "full"
+        },
+        {
+          "type": "text",
+          "id": "status_label",
+          "label": "Texto de etiqueta",
+          "default": "Full"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "Growth systems for swim schools and kids sports academies"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "Usa cursiva para resaltar palabras con el subrayado de color.",
+      "default": "Every class <em>full,</em> every term. Without chasing parents."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Descripción",
+      "default": "<p>Practical, no-fluff playbooks that help swim schools, football and gymnastics academies, dance and martial-arts schools win trusting parents, turn free trials into enrolments, keep families term after term and sell out camps. No agency. No booking-software upsell. No guesswork.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Prueba social"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_proof",
+      "label": "Mostrar prueba social",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stars_count",
+      "label": "Cantidad de estrellas",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5,
+      "visible_if": "{{ section.settings.show_proof }}"
+    },
+    {
+      "type": "text",
+      "id": "proof_text",
+      "label": "Texto",
+      "default": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+      "visible_if": "{{ section.settings.show_proof }}"
+    },
+    {
+      "type": "header",
+      "content": "Tablero"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_board",
+      "label": "Mostrar tablero",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "board_title",
+      "label": "Título del tablero",
+      "default": "Saturday timetable",
+      "visible_if": "{{ section.settings.show_board }}"
+    },
+    {
+      "type": "text",
+      "id": "board_label",
+      "label": "Etiqueta del tablero",
+      "default": "Term 1 / Week 6 of 12",
+      "visible_if": "{{ section.settings.show_board }}"
+    },
+    {
+      "type": "text",
+      "id": "board_aria_label",
+      "label": "Descripción accesible",
+      "default": "Example weekly timetable",
+      "visible_if": "{{ section.settings.show_board }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_board_footer",
+      "label": "Mostrar pie con barra de progreso",
+      "default": true,
+      "visible_if": "{{ section.settings.show_board }}"
+    },
+    {
+      "type": "text",
+      "id": "meter_label",
+      "label": "Texto de la barra",
+      "default": "Places enrolled this term",
+      "visible_if": "{{ section.settings.show_board and section.settings.show_board_footer }}"
+    },
+    {
+      "type": "text",
+      "id": "meter_value",
+      "label": "Valor de la barra",
+      "default": "212 / 240",
+      "visible_if": "{{ section.settings.show_board and section.settings.show_board_footer }}"
+    },
+    {
+      "type": "range",
+      "id": "meter_fill",
+      "label": "Progreso de la barra",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 90,
+      "visible_if": "{{ section.settings.show_board and section.settings.show_board_footer }}"
+    },
+    {
+      "type": "text",
+      "id": "meter_note",
+      "label": "Nota inferior",
+      "default": "+38 families re-enrolled before term 2 opened",
+      "visible_if": "{{ section.settings.show_board and section.settings.show_board_footer }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "select",
+      "id": "board_position",
+      "label": "Posición del tablero en desktop",
+      "options": [
+        { "value": "right", "label": "Derecha" },
+        { "value": "left", "label": "Izquierda" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "checkbox",
+      "id": "board_first_mobile",
+      "label": "Mostrar tablero primero en mobile",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "copy_ratio",
+      "label": "Ancho de la columna de texto",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 53
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espacio entre columnas (desktop)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "gap_tablet",
+      "label": "Espacio entre columnas (tablet)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Espacio entre bloques (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva, usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título (desktop)",
+      "min": 32,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 76
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño máximo del título (mobile)",
+      "min": 36,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Tamaño de la descripción (desktop)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "label": "Tamaño de la descripción (mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subheading_max_width",
+      "label": "Ancho máximo de la descripción",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 540
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de la descripción",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Separadores del tablero",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_accent_hover",
+      "label": "Acento (hover)",
+      "default": "#452D9A"
+    },
+    {
+      "type": "color",
+      "id": "color_on_accent",
+      "label": "Texto sobre acento",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (subrayado, rayas, hover)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (estrellas, etiquetas)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas y botón secundario",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de botones y tablero",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_shadow",
+      "label": "Sombra del botón primario",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "board_shadow",
+      "label": "Sombra del tablero",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stripes",
+      "label": "Mostrar rayas inferiores",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stripe_height",
+      "label": "Alto de las rayas",
+      "min": 4,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "range",
+      "id": "stripe_opacity",
+      "label": "Opacidad de las rayas",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Hero",
+      "blocks": [
+        {
+          "type": "button",
+          "settings": {
+            "label": "Browse the playbooks",
+            "link": "shopify://collections/all",
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "See how it works",
+            "link": "shopify://collections/all",
+            "style": "ghost",
+            "show_arrow": false
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "09:00",
+            "name": "Ducklings swim",
+            "level": "Ages 3 to 4, stage 1",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "09:45",
+            "name": "Mini kickers football",
+            "level": "Ages 5 to 6",
+            "status": "waitlist",
+            "status_label": "Waitlist"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "10:30",
+            "name": "Stage 3 swimmers",
+            "level": "Ages 6 to 8",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "11:15",
+            "name": "Gymnastics foundations",
+            "level": "Ages 5 to 7",
+            "status": "open",
+            "status_label": "2 spots"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "12:00",
+            "name": "Little dragons karate",
+            "level": "Ages 6 to 9",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "time": "13:00",
+            "name": "Squad development",
+            "level": "Ages 9 to 12",
+            "status": "waitlist",
+            "status_label": "Waitlist"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

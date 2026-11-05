@@ -1,0 +1,1014 @@
+{%- comment -%}
+  YQB Year: header with tag, heading and intro, a month timeline and a grid of
+  "moment" stat cards.
+
+  Blocks:
+  - month: label rendered on the timeline
+  - moment: stat card (badge, value, description)
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign month_blocks = section.blocks | where: 'type', 'month'
+  assign moment_blocks = section.blocks | where: 'type', 'moment'
+
+  assign months_count = month_blocks.size | at_least: 1
+  assign months_tablet = months_count | plus: 2 | divided_by: 3 | at_least: 1
+
+  assign intro_ratio = 100 | minus: s.heading_ratio
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-year{% if s.intro_align == 'start' %} yqb-year--intro-start{% endif %}{% if s.tablet_month_step %} yqb-year--month-step{% endif %}{% if s.hover_effect %} yqb-year--hover{% endif %}"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-tag-bg: {{ s.color_tag_bg }};
+    --yqb-radius: {{ s.card_radius }}px;
+    --yqb-badge-radius: {{ s.badge_radius }}px;
+    --yqb-border: {{ s.border_width }}px;
+    --yqb-badge-rotate: {{ s.badge_rotation }}deg;
+    --yqb-tag-shadow: {{ s.tag_shadow }}px;
+    --yqb-hover-shadow: {{ s.hover_shadow }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
+    --yqb-head-gap: {{ s.head_gap }}px;
+    --yqb-head-mb: {{ s.head_margin }}px;
+    --yqb-head-mb-mobile: {{ s.head_margin_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-value-size: {{ s.value_size }}px;
+    --yqb-value-size-mobile: {{ s.value_size_mobile }}px;
+    --yqb-label-size: {{ s.label_size }}px;
+    --yqb-months: {{ months_count }};
+    --yqb-months-tablet: {{ months_tablet }};
+    --yqb-cols-desktop: {{ s.columns_desktop }};
+    --yqb-cols-tablet: {{ s.columns_tablet }};
+    --yqb-cols-mobile: {{ s.columns_mobile }};
+    --yqb-cards-gap: {{ s.cards_gap }}px;
+    --yqb-cards-gap-mobile: {{ s.cards_gap_mobile }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+  "
+>
+  <div class="yqb-year__inner">
+    {%- if s.tag_text != blank or s.heading != blank or s.intro != blank -%}
+      <div class="yqb-year__head">
+        <div>
+          {%- if s.tag_text != blank -%}
+            <span class="yqb-year__term{% if s.show_tag_dot %} yqb-year__term--dot{% endif %}">
+              {{- s.tag_text | escape -}}
+            </span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <{{ s.heading_tag }} class="yqb-year__heading">{{ s.heading }}</{{ s.heading_tag }}>
+          {%- endif -%}
+        </div>
+        {%- if s.intro != blank -%}
+          <div class="yqb-year__intro">{{ s.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if s.show_timeline and month_blocks.size > 0 -%}
+      <div class="yqb-year__line" aria-hidden="true">
+        <div class="yqb-year__months{% if s.show_ticks %} yqb-year__months--ticks{% endif %}">
+          {%- for block in month_blocks -%}
+            <span class="yqb-year__month" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</span>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if moment_blocks.size > 0 -%}
+      <div class="yqb-year__moments">
+        {%- for block in moment_blocks -%}
+          {%- liquid
+            assign b = block.settings
+            capture badge_style
+              if b.badge_bg != blank
+                echo '--yqb-when-bg: ' | append: b.badge_bg | append: ';'
+              endif
+              if b.badge_text != blank
+                echo '--yqb-when-color: ' | append: b.badge_text | append: ';'
+              endif
+            endcapture
+          -%}
+          <div class="yqb-year__moment" {{ block.shopify_attributes }}>
+            {%- if b.when != blank -%}
+              <span class="yqb-year__when"{% if badge_style != blank %} style="{{ badge_style | strip }}"{% endif %}>
+                {{- b.when | escape -}}
+              </span>
+            {%- endif -%}
+            {%- if b.value != blank -%}
+              <p class="yqb-year__value">{{ b.value | escape }}</p>
+            {%- endif -%}
+            {%- if b.label != blank -%}
+              <p class="yqb-year__label">{{ b.label }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-year {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    background: var(--yqb-bg);
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-year *,
+  .yqb-year *::before,
+  .yqb-year *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-year .yqb-year__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  /* Header */
+  .yqb-year .yqb-year__head {
+    display: grid;
+    grid-template-columns: var(--yqb-head-cols);
+    gap: var(--yqb-head-gap);
+    align-items: end;
+    margin-bottom: var(--yqb-head-mb);
+  }
+
+  .yqb-year .yqb-year__term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-tag-bg);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: var(--yqb-tag-shadow) var(--yqb-tag-shadow) 0 var(--yqb-violet);
+  }
+
+  .yqb-year .yqb-year__term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-aqua);
+    border: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  .yqb-year .yqb-year__heading {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-heading-size-mobile), 3.8vw, var(--yqb-heading-size));
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--yqb-ink);
+    text-transform: none;
+    margin: 0;
+  }
+
+  /* Italic text in the heading is rendered as the accent highlight */
+  .yqb-year .yqb-year__heading em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-year .yqb-year__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-mute);
+    margin: 0;
+    max-width: var(--yqb-intro-max-width);
+    justify-self: end;
+  }
+
+  .yqb-year--intro-start .yqb-year__intro {
+    justify-self: start;
+  }
+
+  .yqb-year .yqb-year__intro > * {
+    margin: 0;
+  }
+
+  .yqb-year .yqb-year__intro > * + * {
+    margin-top: 1em;
+  }
+
+  .yqb-year .yqb-year__intro a {
+    color: inherit;
+  }
+
+  /* Timeline */
+  .yqb-year .yqb-year__line {
+    position: relative;
+    height: var(--yqb-border);
+    background: var(--yqb-ink);
+    margin: 0 0 28px;
+  }
+
+  .yqb-year .yqb-year__months {
+    position: absolute;
+    inset-inline: 0;
+    top: -30px;
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-months), minmax(0, 1fr));
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-year .yqb-year__month {
+    text-align: center;
+  }
+
+  .yqb-year .yqb-year__months--ticks .yqb-year__month::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 8px;
+    background: var(--yqb-line);
+    margin: 6px auto 0;
+  }
+
+  /* Moments */
+  .yqb-year .yqb-year__moments {
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-cols-desktop), minmax(0, 1fr));
+    gap: var(--yqb-cards-gap);
+  }
+
+  .yqb-year .yqb-year__moment {
+    background: var(--yqb-card);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    padding: 26px 24px 24px;
+    min-width: 0;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .yqb-year--hover .yqb-year__moment:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--yqb-hover-shadow) var(--yqb-hover-shadow) 0 var(--yqb-violet);
+    }
+  }
+
+  .yqb-year .yqb-year__when {
+    display: inline-block;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-badge-radius);
+    background: var(--yqb-when-bg, var(--yqb-aqua));
+    color: var(--yqb-when-color, var(--yqb-ink));
+    margin-bottom: 18px;
+    transform: rotate(var(--yqb-badge-rotate));
+  }
+
+  .yqb-year .yqb-year__value {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-value-size-mobile), 4vw, var(--yqb-value-size));
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--yqb-ink);
+    margin: 0 0 10px;
+  }
+
+  .yqb-year .yqb-year__label {
+    font-size: var(--yqb-label-size);
+    line-height: 1.55;
+    font-weight: 600;
+    color: var(--yqb-ink-soft);
+    margin: 0;
+  }
+
+  .yqb-year .yqb-year__label a {
+    color: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-year .yqb-year__moment {
+      transition: none;
+    }
+
+    .yqb-year--hover .yqb-year__moment:hover {
+      transform: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-year .yqb-year__moments {
+      grid-template-columns: repeat(var(--yqb-cols-tablet), minmax(0, 1fr));
+    }
+
+    .yqb-year--month-step .yqb-year__months {
+      grid-template-columns: repeat(var(--yqb-months-tablet), minmax(0, 1fr));
+    }
+
+    .yqb-year--month-step .yqb-year__month:not(:nth-child(3n + 1)) {
+      display: none;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-year {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-year .yqb-year__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-year .yqb-year__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: var(--yqb-head-mb-mobile);
+    }
+
+    .yqb-year .yqb-year__intro {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .yqb-year .yqb-year__moments {
+      grid-template-columns: repeat(var(--yqb-cols-mobile), minmax(0, 1fr));
+      gap: var(--yqb-cards-gap-mobile);
+    }
+
+    .yqb-year .yqb-year__line {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Year",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "month",
+      "name": "Mes",
+      "limit": 24,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Jan"
+        }
+      ]
+    },
+    {
+      "type": "moment",
+      "name": "Momento",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "when",
+          "label": "Etiqueta",
+          "default": "Sept intake"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valor",
+          "default": "1,300+"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "label",
+          "label": "Descripción",
+          "default": "Swim schools and kids sports academies running the playbooks"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg",
+          "label": "Fondo de la etiqueta",
+          "info": "Si se deja vacío usa el color secundario de la sección."
+        },
+        {
+          "type": "color",
+          "id": "badge_text",
+          "label": "Texto de la etiqueta",
+          "info": "Si se deja vacío usa el color de texto de la sección."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "The academy year"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "El texto en cursiva se muestra con el color de acento.",
+      "default": "Four moments decide your year. The playbooks win all four."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Descripción",
+      "default": "<p>Measured by the only things that matter to an academy owner: trials that enrol, families that re-enrol, camps that sell out, and a waitlist that fills next term before it opens.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Línea de tiempo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timeline",
+      "label": "Mostrar línea de tiempo",
+      "info": "Se oculta automáticamente en mobile.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ticks",
+      "label": "Mostrar marcas bajo los meses",
+      "default": true,
+      "visible_if": "{{ section.settings.show_timeline }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "tablet_month_step",
+      "label": "En tablet mostrar 1 de cada 3 meses",
+      "default": true,
+      "visible_if": "{{ section.settings.show_timeline }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "heading_ratio",
+      "label": "Ancho de la columna del título",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "select",
+      "id": "intro_align",
+      "label": "Alineación de la descripción en desktop",
+      "options": [
+        { "value": "end", "label": "Derecha" },
+        { "value": "start", "label": "Izquierda" }
+      ],
+      "default": "end"
+    },
+    {
+      "type": "range",
+      "id": "head_gap",
+      "label": "Espacio entre título y descripción",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "head_margin",
+      "label": "Espacio bajo la cabecera (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "head_margin_mobile",
+      "label": "Espacio bajo la cabecera (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas en desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columnas en tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Espacio entre tarjetas (desktop)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "cards_gap_mobile",
+      "label": "Espacio entre tarjetas (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño máximo del título",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño mínimo del título",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la descripción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la descripción",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "value_size",
+      "label": "Tamaño máximo del valor",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "value_size_mobile",
+      "label": "Tamaño mínimo del valor",
+      "min": 20,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Tamaño de la descripción de tarjetas",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de las tarjetas",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario (descripción y meses)",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Marcas de la línea de tiempo",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (etiqueta, sombras, destacado)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (punto y etiquetas por defecto)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_tag_bg",
+      "label": "Fondo de la etiqueta superior",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Radio de tarjetas",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Radio de etiquetas de tarjeta",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Grosor de bordes",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "badge_rotation",
+      "label": "Rotación de etiquetas de tarjeta",
+      "min": -8,
+      "max": 8,
+      "step": 1,
+      "unit": "°",
+      "default": -2
+    },
+    {
+      "type": "range",
+      "id": "tag_shadow",
+      "label": "Sombra de la etiqueta superior",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Efecto hover en tarjetas",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hover_shadow",
+      "label": "Sombra hover de tarjetas",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6,
+      "visible_if": "{{ section.settings.hover_effect }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Year",
+      "blocks": [
+        { "type": "month", "settings": { "label": "Jan" } },
+        { "type": "month", "settings": { "label": "Feb" } },
+        { "type": "month", "settings": { "label": "Mar" } },
+        { "type": "month", "settings": { "label": "Apr" } },
+        { "type": "month", "settings": { "label": "May" } },
+        { "type": "month", "settings": { "label": "Jun" } },
+        { "type": "month", "settings": { "label": "Jul" } },
+        { "type": "month", "settings": { "label": "Aug" } },
+        { "type": "month", "settings": { "label": "Sep" } },
+        { "type": "month", "settings": { "label": "Oct" } },
+        { "type": "month", "settings": { "label": "Nov" } },
+        { "type": "month", "settings": { "label": "Dec" } },
+        {
+          "type": "moment",
+          "settings": {
+            "when": "Sept intake",
+            "value": "1,300+",
+            "label": "Swim schools and kids sports academies running the playbooks",
+            "badge_bg": "#7FD6C2"
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "when": "Jan re-enrol",
+            "value": "91%",
+            "label": "Average term-to-term re-enrolment reported by owners after Vol. 03",
+            "badge_bg": "#FFD166"
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "when": "Summer camps",
+            "value": "$11M+",
+            "label": "In camp, intensive and extras revenue generated by owners using Vol. 04",
+            "badge_bg": "#5B3CC4",
+            "badge_text": "#FFFFFF"
+          }
+        },
+        {
+          "type": "moment",
+          "settings": {
+            "when": "All year",
+            "value": "4.9/5",
+            "label": "Average rating across our playbooks",
+            "badge_bg": "#7FD6C2"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
