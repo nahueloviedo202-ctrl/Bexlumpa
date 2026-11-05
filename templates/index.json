@@ -329,7 +329,7 @@
         "meter_note": "Edited in minutes, not hours",
         "section_width": "page-width",
         "content_max_width": 1240,
-        "board_position": "right",
+        "board_position": "left",
         "board_first_mobile": false,
         "copy_ratio": 53,
         "gap": 88,
@@ -366,6 +366,230 @@
         "padding_inline": 48,
         "padding_top_mobile": 72,
         "padding_bottom_mobile": 88,
+        "padding_inline_mobile": 24
+      }
+    },
+    "yqb_playbooks_ipYVXQ": {
+      "type": "yqb-playbooks",
+      "blocks": {
+        "include_jHUePN": {
+          "type": "include",
+          "settings": {
+            "text": "170 Instagram posts"
+          }
+        },
+        "include_rMNm7M": {
+          "type": "include",
+          "settings": {
+            "text": "120 Instagram stories"
+          }
+        },
+        "include_r9ybpD": {
+          "type": "include",
+          "settings": {
+            "text": "80 carousel slides"
+          }
+        },
+        "include_gnzcQM": {
+          "type": "include",
+          "settings": {
+            "text": "70 Reels covers"
+          }
+        },
+        "include_PEBh6y": {
+          "type": "include",
+          "settings": {
+            "text": "60 flyers and brochures"
+          }
+        },
+        "include_FtxKU8": {
+          "type": "include",
+          "settings": {
+            "text": "60 presentation slides"
+          }
+        },
+        "include_4WwXAX": {
+          "type": "include",
+          "settings": {
+            "text": "50 resumes and CVs"
+          }
+        },
+        "include_rgaxpD": {
+          "type": "include",
+          "settings": {
+            "text": "90 planners, invoices and media kits"
+          }
+        },
+        "card_N4U3mp": {
+          "type": "card",
+          "settings": {
+            "product": "100-canva-templates-social-media-pack",
+            "title": "",
+            "level": "SOCIAL MEDIA",
+            "desc": "Instagram posts, stories and highlight covers to start posting with confidence, no design skills needed.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        },
+        "card_gakcmc": {
+          "type": "card",
+          "settings": {
+            "product": "200-canva-templates-social-media-brand-pack",
+            "title": "",
+            "level": "BRAND",
+            "desc": "Posts, stories, carousels and highlights in matching styles, so your feed looks like one brand.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$64.99",
+            "price_now": "$54.99"
+          }
+        },
+        "card_rk6FRE": {
+          "type": "card",
+          "settings": {
+            "product": "300-canva-templates-brand-business-pack",
+            "title": "",
+            "level": "BUSINESS",
+            "desc": "Social media plus flyers, business cards and price lists for your online and printed presence.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$69.99",
+            "price_now": "$59.99"
+          }
+        },
+        "card_gUGQnT": {
+          "type": "card",
+          "settings": {
+            "product": "producto-4-400-templates",
+            "title": "",
+            "level": "CREATOR",
+            "desc": "Reels covers, YouTube thumbnails, Pinterest pins and posts for creators on every platform.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$79.99",
+            "price_now": "$69.99"
+          }
+        },
+        "card_b4gfT9": {
+          "type": "card",
+          "settings": {
+            "product": "500-canva-templates-small-business-pack",
+            "title": "",
+            "level": "SMALL BUSINESS",
+            "desc": "Marketing, presentations, invoices and media kits for running and promoting your business.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        },
+        "card_ibUzhz": {
+          "type": "card",
+          "settings": {
+            "product": "600-canva-templates-professional-brand-studio",
+            "title": "",
+            "level": "PROFESSIONAL",
+            "desc": "Brand, business and personal designs: resumes, planners, proposals and more in one library.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        }
+      },
+      "block_order": [
+        "include_jHUePN",
+        "include_rMNm7M",
+        "include_r9ybpD",
+        "include_gnzcQM",
+        "include_PEBh6y",
+        "include_FtxKU8",
+        "include_4WwXAX",
+        "include_rgaxpD",
+        "card_N4U3mp",
+        "card_gakcmc",
+        "card_rk6FRE",
+        "card_gUGQnT",
+        "card_b4gfT9",
+        "card_ibUzhz"
+      ],
+      "name": "YQB Playbooks",
+      "settings": {
+        "tag_text": "THE TEMPLATE COLLECTION",
+        "show_tag_dot": true,
+        "heading": "Seven packs. Or the whole library in one.&nbsp;",
+        "heading_tag": "h2",
+        "intro": "<p>Pick the pack that fits your goal. Instant download, ready to edit in Canva. Download once, customize in minutes.</p>",
+        "viewall_label": "View all packs",
+        "viewall_link": "shopify://collections/all",
+        "viewall_arrow": true,
+        "show_bundle": true,
+        "bundle_product": "700-canva-templates-the-ultimate-collection",
+        "bundle_placeholder": "Kit cover",
+        "bundle_sticker": "Full kit",
+        "bundle_meta": "PACK 07 / COMPLETE LIBRARY",
+        "bundle_title": "{{ section.settings.bundle_product.title }}",
+        "bundle_desc": "The complete BEXLUMPA library in one download: social media, marketing, presentations, documents and planners, all fully editable and designed to work together.",
+        "bundle_price_was": "$119.99",
+        "bundle_price_now": "$79.99",
+        "bundle_button": "Get the full kit",
+        "bundle_button_arrow": true,
+        "bundle_link": "",
+        "show_bundle_stripes": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "head_gap": 72,
+        "head_margin": 48,
+        "head_margin_mobile": 32,
+        "bundle_margin": 24,
+        "columns_desktop": 2,
+        "columns_tablet": "1",
+        "columns_mobile": "1",
+        "grid_gap": 24,
+        "thumb_width": 150,
+        "card_placeholder": "Cover",
+        "hide_card_desc_mobile": true,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 60,
+        "heading_max_width": 620,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "bundle_title_size": 40,
+        "bundle_price_size": 36,
+        "card_title_size": 24,
+        "card_price_size": 26,
+        "color_bg": "#f3f1e5",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_mute": "#74757d",
+        "color_line": "#d6d2c8",
+        "color_accent": "#5b3cc4",
+        "color_secondary": "#7fd6c2",
+        "color_highlight": "#ffd166",
+        "color_card": "#ffffff",
+        "color_bundle_bg": "#231a4d",
+        "color_bundle_media_bg": "#5b3cc4",
+        "color_bundle_text": "#f7f4ec",
+        "radius": 12,
+        "bundle_shadow": 10,
+        "card_hover_shadow": 6,
+        "bundle_media_height": 340,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
         "padding_inline_mobile": 24
       }
     },
@@ -795,8 +1019,8 @@
         "title_size": 26,
         "title_size_mobile": 22,
         "body_size": 15,
-        "color_bg": "#231a4d",
-        "color_card": "#2d2360",
+        "color_bg": "#231A4D",
+        "color_card": "#2D2360",
         "color_ink": "#f7f4ec",
         "color_ink_soft": "#cfc9dd",
         "color_mute": "#9a93b5",
@@ -814,230 +1038,6 @@
         "show_stripes": true,
         "stripe_height": 14,
         "stripe_opacity": 50,
-        "padding_top": 112,
-        "padding_bottom": 112,
-        "padding_inline": 48,
-        "padding_top_mobile": 72,
-        "padding_bottom_mobile": 72,
-        "padding_inline_mobile": 24
-      }
-    },
-    "yqb_playbooks_ipYVXQ": {
-      "type": "yqb-playbooks",
-      "blocks": {
-        "include_jHUePN": {
-          "type": "include",
-          "settings": {
-            "text": "170 Instagram posts"
-          }
-        },
-        "include_rMNm7M": {
-          "type": "include",
-          "settings": {
-            "text": "120 Instagram stories"
-          }
-        },
-        "include_r9ybpD": {
-          "type": "include",
-          "settings": {
-            "text": "80 carousel slides"
-          }
-        },
-        "include_gnzcQM": {
-          "type": "include",
-          "settings": {
-            "text": "70 Reels covers"
-          }
-        },
-        "include_PEBh6y": {
-          "type": "include",
-          "settings": {
-            "text": "60 flyers and brochures"
-          }
-        },
-        "include_FtxKU8": {
-          "type": "include",
-          "settings": {
-            "text": "60 presentation slides"
-          }
-        },
-        "include_4WwXAX": {
-          "type": "include",
-          "settings": {
-            "text": "50 resumes and CVs"
-          }
-        },
-        "include_rgaxpD": {
-          "type": "include",
-          "settings": {
-            "text": "90 planners, invoices and media kits"
-          }
-        },
-        "card_N4U3mp": {
-          "type": "card",
-          "settings": {
-            "product": "100-canva-templates-social-media-pack",
-            "title": "",
-            "level": "SOCIAL MEDIA",
-            "desc": "Instagram posts, stories and highlight covers to start posting with confidence, no design skills needed.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$59.99",
-            "price_now": "$49.99"
-          }
-        },
-        "card_gakcmc": {
-          "type": "card",
-          "settings": {
-            "product": "200-canva-templates-social-media-brand-pack",
-            "title": "",
-            "level": "BRAND",
-            "desc": "Posts, stories, carousels and highlights in matching styles, so your feed looks like one brand.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$64.99",
-            "price_now": "$54.99"
-          }
-        },
-        "card_rk6FRE": {
-          "type": "card",
-          "settings": {
-            "product": "300-canva-templates-brand-business-pack",
-            "title": "",
-            "level": "BUSINESS",
-            "desc": "Social media plus flyers, business cards and price lists for your online and printed presence.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$69.99",
-            "price_now": "$59.99"
-          }
-        },
-        "card_gUGQnT": {
-          "type": "card",
-          "settings": {
-            "product": "producto-4-400-templates",
-            "title": "",
-            "level": "CREATOR",
-            "desc": "Reels covers, YouTube thumbnails, Pinterest pins and posts for creators on every platform.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$79.99",
-            "price_now": "$69.99"
-          }
-        },
-        "card_b4gfT9": {
-          "type": "card",
-          "settings": {
-            "product": "500-canva-templates-small-business-pack",
-            "title": "",
-            "level": "SMALL BUSINESS",
-            "desc": "Marketing, presentations, invoices and media kits for running and promoting your business.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$59.99",
-            "price_now": "$49.99"
-          }
-        },
-        "card_ibUzhz": {
-          "type": "card",
-          "settings": {
-            "product": "600-canva-templates-professional-brand-studio",
-            "title": "",
-            "level": "PROFESSIONAL",
-            "desc": "Brand, business and personal designs: resumes, planners, proposals and more in one library.",
-            "sticker": "Instant",
-            "cta": "View pack",
-            "link": "",
-            "price_was": "$59.99",
-            "price_now": "$49.99"
-          }
-        }
-      },
-      "block_order": [
-        "include_jHUePN",
-        "include_rMNm7M",
-        "include_r9ybpD",
-        "include_gnzcQM",
-        "include_PEBh6y",
-        "include_FtxKU8",
-        "include_4WwXAX",
-        "include_rgaxpD",
-        "card_N4U3mp",
-        "card_gakcmc",
-        "card_rk6FRE",
-        "card_gUGQnT",
-        "card_b4gfT9",
-        "card_ibUzhz"
-      ],
-      "name": "YQB Playbooks",
-      "settings": {
-        "tag_text": "THE TEMPLATE COLLECTION",
-        "show_tag_dot": true,
-        "heading": "Seven packs. Or the whole library in one.&nbsp;",
-        "heading_tag": "h2",
-        "intro": "<p>Pick the pack that fits your goal. Instant download, ready to edit in Canva. Download once, customize in minutes.</p>",
-        "viewall_label": "View all packs",
-        "viewall_link": "shopify://collections/all",
-        "viewall_arrow": true,
-        "show_bundle": true,
-        "bundle_product": "700-canva-templates-the-ultimate-collection",
-        "bundle_placeholder": "Kit cover",
-        "bundle_sticker": "Full kit",
-        "bundle_meta": "PACK 07 / COMPLETE LIBRARY",
-        "bundle_title": "{{ section.settings.bundle_product.title }}",
-        "bundle_desc": "The complete BEXLUMPA library in one download: social media, marketing, presentations, documents and planners, all fully editable and designed to work together.",
-        "bundle_price_was": "$119.99",
-        "bundle_price_now": "$79.99",
-        "bundle_button": "Get the full kit",
-        "bundle_button_arrow": true,
-        "bundle_link": "",
-        "show_bundle_stripes": true,
-        "section_width": "full-width",
-        "content_max_width": 1240,
-        "heading_ratio": 52,
-        "head_gap": 72,
-        "head_margin": 48,
-        "head_margin_mobile": 32,
-        "bundle_margin": 24,
-        "columns_desktop": 2,
-        "columns_tablet": "1",
-        "columns_mobile": "1",
-        "grid_gap": 24,
-        "thumb_width": 150,
-        "card_placeholder": "Cover",
-        "hide_card_desc_mobile": true,
-        "use_custom_fonts": true,
-        "heading_font": "inter_n8",
-        "body_font": "nunito_sans_n4",
-        "heading_size": 60,
-        "heading_max_width": 620,
-        "intro_size": 16,
-        "intro_max_width": 440,
-        "bundle_title_size": 40,
-        "bundle_price_size": 36,
-        "card_title_size": 24,
-        "card_price_size": 26,
-        "color_bg": "#f3f1e5",
-        "color_ink": "#1a1b1f",
-        "color_ink_soft": "#44454c",
-        "color_mute": "#74757d",
-        "color_line": "#d6d2c8",
-        "color_accent": "#5b3cc4",
-        "color_secondary": "#7fd6c2",
-        "color_highlight": "#ffd166",
-        "color_card": "#ffffff",
-        "color_bundle_bg": "#231a4d",
-        "color_bundle_media_bg": "#5b3cc4",
-        "color_bundle_text": "#f7f4ec",
-        "radius": 12,
-        "bundle_shadow": 10,
-        "card_hover_shadow": 6,
-        "bundle_media_height": 340,
         "padding_top": 112,
         "padding_bottom": 112,
         "padding_inline": 48,
@@ -1761,10 +1761,10 @@
   "order": [
     "product_list_fa6P9H",
     "yqb_hero_4wJndU",
+    "yqb_playbooks_ipYVXQ",
     "yqb_year_kYaGTb",
     "yqb_journey_yaXYtm",
     "yqb_levels_R8ryfH",
-    "yqb_playbooks_ipYVXQ",
     "yqb_reports_yhQK9G",
     "yqb_eligibility_mJTUkk",
     "yqb_faq_Kr4j3Q",
