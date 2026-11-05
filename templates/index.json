@@ -1116,6 +1116,7 @@
         "yqb_report_card_cTkcLH",
         "yqb_report_card_pLhMba"
       ],
+      "disabled": true,
       "name": "YQB Reports",
       "settings": {
         "tag_text": "CUSTOMER REPORT CARDS",
