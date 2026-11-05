@@ -924,8 +924,8 @@
           "settings": {
             "badge_text": "1",
             "badge_small": "Goal",
-            "badge_bg": "#CFE3F5",
-            "badge_color": "",
+            "badge_bg": "#2B2D31",
+            "badge_color": "{{ settings.color_palette.background }}",
             "label": "Attract",
             "vol": "PACKS 01–02",
             "title": "<strong>Become the feed people stop for</strong>&nbsp;",
@@ -940,7 +940,7 @@
           "settings": {
             "badge_text": "2",
             "badge_small": "Goal",
-            "badge_bg": "#ffd166",
+            "badge_bg": "#A3A7AD",
             "badge_color": "",
             "label": "Convert",
             "vol": "PACK 03",
@@ -956,7 +956,7 @@
           "settings": {
             "badge_text": "3",
             "badge_small": "Goal",
-            "badge_bg": "#f7f4ec",
+            "badge_bg": "#CFE3F5",
             "badge_color": "",
             "label": "Keep",
             "vol": "Pack 04",
@@ -972,8 +972,8 @@
           "settings": {
             "badge_text": "4",
             "badge_small": "Goal",
-            "badge_bg": "#E8735A",
-            "badge_color": "#ffffff",
+            "badge_bg": "#FFD23F",
+            "badge_color": "{{ settings.color_palette.foreground }}",
             "label": "Grow",
             "vol": "PACKS 05–07",
             "title": "<strong>Run your whole brand from one library</strong>&nbsp;",
