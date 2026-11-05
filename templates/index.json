@@ -214,6 +214,161 @@
         "padding-block-end": 48
       }
     },
+    "yqb_hero_4wJndU": {
+      "type": "yqb-hero",
+      "blocks": {
+        "button_YnkQta": {
+          "type": "button",
+          "settings": {
+            "label": "Browse the playbooks",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        "button_Hcq9EA": {
+          "type": "button",
+          "settings": {
+            "label": "See how it works",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "ghost",
+            "show_arrow": false
+          }
+        },
+        "row_9JB6TM": {
+          "type": "row",
+          "settings": {
+            "time": "09:00",
+            "name": "Ducklings swim",
+            "level": "Ages 3 to 4, stage 1",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        "row_DrCPLT": {
+          "type": "row",
+          "settings": {
+            "time": "09:45",
+            "name": "Mini kickers football",
+            "level": "Ages 5 to 6",
+            "status": "waitlist",
+            "status_label": "Waitlist"
+          }
+        },
+        "row_azd6VF": {
+          "type": "row",
+          "settings": {
+            "time": "10:30",
+            "name": "Stage 3 swimmers",
+            "level": "Ages 6 to 8",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        "row_zK4kgH": {
+          "type": "row",
+          "settings": {
+            "time": "11:15",
+            "name": "Gymnastics foundations",
+            "level": "Ages 5 to 7",
+            "status": "open",
+            "status_label": "2 spots"
+          }
+        },
+        "row_jnLeEi": {
+          "type": "row",
+          "settings": {
+            "time": "12:00",
+            "name": "Little dragons karate",
+            "level": "Ages 6 to 9",
+            "status": "full",
+            "status_label": "Full"
+          }
+        },
+        "row_UfLRDr": {
+          "type": "row",
+          "settings": {
+            "time": "13:00",
+            "name": "Squad development",
+            "level": "Ages 9 to 12",
+            "status": "waitlist",
+            "status_label": "Waitlist"
+          }
+        }
+      },
+      "block_order": [
+        "button_YnkQta",
+        "button_Hcq9EA",
+        "row_9JB6TM",
+        "row_DrCPLT",
+        "row_azd6VF",
+        "row_zK4kgH",
+        "row_jnLeEi",
+        "row_UfLRDr"
+      ],
+      "name": "YQB Hero",
+      "settings": {
+        "tag_text": "Growth systems for swim schools and kids sports academies",
+        "show_tag_dot": true,
+        "heading": "Every class <em>full,</em> every term. Without chasing parents.",
+        "heading_tag": "h1",
+        "subheading": "<p>Practical, no-fluff playbooks that help swim schools, football and gymnastics academies, dance and martial-arts schools win trusting parents, turn free trials into enrolments, keep families term after term and sell out camps. No agency. No booking-software upsell. No guesswork.</p>",
+        "show_proof": true,
+        "stars_count": 5,
+        "proof_text": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+        "show_board": true,
+        "board_title": "Saturday timetable",
+        "board_label": "Term 1 / Week 6 of 12",
+        "board_aria_label": "Example weekly timetable",
+        "show_board_footer": true,
+        "meter_label": "Places enrolled this term",
+        "meter_value": "212 / 240",
+        "meter_fill": 90,
+        "meter_note": "+38 families re-enrolled before term 2 opened",
+        "section_width": "page-width",
+        "content_max_width": 1240,
+        "board_position": "right",
+        "board_first_mobile": false,
+        "copy_ratio": 53,
+        "gap": 88,
+        "gap_tablet": 56,
+        "gap_mobile": 52,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 76,
+        "heading_size_mobile": 54,
+        "heading_max_width": 640,
+        "subheading_size": 18,
+        "subheading_size_mobile": 16,
+        "subheading_max_width": 540,
+        "color_bg": "#F7F4EC",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
+        "color_accent": "#5B3CC4",
+        "color_accent_hover": "#452D9A",
+        "color_on_accent": "#FFFFFF",
+        "color_secondary": "#7FD6C2",
+        "color_highlight": "#FFD166",
+        "color_card": "#FFFFFF",
+        "radius": 12,
+        "button_shadow": 4,
+        "board_shadow": 10,
+        "show_stripes": true,
+        "stripe_height": 14,
+        "stripe_opacity": 60,
+        "padding_top": 104,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 88,
+        "padding_inline_mobile": 24
+      }
+    },
     "section_Cd6VRD": {
       "type": "section",
       "blocks": {
@@ -572,7 +727,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
-                "background_color": "#2D1B4E",
+                "background_color": "#2d1b4e",
                 "video_position": "cover",
                 "background_image_position": "cover",
                 "toggle_overlay": false,
@@ -672,7 +827,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
-                "background_color": "#2D1B4E",
+                "background_color": "#2d1b4e",
                 "video_position": "cover",
                 "background_image_position": "cover",
                 "toggle_overlay": false,
@@ -772,7 +927,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "background_media": "none",
-                "background_color": "#2D1B4E",
+                "background_color": "#2d1b4e",
                 "video_position": "cover",
                 "background_image_position": "cover",
                 "toggle_overlay": false,
@@ -2378,7 +2533,7 @@
           "settings": {
             "icon": "caret",
             "dividers": true,
-            "divider_color": "#B9A4E6",
+            "divider_color": "#b9a4e6",
             "type_preset": "paragraph",
             "limit_width_desktop": true,
             "max_width_desktop": 800,
@@ -2629,7 +2784,7 @@
         "section_height": "",
         "section_height_custom": 50,
         "background_media": "none",
-        "background_color": "#2D1B4E",
+        "background_color": "#2d1b4e",
         "video_position": "cover",
         "background_image_position": "cover",
         "toggle_overlay": false,
@@ -2747,10 +2902,201 @@
         "padding-block-start": 60,
         "padding-block-end": 60
       }
+    },
+    "yqb_year_kYaGTb": {
+      "type": "yqb-year",
+      "blocks": {
+        "month_P7k97p": {
+          "type": "month",
+          "settings": {
+            "label": "Jan"
+          }
+        },
+        "month_TGwBXD": {
+          "type": "month",
+          "settings": {
+            "label": "Feb"
+          }
+        },
+        "month_VewMpn": {
+          "type": "month",
+          "settings": {
+            "label": "Mar"
+          }
+        },
+        "month_kT6XFp": {
+          "type": "month",
+          "settings": {
+            "label": "Apr"
+          }
+        },
+        "month_iFamhB": {
+          "type": "month",
+          "settings": {
+            "label": "May"
+          }
+        },
+        "month_AtXp4A": {
+          "type": "month",
+          "settings": {
+            "label": "Jun"
+          }
+        },
+        "month_tqBybQ": {
+          "type": "month",
+          "settings": {
+            "label": "Jul"
+          }
+        },
+        "month_JnqrGG": {
+          "type": "month",
+          "settings": {
+            "label": "Aug"
+          }
+        },
+        "month_gBtGz7": {
+          "type": "month",
+          "settings": {
+            "label": "Sep"
+          }
+        },
+        "month_3EtFxw": {
+          "type": "month",
+          "settings": {
+            "label": "Oct"
+          }
+        },
+        "month_YxW8QL": {
+          "type": "month",
+          "settings": {
+            "label": "Nov"
+          }
+        },
+        "month_irJrxY": {
+          "type": "month",
+          "settings": {
+            "label": "Dec"
+          }
+        },
+        "moment_VycAgb": {
+          "type": "moment",
+          "settings": {
+            "when": "Sept intake",
+            "value": "1,300+",
+            "label": "Swim schools and kids sports academies running the playbooks",
+            "badge_bg": "#7fd6c2",
+            "badge_text": ""
+          }
+        },
+        "moment_UbbkFE": {
+          "type": "moment",
+          "settings": {
+            "when": "Jan re-enrol",
+            "value": "91%",
+            "label": "Average term-to-term re-enrolment reported by owners after Vol. 03",
+            "badge_bg": "#ffd166",
+            "badge_text": ""
+          }
+        },
+        "moment_VDprdH": {
+          "type": "moment",
+          "settings": {
+            "when": "Summer camps",
+            "value": "$11M+",
+            "label": "In camp, intensive and extras revenue generated by owners using Vol. 04",
+            "badge_bg": "#5b3cc4",
+            "badge_text": "#ffffff"
+          }
+        },
+        "moment_itkp8A": {
+          "type": "moment",
+          "settings": {
+            "when": "All year",
+            "value": "4.9/5",
+            "label": "Average rating across our playbooks",
+            "badge_bg": "#7fd6c2",
+            "badge_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "month_P7k97p",
+        "month_TGwBXD",
+        "month_VewMpn",
+        "month_kT6XFp",
+        "month_iFamhB",
+        "month_AtXp4A",
+        "month_tqBybQ",
+        "month_JnqrGG",
+        "month_gBtGz7",
+        "month_3EtFxw",
+        "month_YxW8QL",
+        "month_irJrxY",
+        "moment_VycAgb",
+        "moment_UbbkFE",
+        "moment_VDprdH",
+        "moment_itkp8A"
+      ],
+      "name": "YQB Year",
+      "settings": {
+        "tag_text": "The academy year",
+        "show_tag_dot": true,
+        "heading": "Four moments decide your year. The playbooks win all four.",
+        "heading_tag": "h2",
+        "intro": "<p>Measured by the only things that matter to an academy owner: trials that enrol, families that re-enrol, camps that sell out, and a waitlist that fills next term before it opens.</p>",
+        "show_timeline": true,
+        "show_ticks": true,
+        "tablet_month_step": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "intro_align": "end",
+        "head_gap": 64,
+        "head_margin": 48,
+        "head_margin_mobile": 44,
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": "1",
+        "cards_gap": 20,
+        "cards_gap_mobile": 14,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 52,
+        "heading_size_mobile": 32,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "value_size": 56,
+        "value_size_mobile": 40,
+        "label_size": 14,
+        "color_bg": "#FFFFFF",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
+        "color_accent": "#5B3CC4",
+        "color_secondary": "#7FD6C2",
+        "color_tag_bg": "#FFFFFF",
+        "color_card": "#F7F4EC",
+        "card_radius": 12,
+        "badge_radius": 6,
+        "border_width": 2,
+        "badge_rotation": -2,
+        "tag_shadow": 3,
+        "hover_effect": true,
+        "hover_shadow": 6,
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "padding_inline": 48,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "padding_inline_mobile": 24
+      }
     }
   },
   "order": [
     "product_list_fa6P9H",
+    "yqb_hero_4wJndU",
     "section_Cd6VRD",
     "section_db66T8",
     "section_3EQChJ",
@@ -2761,6 +3107,7 @@
     "section_QiLNme",
     "results_RhLgBy",
     "section_WPXztP",
-    "section_KmUmrF"
+    "section_KmUmrF",
+    "yqb_year_kYaGTb"
   ]
 }
