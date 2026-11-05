@@ -559,6 +559,139 @@
         "padding_inline_mobile": 24
       }
     },
+    "yqb_journey_yaXYtm": {
+      "type": "yqb-journey",
+      "blocks": {
+        "step_nCaBAF": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Hear about you",
+            "body": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "You have no system for being the name that gets mentioned. Referrals happen by luck, not by design.",
+            "fix_label": "Fixed by Vol. 01"
+          }
+        },
+        "step_Kbeaez": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Book a trial",
+            "body": "They find your page, message you, and book a free trial for Saturday.",
+            "show_leak": false,
+            "leak_label": "Leak",
+            "leak_text": "",
+            "fix_label": ""
+          }
+        },
+        "step_qpz4Lh": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "The trial",
+            "body": "The child has a great time. The coach is lovely. The parent watches from the side.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "Nobody speaks to the parent before, during or after. No next step, no place held, no follow-up. Six in ten never enrol.",
+            "fix_label": "Fixed by Vol. 02"
+          }
+        },
+        "step_TfAHrm": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "The term",
+            "body": "They enrol. Twelve weeks of lessons. The child progresses. The parent pays monthly.",
+            "show_leak": false,
+            "leak_label": "Leak",
+            "leak_text": "",
+            "fix_label": ""
+          }
+        },
+        "step_ddyPHP": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Re-enrolment",
+            "body": "Term ends. A generic email says places for next term are open.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "A third of families drift away. Not unhappy, just not asked properly, at the right time, with their place already held.",
+            "fix_label": "Fixed by Vol. 03"
+          }
+        }
+      },
+      "block_order": [
+        "step_nCaBAF",
+        "step_Kbeaez",
+        "step_qpz4Lh",
+        "step_TfAHrm",
+        "step_ddyPHP"
+      ],
+      "name": "YQB Journey",
+      "settings": {
+        "tag_text": "The parent journey",
+        "show_tag_dot": true,
+        "heading": "Five steps from a worried parent to a family that stays. Three of them leak.",
+        "heading_tag": "h2",
+        "intro": "<p>This is the path every one of your families walks. Most owners have never drawn it, so they post more, discount the trial, and wonder why the groups empty out every January.</p>",
+        "show_foot": true,
+        "foot_text": "Every leak on this path is <em>one playbook</em> away from fixed.",
+        "button_label": "See how it works",
+        "button_link": "shopify://collections/all",
+        "button_new_tab": false,
+        "button_arrow": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "head_gap": 72,
+        "columns_desktop": 5,
+        "columns_tablet": 2,
+        "columns_mobile": "1",
+        "span_last_tablet": true,
+        "steps_gap": 16,
+        "steps_gap_mobile": 14,
+        "head_margin": 56,
+        "head_margin_mobile": 36,
+        "foot_margin": 44,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 60,
+        "heading_max_width": 620,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "step_title_size": 19,
+        "step_body_size": 14,
+        "number_size": 40,
+        "foot_text_size": 26,
+        "color_bg": "#f7f4ec",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_accent": "#5b3cc4",
+        "color_secondary": "#7fd6c2",
+        "color_highlight": "#ffd166",
+        "color_alert": "#f26b5b",
+        "color_on_alert": "#ffffff",
+        "leak_bg_opacity": 10,
+        "color_card": "#ffffff",
+        "color_foot_bg": "#1a1b1f",
+        "color_foot_text": "#f7f4ec",
+        "color_foot_highlight": "#7fd6c2",
+        "color_button_bg": "#ffd166",
+        "color_button_text": "#1a1b1f",
+        "color_button_hover": "#7fd6c2",
+        "radius": 12,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
+        "padding_inline_mobile": 24
+      }
+    },
     "yqb_levels_R8ryfH": {
       "type": "yqb-levels",
       "blocks": {
@@ -689,103 +822,165 @@
         "padding_inline_mobile": 24
       }
     },
-    "yqb_journey_yaXYtm": {
-      "type": "yqb-journey",
+    "yqb_playbooks_ipYVXQ": {
+      "type": "yqb-playbooks",
       "blocks": {
-        "step_nCaBAF": {
-          "type": "step",
+        "include_jHUePN": {
+          "type": "include",
           "settings": {
-            "number": "",
-            "title": "Hear about you",
-            "body": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not.",
-            "show_leak": true,
-            "leak_label": "Leak",
-            "leak_text": "You have no system for being the name that gets mentioned. Referrals happen by luck, not by design.",
-            "fix_label": "Fixed by Vol. 01"
+            "text": "Vol. 01 The Parent Pipeline"
           }
         },
-        "step_Kbeaez": {
-          "type": "step",
+        "include_rMNm7M": {
+          "type": "include",
           "settings": {
-            "number": "",
-            "title": "Book a trial",
-            "body": "They find your page, message you, and book a free trial for Saturday.",
-            "show_leak": false,
-            "leak_label": "Leak",
-            "leak_text": "",
-            "fix_label": ""
+            "text": "Vol. 02 The Trial Conversion"
           }
         },
-        "step_qpz4Lh": {
-          "type": "step",
+        "include_r9ybpD": {
+          "type": "include",
           "settings": {
-            "number": "",
-            "title": "The trial",
-            "body": "The child has a great time. The coach is lovely. The parent watches from the side.",
-            "show_leak": true,
-            "leak_label": "Leak",
-            "leak_text": "Nobody speaks to the parent before, during or after. No next step, no place held, no follow-up. Six in ten never enrol.",
-            "fix_label": "Fixed by Vol. 02"
+            "text": "Vol. 03 The Term Retention"
           }
         },
-        "step_TfAHrm": {
-          "type": "step",
+        "include_gnzcQM": {
+          "type": "include",
           "settings": {
-            "number": "",
-            "title": "The term",
-            "body": "They enrol. Twelve weeks of lessons. The child progresses. The parent pays monthly.",
-            "show_leak": false,
-            "leak_label": "Leak",
-            "leak_text": "",
-            "fix_label": ""
+            "text": "Vol. 04 The Camp and Extras Engine"
           }
         },
-        "step_ddyPHP": {
-          "type": "step",
+        "include_PEBh6y": {
+          "type": "include",
           "settings": {
-            "number": "",
-            "title": "Re-enrolment",
-            "body": "Term ends. A generic email says places for next term are open.",
-            "show_leak": true,
-            "leak_label": "Leak",
-            "leak_text": "A third of families drift away. Not unhappy, just not asked properly, at the right time, with their place already held.",
-            "fix_label": "Fixed by Vol. 03"
+            "text": "Operating blueprints"
+          }
+        },
+        "include_FtxKU8": {
+          "type": "include",
+          "settings": {
+            "text": "Academy year calendar"
+          }
+        },
+        "include_4WwXAX": {
+          "type": "include",
+          "settings": {
+            "text": "62 scripts and templates"
+          }
+        },
+        "include_rgaxpD": {
+          "type": "include",
+          "settings": {
+            "text": "36 AI prompts"
+          }
+        },
+        "card_N4U3mp": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "The Parent Pipeline",
+            "level": "Level 1 / Attract",
+            "desc": "Become the name parents mention, through schools, nurseries, referrals and a local presence that fills trials without ads.",
+            "sticker": "Instant",
+            "cta": "View playbook",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        },
+        "card_gakcmc": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "The Trial Conversion",
+            "level": "Level 2 / Convert",
+            "desc": "Turn the free trial into an enrolment within 48 hours, without a discount, with the place already held.",
+            "sticker": "Instant",
+            "cta": "View playbook",
+            "link": "",
+            "price_was": "$64.99",
+            "price_now": "$54.99"
+          }
+        },
+        "card_rk6FRE": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "The Term Retention",
+            "level": "Level 3 / Keep",
+            "desc": "Keep families term after term with progress parents can see and a re-enrolment window that fills before it opens.",
+            "sticker": "Instant",
+            "cta": "View playbook",
+            "link": "",
+            "price_was": "$69.99",
+            "price_now": "$59.99"
+          }
+        },
+        "card_gUGQnT": {
+          "type": "card",
+          "settings": {
+            "product": "",
+            "title": "The Camp and Extras Engine",
+            "level": "Level 4 / Grow",
+            "desc": "Sell out holiday camps, intensives, privates and parties to the families you already have.",
+            "sticker": "Instant",
+            "cta": "View playbook",
+            "link": "",
+            "price_was": "$79.99",
+            "price_now": "$69.99"
           }
         }
       },
       "block_order": [
-        "step_nCaBAF",
-        "step_Kbeaez",
-        "step_qpz4Lh",
-        "step_TfAHrm",
-        "step_ddyPHP"
+        "include_jHUePN",
+        "include_rMNm7M",
+        "include_r9ybpD",
+        "include_gnzcQM",
+        "include_PEBh6y",
+        "include_FtxKU8",
+        "include_4WwXAX",
+        "include_rgaxpD",
+        "card_N4U3mp",
+        "card_gakcmc",
+        "card_rk6FRE",
+        "card_gUGQnT"
       ],
-      "name": "YQB Journey",
+      "name": "YQB Playbooks",
       "settings": {
-        "tag_text": "The parent journey",
+        "tag_text": "The enrolment kit",
         "show_tag_dot": true,
-        "heading": "Five steps from a worried parent to a family that stays. Three of them leak.",
+        "heading": "Four levels. Or the whole academy in one kit.",
         "heading_tag": "h2",
-        "intro": "<p>This is the path every one of your families walks. Most owners have never drawn it, so they post more, discount the trial, and wonder why the groups empty out every January.</p>",
-        "show_foot": true,
-        "foot_text": "Every leak on this path is <em>one playbook</em> away from fixed.",
-        "button_label": "See how it works",
-        "button_link": "shopify://collections/all",
-        "button_new_tab": false,
-        "button_arrow": true,
+        "intro": "<p>Pick the level where your families are leaking this term. Instant download, yours forever. Read once, set up once, run every intake on the new system.</p>",
+        "viewall_label": "View all playbooks",
+        "viewall_link": "shopify://collections/all",
+        "viewall_arrow": true,
+        "show_bundle": true,
+        "bundle_product": "",
+        "bundle_placeholder": "Kit cover",
+        "bundle_sticker": "Full kit",
+        "bundle_meta": "Vol. 05 / Complete system",
+        "bundle_title": "The Full-Enrolment Academy System",
+        "bundle_desc": "All four playbooks connected end to end, plus the operating blueprints that run them in two hours a week and keep every group full, every term, with a waitlist behind it.",
+        "bundle_price_was": "$119.99",
+        "bundle_price_now": "$79.99",
+        "bundle_button": "Get the full kit",
+        "bundle_button_arrow": true,
+        "bundle_link": "",
+        "show_bundle_stripes": true,
         "section_width": "full-width",
         "content_max_width": 1240,
         "heading_ratio": 52,
         "head_gap": 72,
-        "columns_desktop": 5,
-        "columns_tablet": 2,
+        "head_margin": 48,
+        "head_margin_mobile": 32,
+        "bundle_margin": 24,
+        "columns_desktop": 2,
+        "columns_tablet": "1",
         "columns_mobile": "1",
-        "span_last_tablet": true,
-        "steps_gap": 16,
-        "steps_gap_mobile": 14,
-        "head_margin": 56,
-        "head_margin_mobile": 36,
-        "foot_margin": 44,
+        "grid_gap": 24,
+        "thumb_width": 150,
+        "card_placeholder": "Cover",
+        "hide_card_desc_mobile": true,
         "use_custom_fonts": true,
         "heading_font": "inter_n8",
         "body_font": "nunito_sans_n4",
@@ -793,27 +988,226 @@
         "heading_max_width": 620,
         "intro_size": 16,
         "intro_max_width": 440,
-        "step_title_size": 19,
-        "step_body_size": 14,
-        "number_size": 40,
-        "foot_text_size": 26,
+        "bundle_title_size": 40,
+        "bundle_price_size": 36,
+        "card_title_size": 24,
+        "card_price_size": 26,
         "color_bg": "#F7F4EC",
         "color_ink": "#1A1B1F",
         "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
         "color_accent": "#5B3CC4",
         "color_secondary": "#7FD6C2",
         "color_highlight": "#FFD166",
-        "color_alert": "#F26B5B",
-        "color_on_alert": "#FFFFFF",
-        "leak_bg_opacity": 10,
         "color_card": "#FFFFFF",
-        "color_foot_bg": "#1A1B1F",
-        "color_foot_text": "#F7F4EC",
-        "color_foot_highlight": "#7FD6C2",
-        "color_button_bg": "#FFD166",
-        "color_button_text": "#1A1B1F",
-        "color_button_hover": "#7FD6C2",
+        "color_bundle_bg": "#231A4D",
+        "color_bundle_media_bg": "#5B3CC4",
+        "color_bundle_text": "#F7F4EC",
         "radius": 12,
+        "bundle_shadow": 10,
+        "card_hover_shadow": 6,
+        "bundle_media_height": 340,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
+        "padding_inline_mobile": 24
+      }
+    },
+    "yqb_reports_yhQK9G": {
+      "type": "yqb-reports",
+      "blocks": {
+        "yqb_report_card_HXgEkK": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Blue Lane Swim School",
+            "term": "After 2 terms",
+            "quote": "We were losing a third of families every January and calling it normal. The trial follow-up and the re-enrolment window filled term two before the holidays, with a waitlist.",
+            "name": "Hannah Price",
+            "role": "Owner, Blue Lane Swim School, 310 swimmers",
+            "show_avatar": true,
+            "avatar_initial": "",
+            "avatar_bg": "",
+            "avatar_color": "",
+            "sticker": "Full",
+            "sticker_bg": "",
+            "sticker_color": ""
+          },
+          "blocks": {
+            "yqb_report_grade_JUtRXb": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Trial to enrolment",
+                "before": "38%",
+                "after": "74%",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            },
+            "yqb_report_grade_NRTTt9": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Re-enrolment",
+                "before": "64%",
+                "after": "92%",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "yqb_report_grade_JUtRXb",
+            "yqb_report_grade_NRTTt9"
+          ]
+        },
+        "yqb_report_card_cTkcLH": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Northside Football Academy",
+            "term": "After 1 season",
+            "quote": "Three primary schools now send us their reception classes for taster sessions. Easter camp sold out in four days off one email to existing families.",
+            "name": "Marcus Okoye",
+            "role": "Founder, Northside Football Academy",
+            "show_avatar": true,
+            "avatar_initial": "",
+            "avatar_bg": "",
+            "avatar_color": "",
+            "sticker": "Waitlist",
+            "sticker_bg": "",
+            "sticker_color": ""
+          },
+          "blocks": {
+            "yqb_report_grade_w3iDJX": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Trials booked / month",
+                "before": "9",
+                "after": "31",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            },
+            "yqb_report_grade_P4zmEE": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Camp places sold",
+                "before": "46",
+                "after": "140",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "yqb_report_grade_w3iDJX",
+            "yqb_report_grade_P4zmEE"
+          ]
+        },
+        "yqb_report_card_pLhMba": {
+          "type": "_yqb-report-card",
+          "settings": {
+            "school": "Studio Rosa Dance",
+            "term": "After 2 terms",
+            "quote": "The progress reports changed how parents see us. They stopped asking if it was worth it and started asking about private lessons and the summer intensive.",
+            "name": "Rosa Ferreira",
+            "role": "Owner, Studio Rosa Dance",
+            "show_avatar": true,
+            "avatar_initial": "",
+            "avatar_bg": "",
+            "avatar_color": "",
+            "sticker": "Enrolled",
+            "sticker_bg": "",
+            "sticker_color": ""
+          },
+          "blocks": {
+            "yqb_report_grade_DfTzF3": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Drop-off at term end",
+                "before": "31%",
+                "after": "7%",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            },
+            "yqb_report_grade_mehM39": {
+              "type": "_yqb-report-grade",
+              "settings": {
+                "name": "Extras revenue",
+                "before": "0",
+                "after": "+28%",
+                "arrow": "→",
+                "after_bg": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "yqb_report_grade_DfTzF3",
+            "yqb_report_grade_mehM39"
+          ]
+        }
+      },
+      "block_order": [
+        "yqb_report_card_HXgEkK",
+        "yqb_report_card_cTkcLH",
+        "yqb_report_card_pLhMba"
+      ],
+      "name": "YQB Reports",
+      "settings": {
+        "tag_text": "Owner report cards",
+        "show_tag_dot": true,
+        "heading": "Owners who stopped chasing parents and filled every group.",
+        "heading_tag": "h2",
+        "intro": "<p>Field reports from swim schools, football academies and dance and gymnastics schools running the playbooks across the US, UK and Europe. Numbers as reported by the owner.</p>",
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "intro_align": "start",
+        "head_gap": 72,
+        "head_margin": 48,
+        "head_margin_mobile": 32,
+        "columns_desktop": 3,
+        "columns_tablet": 1,
+        "columns_mobile": "1",
+        "cards_gap": 24,
+        "cards_gap_tablet": 20,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 60,
+        "heading_size_mobile": 34,
+        "heading_max_width": 620,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "quote_size": 15,
+        "quote_italic": true,
+        "color_bg": "#FFFFFF",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
+        "color_accent": "#5B3CC4",
+        "color_on_accent": "#FFFFFF",
+        "color_secondary": "#7FD6C2",
+        "color_highlight": "#FFD166",
+        "color_tag_bg": "#FFFFFF",
+        "color_card": "#F7F4EC",
+        "color_card_head": "#FFFFFF",
+        "card_radius": 12,
+        "badge_radius": 6,
+        "border_width": 2,
+        "sticker_rotation": -3,
+        "tag_shadow": 3,
+        "hover_effect": true,
+        "hover_shadow": 6,
         "padding_top": 112,
         "padding_bottom": 112,
         "padding_inline": 48,
@@ -828,6 +1222,8 @@
     "yqb_hero_4wJndU",
     "yqb_year_kYaGTb",
     "yqb_journey_yaXYtm",
-    "yqb_levels_R8ryfH"
+    "yqb_levels_R8ryfH",
+    "yqb_playbooks_ipYVXQ",
+    "yqb_reports_yhQK9G"
   ]
 }
