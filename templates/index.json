@@ -876,12 +876,12 @@
         "card_N4U3mp": {
           "type": "card",
           "settings": {
-            "product": "",
-            "title": "The Parent Pipeline",
-            "level": "Level 1 / Attract",
-            "desc": "Become the name parents mention, through schools, nurseries, referrals and a local presence that fills trials without ads.",
+            "product": "100-canva-templates-social-media-pack",
+            "title": "",
+            "level": "SOCIAL MEDIA",
+            "desc": "Instagram posts, stories and highlight covers to start posting with confidence, no design skills needed.",
             "sticker": "Instant",
-            "cta": "View playbook",
+            "cta": "View pack",
             "link": "",
             "price_was": "$59.99",
             "price_now": "$49.99"
@@ -890,12 +890,12 @@
         "card_gakcmc": {
           "type": "card",
           "settings": {
-            "product": "",
-            "title": "The Trial Conversion",
-            "level": "Level 2 / Convert",
-            "desc": "Turn the free trial into an enrolment within 48 hours, without a discount, with the place already held.",
+            "product": "200-canva-templates-social-media-brand-pack",
+            "title": "",
+            "level": "BRAND",
+            "desc": "Posts, stories, carousels and highlights in matching styles, so your feed looks like one brand.",
             "sticker": "Instant",
-            "cta": "View playbook",
+            "cta": "View pack",
             "link": "",
             "price_was": "$64.99",
             "price_now": "$54.99"
@@ -904,12 +904,12 @@
         "card_rk6FRE": {
           "type": "card",
           "settings": {
-            "product": "",
-            "title": "The Term Retention",
-            "level": "Level 3 / Keep",
-            "desc": "Keep families term after term with progress parents can see and a re-enrolment window that fills before it opens.",
+            "product": "300-canva-templates-brand-business-pack",
+            "title": "",
+            "level": "BUSINESS",
+            "desc": "Social media plus flyers, business cards and price lists for your online and printed presence.",
             "sticker": "Instant",
-            "cta": "View playbook",
+            "cta": "View pack",
             "link": "",
             "price_was": "$69.99",
             "price_now": "$59.99"
@@ -918,15 +918,43 @@
         "card_gUGQnT": {
           "type": "card",
           "settings": {
-            "product": "",
-            "title": "The Camp and Extras Engine",
-            "level": "Level 4 / Grow",
-            "desc": "Sell out holiday camps, intensives, privates and parties to the families you already have.",
+            "product": "producto-4-400-templates",
+            "title": "",
+            "level": "CREATOR",
+            "desc": "Reels covers, YouTube thumbnails, Pinterest pins and posts for creators on every platform.",
             "sticker": "Instant",
-            "cta": "View playbook",
+            "cta": "View pack",
             "link": "",
             "price_was": "$79.99",
             "price_now": "$69.99"
+          }
+        },
+        "card_b4gfT9": {
+          "type": "card",
+          "settings": {
+            "product": "500-canva-templates-small-business-pack",
+            "title": "",
+            "level": "SMALL BUSINESS",
+            "desc": "Marketing, presentations, invoices and media kits for running and promoting your business.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
+          }
+        },
+        "card_ibUzhz": {
+          "type": "card",
+          "settings": {
+            "product": "600-canva-templates-professional-brand-studio",
+            "title": "",
+            "level": "PROFESSIONAL",
+            "desc": "Brand, business and personal designs: resumes, planners, proposals and more in one library.",
+            "sticker": "Instant",
+            "cta": "View pack",
+            "link": "",
+            "price_was": "$59.99",
+            "price_now": "$49.99"
           }
         }
       },
@@ -942,7 +970,9 @@
         "card_N4U3mp",
         "card_gakcmc",
         "card_rk6FRE",
-        "card_gUGQnT"
+        "card_gUGQnT",
+        "card_b4gfT9",
+        "card_ibUzhz"
       ],
       "name": "YQB Playbooks",
       "settings": {
