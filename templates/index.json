@@ -1315,16 +1315,16 @@
         "intro_max_width": 440,
         "col_title_size": 20,
         "item_size": 15,
-        "color_bg": "#F7F4EC",
-        "color_ink": "#1A1B1F",
-        "color_ink_soft": "#44454C",
-        "color_mute": "#74757D",
-        "color_line": "#D6D2C8",
-        "color_accent": "#5B3CC4",
-        "color_secondary": "#7FD6C2",
-        "color_card": "#FFFFFF",
-        "color_form_head_bg": "#F7F4EC",
-        "color_no_box_bg": "#FFFFFF",
+        "color_bg": "#f7f4ec",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_mute": "#74757d",
+        "color_line": "#d6d2c8",
+        "color_accent": "#5b3cc4",
+        "color_secondary": "#7fd6c2",
+        "color_card": "#ffffff",
+        "color_form_head_bg": "#f7f4ec",
+        "color_no_box_bg": "#ffffff",
         "radius": 12,
         "form_shadow": 10,
         "padding_top": 112,
@@ -1466,16 +1466,16 @@
         "question_size_mobile": 16,
         "answer_size": 15,
         "answer_max_width": 640,
-        "color_bg": "#FFFFFF",
-        "color_ink": "#1A1B1F",
-        "color_ink_soft": "#44454C",
-        "color_accent": "#5B3CC4",
-        "color_on_accent": "#FFFFFF",
-        "color_secondary": "#7FD6C2",
-        "color_highlight": "#FFD166",
-        "color_tag_bg": "#FFFFFF",
-        "color_card": "#F7F4EC",
-        "color_toggle_bg": "#FFFFFF",
+        "color_bg": "#ffffff",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_accent": "#5b3cc4",
+        "color_on_accent": "#ffffff",
+        "color_secondary": "#7fd6c2",
+        "color_highlight": "#ffd166",
+        "color_tag_bg": "#ffffff",
+        "color_card": "#f7f4ec",
+        "color_toggle_bg": "#ffffff",
         "radius": 12,
         "badge_radius": 6,
         "border_width": 2,
@@ -1489,6 +1489,243 @@
         "padding_bottom_mobile": 72,
         "padding_inline_mobile": 24
       }
+    },
+    "yqb_disclosure_b7rMnQ": {
+      "type": "yqb-disclosure",
+      "blocks": {
+        "sticker_WRDAYd": {
+          "type": "sticker",
+          "settings": {
+            "text": "Full",
+            "bg": "#7fd6c2",
+            "color": "",
+            "rotation": -3
+          }
+        },
+        "sticker_ciNFqU": {
+          "type": "sticker",
+          "settings": {
+            "text": "Waitlist",
+            "bg": "#ffd166",
+            "color": "",
+            "rotation": 2
+          }
+        },
+        "sticker_ramNM8": {
+          "type": "sticker",
+          "settings": {
+            "text": "Enrolled",
+            "bg": "#5b3cc4",
+            "color": "#ffffff",
+            "rotation": -2
+          }
+        },
+        "sticker_FkVtR4": {
+          "type": "sticker",
+          "settings": {
+            "text": "Term 1 to 3",
+            "bg": "#f7f4ec",
+            "color": "",
+            "rotation": 3
+          }
+        },
+        "info_nk4Jpd": {
+          "type": "info",
+          "settings": {
+            "label": "Legal entity",
+            "body": "<p><strong>Your Company LLC</strong>EIN: 00-0000000</p>"
+          }
+        },
+        "info_TwRMFm": {
+          "type": "info",
+          "settings": {
+            "label": "Registered address",
+            "body": "<p>Street address, City, State ZIP, Country</p>"
+          }
+        },
+        "info_43jTdc": {
+          "type": "info",
+          "settings": {
+            "label": "Operations",
+            "body": "<p>Remote-first company. Operates globally and provides online services and digital products to clients worldwide.</p>"
+          }
+        },
+        "info_DhUNhX": {
+          "type": "info",
+          "settings": {
+            "label": "Contact",
+            "body": "<p><a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Insert phone number here</p>"
+          }
+        }
+      },
+      "block_order": [
+        "sticker_WRDAYd",
+        "sticker_ciNFqU",
+        "sticker_ramNM8",
+        "sticker_FkVtR4",
+        "info_nk4Jpd",
+        "info_TwRMFm",
+        "info_43jTdc",
+        "info_DhUNhX"
+      ],
+      "name": "YQB Disclosure",
+      "settings": {
+        "wordmark": "",
+        "logo_width": 220,
+        "masthead": "Growth systems for swim schools and kids sports academies",
+        "show_legal": true,
+        "legal_label": "Disclaimer",
+        "legal_text": "<p>The information, digital products, and services provided on this website are for educational and informational purposes only and do not constitute legal, financial, tax, investment, child-safeguarding, coaching-qualification or professional advice. Users remain responsible for compliance with all safeguarding, licensing and insurance requirements applicable to working with children in their jurisdiction. Results are not typical and depend on individual effort, implementation, market conditions and many other factors outside our control.</p>",
+        "copyright": "Copyright [year] [shop]. All rights reserved.",
+        "show_policies": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "brand_ratio": 55,
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": "1",
+        "legal_label_width": 160,
+        "legal_max_width": 960,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "wordmark_size": 56,
+        "wordmark_size_mobile": 34,
+        "body_size": 14,
+        "legal_size": 12,
+        "color_bg": "#F7F4EC",
+        "color_card": "#FFFFFF",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
+        "color_accent": "#5B3CC4",
+        "radius": 12,
+        "badge_radius": 6,
+        "border_width": 2,
+        "padding_top": 80,
+        "padding_bottom": 56,
+        "padding_inline": 48,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 40,
+        "padding_inline_mobile": 24
+      }
+    },
+    "yqb_cta_cPK46h": {
+      "type": "yqb-cta",
+      "blocks": {
+        "button_yahcLG": {
+          "type": "button",
+          "settings": {
+            "label": "Browse the playbooks",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        "button_ppPgAJ": {
+          "type": "button",
+          "settings": {
+            "label": "Get the full kit",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "ghost",
+            "show_arrow": false
+          }
+        },
+        "line_VNAJGg": {
+          "type": "line",
+          "settings": {
+            "label": "Trial to enrolment",
+            "value": "70% and up"
+          }
+        },
+        "line_krjdFQ": {
+          "type": "line",
+          "settings": {
+            "label": "Re-enrolment",
+            "value": "90% and up"
+          }
+        },
+        "line_9rL4xa": {
+          "type": "line",
+          "settings": {
+            "label": "Discount given",
+            "value": "None"
+          }
+        },
+        "line_M8txrp": {
+          "type": "line",
+          "settings": {
+            "label": "Camps",
+            "value": "Sold out"
+          }
+        }
+      },
+      "block_order": [
+        "button_yahcLG",
+        "button_ppPgAJ",
+        "line_VNAJGg",
+        "line_krjdFQ",
+        "line_9rL4xa",
+        "line_M8txrp"
+      ],
+      "name": "YQB CTA",
+      "settings": {
+        "tag_text": "Your move",
+        "heading": "Next term starts with one playbook.",
+        "heading_tag": "h2",
+        "subheading": "<p>Stop discounting the trial and hoping families come back in January. Pick the level where your groups are leaking, and run the next intake on a system built to enrol.</p>",
+        "show_proof": true,
+        "stars_count": 5,
+        "proof_text": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+        "show_card": true,
+        "card_decorative": true,
+        "card_label_left": "Next term",
+        "card_label_right": "Status",
+        "sticker_text": "Enrolled",
+        "sticker_small": "Waitlist open",
+        "sticker_rotation": -5,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "card_position": "right",
+        "copy_ratio": 56,
+        "gap": 72,
+        "gap_tablet": 48,
+        "card_max_width_tablet": 560,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 70,
+        "heading_size_mobile": 50,
+        "heading_max_width": 600,
+        "sub_size": 17,
+        "sub_size_mobile": 16,
+        "sub_max_width": 520,
+        "sticker_size": 42,
+        "sticker_size_mobile": 32,
+        "color_bg": "#231A4D",
+        "color_text": "#F7F4EC",
+        "color_text_soft": "#CFC9DD",
+        "color_mute": "#9A93B5",
+        "color_card": "#2D2360",
+        "color_line": "#F7F4EC29",
+        "color_dark": "#1A1B1F",
+        "color_secondary": "#7FD6C2",
+        "color_highlight": "#FFD166",
+        "radius": 12,
+        "button_shadow": 4,
+        "show_stripes": true,
+        "stripe_height": 14,
+        "stripe_opacity": 50,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_inline": 48,
+        "padding_top_mobile": 80,
+        "padding_bottom_mobile": 80,
+        "padding_inline_mobile": 24
+      }
     }
   },
   "order": [
@@ -1500,6 +1737,8 @@
     "yqb_playbooks_ipYVXQ",
     "yqb_reports_yhQK9G",
     "yqb_eligibility_mJTUkk",
-    "yqb_faq_Kr4j3Q"
+    "yqb_faq_Kr4j3Q",
+    "yqb_cta_cPK46h",
+    "yqb_disclosure_b7rMnQ"
   ]
 }
