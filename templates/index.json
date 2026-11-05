@@ -1371,84 +1371,84 @@
         "question_GKr4iG": {
           "type": "question",
           "settings": {
-            "badge": "Owners ask",
+            "badge": "BEFORE YOU BUY",
             "badge_style": "highlight",
             "badge_bg": "",
             "badge_color": "",
-            "question": "What exactly do I get when I buy a playbook?",
-            "answer": "<p>An instant digital download: the full step-by-step guide as a PDF, plus every parent message, trial script, progress report template, re-enrolment sequence and camp launch email referenced inside it. Yours to keep and reuse every term.</p>",
+            "question": "What exactly do I get when I buy a pack?",
+            "answer": "<p>You get a digital download with your Canva templates, fully editable. Each pack lists exactly how many templates it includes and for which formats (posts, stories, flyers, presentations and more).</p>",
             "open_by_default": false
           }
         },
         "question_ayLiGw": {
           "type": "question",
           "settings": {
-            "badge": "Owners ask",
+            "badge": "before you buy",
             "badge_style": "highlight",
             "badge_bg": "",
             "badge_color": "",
-            "question": "Does this work for my kind of academy?",
-            "answer": "<p>The playbooks are built for swim schools, football, rugby and tennis academies, gymnastics, dance, cheer and martial-arts schools for children, from 50 to 800 students, one to three sites, whether you own the venue or hire a pool or hall by the hour.</p>",
+            "question": "Does this work for my kind of business?",
+            "answer": "<p>If you create content or promote a business, yes: online shops, creators, freelancers, studios and small businesses. The designs are made to be customized with your own colors, fonts and photos.</p><p></p>",
             "open_by_default": false
           }
         },
         "question_tJ84f8": {
           "type": "question",
           "settings": {
-            "badge": "Parents ask",
-            "badge_style": "secondary",
+            "badge": "BEFORE YOU BUY",
+            "badge_style": "highlight",
             "badge_bg": "",
             "badge_color": "",
-            "question": "Why should I pay when the trial was free?",
-            "answer": "<p>This is the question Vol. 02 answers for you. The trial is scripted so the parent sees progress, a plan and a held place, and the enrolment conversation happens before they leave, not in a discount email three days later.</p>",
+            "question": "Why should I pay when Canva has free templates?",
+            "answer": "<p>Our templates are curated sets in matching styles, organized by goal. You skip the hours of searching and mixing styles, and your designs look like they belong to one brand.</p>",
             "open_by_default": false
           }
         },
         "question_xTKAkx": {
           "type": "question",
           "settings": {
-            "badge": "Owners ask",
+            "badge": "BEFORE YOU BUY",
             "badge_style": "highlight",
             "badge_bg": "",
             "badge_color": "",
-            "question": "I already use booking software. Do I need this?",
-            "answer": "<p>Yes, and the two work together. Software takes the payment and sends the reminder. The playbooks decide what the parent hears before the trial, what happens at the poolside, when the re-enrolment window opens and how the camp gets sold. No software does that for you.</p>",
+            "question": "Do I need Canva Pro?",
+            "answer": "<p>No. A free Canva account works for most templates. Some elements may require Canva Pro, and those are noted in the download.</p>",
             "open_by_default": false
           }
         },
         "question_AtnFN9": {
           "type": "question",
           "settings": {
-            "badge": "Parents ask",
+            "badge": "After you buy",
             "badge_style": "secondary",
             "badge_bg": "",
             "badge_color": "",
-            "question": "Is my child actually improving?",
-            "answer": "<p>The question behind every drop-off. Vol. 03 gives you the progress report format, the level-up moment and the mid-term check-in that make progress visible to the parent, so re-enrolment becomes the obvious next step instead of a decision.</p>",
+            "question": "Can I edit the templates on my phone?",
+            "answer": "<p>Yes. You can edit them from the Canva app on your phone, tablet or computer.</p>",
             "open_by_default": false
           }
         },
         "question_jUx6qd": {
           "type": "question",
           "settings": {
-            "badge": "Owners ask",
-            "badge_style": "highlight",
+            "badge": "After you buy",
+            "badge_style": "secondary",
             "badge_bg": "",
             "badge_color": "",
-            "question": "How fast will I see results?",
-            "answer": "<p>Most owners install the trial conversion system in a week and see the next intake convert higher. Retention shows at the next term end. Camps and extras show the first time you run the launch sequence to existing families.</p>",
+            "question": "How fast can I start using them?",
+            "answer": "<p>Right away. After purchase you can download your templates, open them in Canva and start editing in minutes.</p>",
             "open_by_default": false
           }
         },
         "question_gUXdNj": {
           "type": "question",
           "settings": {
-            "badge": "Owners ask",
+            "badge": "After you buy",
             "badge_style": "highlight",
             "badge_bg": "",
             "badge_color": "",
             "question": "How do I access my purchase, and what is the refund policy?",
-            "answer": "<p>You receive a download link by email immediately after checkout, and it is also saved to your account. Because these are instant digital products, please review the description before buying. Full terms are in our refund policy.</p>",
+            "answer": "<p>You will receive your download link by email right after purchase.&nbsp;</p>",
             "open_by_default": false
           }
         }
@@ -1466,12 +1466,12 @@
       "settings": {
         "tag_text": "Questions",
         "show_tag_dot": true,
-        "heading": "What owners ask us. And what parents ask you.",
+        "heading": "What buyers ask us. Answered before you check out.&nbsp;",
         "heading_tag": "h2",
         "intro": "<p>Nothing hidden, no fine print. If your question is not below, the team replies within one business day.</p>",
         "show_contact": true,
         "contact_tag": "Still deciding",
-        "contact_text": "Tell us where your families are leaking. We will point you to the right level.",
+        "contact_text": "Tell us what you want to create. We will point you to the right pack.&nbsp;",
         "button_label": "Email us",
         "button_link": "",
         "button_arrow": true,
