@@ -40,10 +40,12 @@
   </style>
 {%- endif -%}
 
-<div class="section-background color-custom-{{ section.id }}"></div>
-<section
-  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-hero{% if s.show_stripes %} yqb-hero--stripes{% endif %}{% if s.board_position == 'left' %} yqb-hero--board-left{% endif %}{% if s.board_first_mobile %} yqb-hero--board-first-mobile{% endif %}"
-  style="
+{%- comment -%}
+  Dynamic values live in a scoped <style> (not a style="" attribute): font
+  fallback_families can contain double quotes that would break the attribute.
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .yqb-hero {
     --yqb-bg: {{ s.color_bg }};
     --yqb-ink: {{ s.color_ink }};
     --yqb-ink-soft: {{ s.color_ink_soft }};
@@ -81,8 +83,11 @@
     --yqb-button-shadow: {{ s.button_shadow }}px;
     --yqb-stripe-height: {{ s.stripe_height }}px;
     --yqb-stripe-opacity: {{ s.stripe_opacity | divided_by: 100.0 }};
-  "
->
+  }
+</style>
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-hero{% if s.show_stripes %} yqb-hero--stripes{% endif %}{% if s.board_position == 'left' %} yqb-hero--board-left{% endif %}{% if s.board_first_mobile %} yqb-hero--board-first-mobile{% endif %}">
   <div class="yqb-hero__inner">
     <div class="yqb-hero__copy">
       {%- if s.tag_text != blank -%}

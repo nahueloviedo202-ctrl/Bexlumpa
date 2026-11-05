@@ -60,8 +60,8 @@
     --yqb-tag-shadow: {{ s.tag_shadow }}px;
     --yqb-hover-shadow: {{ s.hover_shadow }}px;
     {%- if s.use_custom_fonts %}
-      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
-      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+      --yqb-font-heading: {{ heading_font.family | escape }}, {{ heading_font.fallback_families | escape }};
+      --yqb-font-body: {{ body_font.family | escape }}, {{ body_font.fallback_families | escape }};
     {%- endif %}
     --yqb-max-width: {{ s.content_max_width }}px;
     --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
