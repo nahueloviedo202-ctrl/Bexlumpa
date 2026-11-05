@@ -220,7 +220,7 @@
         "button_YnkQta": {
           "type": "button",
           "settings": {
-            "label": "Browse the playbooks",
+            "label": "Browse the templates",
             "link": "shopify://collections/all",
             "open_new_tab": false,
             "style": "primary",
@@ -240,61 +240,61 @@
         "row_9JB6TM": {
           "type": "row",
           "settings": {
-            "time": "09:00",
-            "name": "Ducklings swim",
-            "level": "Ages 3 to 4, stage 1",
-            "status": "full",
-            "status_label": "Full"
+            "time": "Mon",
+            "name": "New product post",
+            "level": "Instagram post",
+            "status": "open",
+            "status_label": "READY"
           }
         },
         "row_DrCPLT": {
           "type": "row",
           "settings": {
-            "time": "09:45",
-            "name": "Mini kickers football",
-            "level": "Ages 5 to 6",
-            "status": "waitlist",
-            "status_label": "Waitlist"
+            "time": "Tue",
+            "name": "Behind the scenes",
+            "level": "Instagram story",
+            "status": "full",
+            "status_label": "Editing"
           }
         },
         "row_azd6VF": {
           "type": "row",
           "settings": {
-            "time": "10:30",
-            "name": "Stage 3 swimmers",
-            "level": "Ages 6 to 8",
-            "status": "full",
-            "status_label": "Full"
+            "time": "Wed",
+            "name": "5 tips carousel",
+            "level": "5 slides",
+            "status": "open",
+            "status_label": "Ready"
           }
         },
         "row_zK4kgH": {
           "type": "row",
           "settings": {
-            "time": "11:15",
-            "name": "Gymnastics foundations",
-            "level": "Ages 5 to 7",
-            "status": "open",
-            "status_label": "2 spots"
+            "time": "Thu",
+            "name": "Reel cover",
+            "level": "Cover design",
+            "status": "waitlist",
+            "status_label": "Posted"
           }
         },
         "row_jnLeEi": {
           "type": "row",
           "settings": {
-            "time": "12:00",
-            "name": "Little dragons karate",
-            "level": "Ages 6 to 9",
+            "time": "Fri",
+            "name": "Sale announcement",
+            "level": "Flyer",
             "status": "full",
-            "status_label": "Full"
+            "status_label": "Editing"
           }
         },
         "row_UfLRDr": {
           "type": "row",
           "settings": {
-            "time": "13:00",
-            "name": "Squad development",
-            "level": "Ages 9 to 12",
-            "status": "waitlist",
-            "status_label": "Waitlist"
+            "time": "Sat",
+            "name": "Weekly recap",
+            "level": "Instagram story",
+            "status": "open",
+            "status_label": "Ready"
           }
         }
       },
@@ -310,23 +310,23 @@
       ],
       "name": "YQB Hero",
       "settings": {
-        "tag_text": "Growth systems for swim schools and kids sports academies",
+        "tag_text": "TEMPLATE PACKS FOR CREATORS AND SMALL BUSINESSES",
         "show_tag_dot": true,
-        "heading": "Every class <em>full,</em> every term. Without chasing parents.",
+        "heading": "Every post <em>ready,</em> every week. Without starting from scratch.",
         "heading_tag": "h1",
-        "subheading": "<p>Practical, no-fluff playbooks that help swim schools, football and gymnastics academies, dance and martial-arts schools win trusting parents, turn free trials into enrolments, keep families term after term and sell out camps. No agency. No booking-software upsell. No guesswork.</p>",
+        "subheading": "<p>Beautiful, fully editable Canva templates that help small businesses, creators and freelancers post consistently, look professional and save hours of design time. No design skills. No expensive software. No blank canvas.</p>",
         "show_proof": true,
         "stars_count": 5,
-        "proof_text": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+        "proof_text": "Instant download · 100% editable in Canva · Free account works",
         "show_board": true,
-        "board_title": "Saturday timetable",
-        "board_label": "Term 1 / Week 6 of 12",
+        "board_title": "Weekly content plan",
+        "board_label": "WEEK 6 OF 12",
         "board_aria_label": "Example weekly timetable",
         "show_board_footer": true,
-        "meter_label": "Places enrolled this term",
-        "meter_value": "212 / 240",
-        "meter_fill": 90,
-        "meter_note": "+38 families re-enrolled before term 2 opened",
+        "meter_label": "Templates used this mont",
+        "meter_value": "74 / 100",
+        "meter_fill": 74,
+        "meter_note": "Edited in minutes, not hours",
         "section_width": "page-width",
         "content_max_width": 1240,
         "board_position": "right",
