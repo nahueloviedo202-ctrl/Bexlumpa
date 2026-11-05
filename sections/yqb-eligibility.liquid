@@ -1,0 +1,882 @@
+{%- comment -%}
+  YQB Eligibility: header (tag, heading, intro) and a "form" card with two
+  checklist columns (for you / not for you).
+
+  Blocks:
+  - yes_item: item in the "for you" column
+  - no_item: item in the "not for you" column
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign intro_ratio = 100 | minus: s.heading_ratio
+
+  assign yes_blocks = section.blocks | where: 'type', 'yes_item'
+  assign no_blocks = section.blocks | where: 'type', 'no_item'
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+    assign body_800 = body_font | font_modify: 'weight', '800'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_800 %}{{ body_800 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+{%- comment -%}
+  Dynamic values live in a scoped <style> (not a style="" attribute): font
+  fallback_families can contain double quotes that would break the attribute.
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .yqb-elig {
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-form-head-bg: {{ s.color_form_head_bg }};
+    --yqb-no-box-bg: {{ s.color_no_box_bg }};
+    --yqb-radius: {{ s.radius }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
+    --yqb-head-gap: {{ s.head_gap }}px;
+    --yqb-head-mb: {{ s.head_margin }}px;
+    --yqb-head-mb-mobile: {{ s.head_margin_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-form-shadow: {{ s.form_shadow }}px;
+    --yqb-col-title-size: {{ s.col_title_size }}px;
+    --yqb-item-size: {{ s.item_size }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+  }
+</style>
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-elig">
+  <div class="yqb-elig__inner">
+    {%- if s.tag_text != blank or s.heading != blank or s.intro != blank -%}
+      <div class="yqb-elig__head">
+        <div>
+          {%- if s.tag_text != blank -%}
+            <span class="yqb-term{% if s.show_tag_dot %} yqb-term--dot{% endif %}">{{ s.tag_text | escape }}</span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <{{ s.heading_tag }} class="yqb-elig__heading">{{ s.heading }}</{{ s.heading_tag }}>
+          {%- endif -%}
+        </div>
+        {%- if s.intro != blank -%}
+          <div class="yqb-elig__intro">{{ s.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="yqb-form">
+      {%- if s.form_label_left != blank or s.form_label_right != blank -%}
+        <div class="yqb-form__head">
+          <span>{{ s.form_label_left | escape }}</span>
+          <span class="yqb-form__head-note">{{ s.form_label_right | escape }}</span>
+        </div>
+      {%- endif -%}
+      <div class="yqb-form__cols">
+        <div class="yqb-form__col yqb-form__col--yes">
+          {%- if s.yes_sub != blank -%}
+            <p class="yqb-form__col-sub">{{ s.yes_sub | escape }}</p>
+          {%- endif -%}
+          {%- if s.yes_title != blank -%}
+            <h3 class="yqb-form__col-title">
+              <span aria-hidden="true">{{ s.yes_icon | escape }}</span>
+              {{- s.yes_title | escape -}}
+            </h3>
+          {%- endif -%}
+          {%- if yes_blocks.size > 0 -%}
+            <ul class="yqb-form__list" role="list">
+              {%- for block in yes_blocks -%}
+                <li class="yqb-form__item" {{ block.shopify_attributes }}>
+                  <span class="yqb-form__box" aria-hidden="true">{{ s.yes_icon | escape }}</span>
+                  <span>{{ block.settings.text | escape }}</span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+        <div class="yqb-form__col yqb-form__col--no">
+          {%- if s.no_sub != blank -%}
+            <p class="yqb-form__col-sub">{{ s.no_sub | escape }}</p>
+          {%- endif -%}
+          {%- if s.no_title != blank -%}
+            <h3 class="yqb-form__col-title">
+              <span aria-hidden="true">{{ s.no_icon | escape }}</span>
+              {{- s.no_title | escape -}}
+            </h3>
+          {%- endif -%}
+          {%- if no_blocks.size > 0 -%}
+            <ul class="yqb-form__list" role="list">
+              {%- for block in no_blocks -%}
+                <li class="yqb-form__item" {{ block.shopify_attributes }}>
+                  <span class="yqb-form__box" aria-hidden="true">{{ s.no_icon | escape }}</span>
+                  <span>{{ block.settings.text | escape }}</span>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-elig {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-elig *,
+  .yqb-elig *::before,
+  .yqb-elig *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-elig .yqb-elig__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  /* Head */
+  .yqb-elig .yqb-elig__head {
+    display: grid;
+    grid-template-columns: var(--yqb-head-cols);
+    gap: var(--yqb-head-gap);
+    align-items: end;
+    margin-bottom: var(--yqb-head-mb);
+  }
+
+  .yqb-elig .yqb-term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: 3px 3px 0 var(--yqb-violet);
+  }
+
+  .yqb-elig .yqb-term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-aqua);
+    border: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-elig .yqb-elig__heading {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-weight: 800;
+    font-size: clamp(34px, 4.4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0;
+    max-width: var(--yqb-heading-max-width);
+  }
+
+  .yqb-elig .yqb-elig__heading em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-elig .yqb-elig__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    margin: 0;
+    max-width: var(--yqb-intro-max-width);
+  }
+
+  .yqb-elig .yqb-elig__intro p {
+    margin: 0;
+  }
+
+  .yqb-elig .yqb-elig__intro p + p {
+    margin-top: 1em;
+  }
+
+  /* Form card */
+  .yqb-elig .yqb-form {
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    box-shadow: var(--yqb-form-shadow) var(--yqb-form-shadow) 0 var(--yqb-violet);
+    overflow: hidden;
+  }
+
+  .yqb-elig .yqb-form__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 18px 28px;
+    background: var(--yqb-form-head-bg);
+    border-bottom: 2px solid var(--yqb-ink);
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-elig .yqb-form__head-note {
+    color: var(--yqb-mute);
+  }
+
+  .yqb-elig .yqb-form__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .yqb-elig .yqb-form__col {
+    min-width: 0;
+    padding: 24px 28px 20px;
+  }
+
+  .yqb-elig .yqb-form__col + .yqb-form__col {
+    border-left: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-elig .yqb-form__col-sub {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+    margin: 0 0 8px;
+  }
+
+  .yqb-elig .yqb-form__col-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-size: var(--yqb-col-title-size);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 8px;
+  }
+
+  .yqb-elig .yqb-form__col-title span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 8px;
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+
+  .yqb-elig .yqb-form__col--yes .yqb-form__col-title span {
+    background: var(--yqb-aqua);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-elig .yqb-form__col--no .yqb-form__col-title span {
+    background: var(--yqb-form-head-bg);
+    color: var(--yqb-mute);
+  }
+
+  .yqb-elig .yqb-form__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .yqb-elig .yqb-form__item {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--yqb-line);
+    font-size: var(--yqb-item-size);
+    line-height: 1.6;
+    color: var(--yqb-ink-soft);
+  }
+
+  .yqb-elig .yqb-form__item:last-child {
+    border-bottom: none;
+  }
+
+  .yqb-elig .yqb-form__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .yqb-elig .yqb-form__col--yes .yqb-form__box {
+    background: var(--yqb-aqua);
+    color: var(--yqb-ink);
+  }
+
+  .yqb-elig .yqb-form__col--no .yqb-form__box {
+    background: var(--yqb-no-box-bg);
+    color: var(--yqb-mute);
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-elig {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-elig .yqb-elig__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-elig .yqb-elig__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: var(--yqb-head-mb-mobile);
+    }
+
+    .yqb-elig .yqb-form {
+      box-shadow: calc(var(--yqb-form-shadow) * 0.8) calc(var(--yqb-form-shadow) * 0.8) 0 var(--yqb-violet);
+    }
+
+    .yqb-elig .yqb-form__cols {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .yqb-elig .yqb-form__col + .yqb-form__col {
+      border-left: none;
+      border-top: 2px solid var(--yqb-ink);
+    }
+
+    .yqb-elig .yqb-form__head,
+    .yqb-elig .yqb-form__col {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Eligibility",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "yes_item",
+      "name": "Ítem: es para vos",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "You are ready to set a system up once, between terms, and run every intake on it from then on."
+        }
+      ]
+    },
+    {
+      "type": "no_item",
+      "name": "Ítem: no es para vos",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto",
+          "default": "You run a national franchise or a leisure-centre chain with an in-house marketing team."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "Eligibility check"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "Usa cursiva para resaltar con el color de acento.",
+      "default": "Built for owners who still coach on Saturdays. Not for everyone."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introducción",
+      "default": "<p>We would rather lose a sale than send a playbook to someone who will never open it between terms. Tick both columns honestly before checkout.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Formulario"
+    },
+    {
+      "type": "text",
+      "id": "form_label_left",
+      "label": "Texto superior izquierdo",
+      "default": "Enrolment form / owner"
+    },
+    {
+      "type": "text",
+      "id": "form_label_right",
+      "label": "Texto superior derecho",
+      "default": "Tick all that apply"
+    },
+    {
+      "type": "text",
+      "id": "yes_sub",
+      "label": "Columna A: subtítulo",
+      "default": "Section A"
+    },
+    {
+      "type": "text",
+      "id": "yes_title",
+      "label": "Columna A: título",
+      "default": "This is for you if"
+    },
+    {
+      "type": "text",
+      "id": "yes_icon",
+      "label": "Columna A: símbolo",
+      "default": "✓"
+    },
+    {
+      "type": "text",
+      "id": "no_sub",
+      "label": "Columna B: subtítulo",
+      "default": "Section B"
+    },
+    {
+      "type": "text",
+      "id": "no_title",
+      "label": "Columna B: título",
+      "default": "This is not for you if"
+    },
+    {
+      "type": "text",
+      "id": "no_icon",
+      "label": "Columna B: símbolo",
+      "default": "✕"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "heading_ratio",
+      "label": "Ancho de la columna del título",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "head_gap",
+      "label": "Espacio entre título e introducción",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "head_margin",
+      "label": "Espacio bajo el encabezado",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "head_margin_mobile",
+      "label": "Espacio bajo el encabezado (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva, usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 34,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la introducción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la introducción",
+      "min": 280,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "col_title_size",
+      "label": "Tamaño del título de columna",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "item_size",
+      "label": "Tamaño del texto de los ítems",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de introducción e ítems",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Separadores de ítems",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (etiqueta, sombra, resaltado)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Casillas de la columna A",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo del formulario",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_form_head_bg",
+      "label": "Fondo de la franja superior y símbolo B",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_no_box_bg",
+      "label": "Casillas de la columna B",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio del formulario",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "form_shadow",
+      "label": "Sombra del formulario",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Eligibility",
+      "blocks": [
+        { "type": "yes_item", "settings": { "text": "You run a swim school, sports academy, dance, gymnastics or martial-arts school for children, with 50 to 800 students across one to three sites." } },
+        { "type": "yes_item", "settings": { "text": "You are excellent with kids, but talking to parents about enrolment, re-enrolment and money is the part you avoid." } },
+        { "type": "yes_item", "settings": { "text": "You lose a quarter or more of your families every term end and have accepted it as normal." } },
+        { "type": "yes_item", "settings": { "text": "You want ready-to-use parent messages, trial scripts, progress report templates and camp launch sequences, not a theory course." } },
+        { "type": "yes_item", "settings": { "text": "You are ready to set a system up once, between terms, and run every intake on it from then on." } },
+        { "type": "no_item", "settings": { "text": "You want a booking app to fill the groups for you so you never have to talk to a parent." } },
+        { "type": "no_item", "settings": { "text": "You are going to buy the playbook and leave it unopened in your downloads folder." } },
+        { "type": "no_item", "settings": { "text": "You believe the free trial plus a discount is the only way to enrol a family, and you are not willing to change how you run it." } },
+        { "type": "no_item", "settings": { "text": "You run a national franchise or a leisure-centre chain with an in-house marketing team." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

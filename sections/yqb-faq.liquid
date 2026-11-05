@@ -1,0 +1,1152 @@
+{%- comment -%}
+  YQB FAQ: left column (tag, heading, intro, contact card) and a list of
+  collapsible questions on the right. Each question reuses Horizon's
+  accordion-custom component (open animation, default open state).
+
+  Blocks:
+  - question: FAQ item
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign right_ratio = 100 | minus: s.left_ratio
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-faq{% if s.sticky_left %} yqb-faq--sticky{% endif %}"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-on-accent: {{ s.color_on_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-tag-bg: {{ s.color_tag_bg }};
+    --yqb-toggle-bg: {{ s.color_toggle_bg }};
+    --yqb-radius: {{ s.radius }}px;
+    --yqb-badge-radius: {{ s.badge_radius }}px;
+    --yqb-border: {{ s.border_width }}px;
+    --yqb-tag-shadow: {{ s.tag_shadow }}px;
+    --yqb-contact-shadow: {{ s.contact_shadow }}px;
+    --yqb-open-shadow: {{ s.open_shadow }}px;
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-cols: minmax(0, {{ s.left_ratio }}fr) minmax(0, {{ right_ratio }}fr);
+    --yqb-gap: {{ s.column_gap }}px;
+    --yqb-gap-tablet: {{ s.column_gap_tablet }}px;
+    --yqb-sticky-top: {{ s.sticky_offset }}px;
+    --yqb-items-gap: {{ s.items_gap }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-contact-max-width: {{ s.contact_max_width }}px;
+    --yqb-question-size: {{ s.question_size }}px;
+    --yqb-question-size-mobile: {{ s.question_size_mobile }}px;
+    --yqb-answer-size: {{ s.answer_size }}px;
+    --yqb-answer-max-width: {{ s.answer_max_width }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family | escape }}, {{ heading_font.fallback_families | escape }};
+      --yqb-font-body: {{ body_font.family | escape }}, {{ body_font.fallback_families | escape }};
+    {%- endif %}
+  "
+>
+  <div class="yqb-faq__inner">
+    <div class="yqb-faq__left">
+      {%- if s.tag_text != blank -%}
+        <span class="yqb-faq__term{% if s.show_tag_dot %} yqb-faq__term--dot{% endif %}">
+          {{- s.tag_text | escape -}}
+        </span>
+      {%- endif -%}
+
+      {%- if s.heading != blank -%}
+        <{{ s.heading_tag }} class="yqb-faq__heading">{{ s.heading }}</{{ s.heading_tag }}>
+      {%- endif -%}
+
+      {%- if s.intro != blank -%}
+        <div class="yqb-faq__intro">{{ s.intro }}</div>
+      {%- endif -%}
+
+      {%- if s.show_contact -%}
+        <div class="yqb-faq__contact">
+          {%- if s.contact_tag != blank -%}
+            <p class="yqb-faq__contact-tag">{{ s.contact_tag | escape }}</p>
+          {%- endif -%}
+          {%- if s.contact_text != blank -%}
+            <p class="yqb-faq__contact-text">{{ s.contact_text }}</p>
+          {%- endif -%}
+          {%- if s.button_label != blank -%}
+            <a
+              {% if s.button_link != blank %}
+                href="{{ s.button_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              {% if s.button_new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+              class="yqb-faq__btn"
+            >
+              {{- s.button_label | escape -}}
+              {%- if s.button_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="yqb-faq__list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign badge_style = ''
+            if b.badge_bg != blank
+              assign badge_style = badge_style | append: '--yqb-who-bg: ' | append: b.badge_bg | append: ';'
+            endif
+            if b.badge_color != blank
+              assign badge_style = badge_style | append: '--yqb-who-color: ' | append: b.badge_color | append: ';'
+            endif
+          -%}
+          {%- capture faq_item -%}
+            <details class="yqb-faq__item" {{ block.shopify_attributes }}>
+              <summary class="yqb-faq__q">
+                {%- if b.badge != blank -%}
+                  <span
+                    class="yqb-faq__who yqb-faq__who--{{ b.badge_style }}"
+                    {% if badge_style != blank %}
+                      style="{{ badge_style }}"
+                    {% endif %}
+                  >
+                    {{- b.badge | escape -}}
+                  </span>
+                {%- endif -%}
+                <span class="yqb-faq__q-text">{{ b.question | escape }}</span>
+                <span class="yqb-faq__toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="yqb-faq__a details-content">
+                <div class="yqb-faq__a-inner">{{ b.answer }}</div>
+              </div>
+            </details>
+          {%- endcapture -%}
+          {%- render 'accordion-custom-component',
+            children: faq_item,
+            class: 'yqb-faq__accordion',
+            open_by_default_on_desktop: b.open_by_default,
+            open_by_default_on_mobile: b.open_by_default
+          -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-faq {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    background: var(--yqb-bg);
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-faq *,
+  .yqb-faq *::before,
+  .yqb-faq *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-faq .yqb-faq__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+    display: grid;
+    grid-template-columns: var(--yqb-cols);
+    gap: var(--yqb-gap);
+    align-items: start;
+  }
+
+  .yqb-faq .yqb-faq__left {
+    min-width: 0;
+  }
+
+  .yqb-faq--sticky .yqb-faq__left {
+    position: sticky;
+    top: var(--yqb-sticky-top);
+  }
+
+  /* Tag */
+  .yqb-faq .yqb-faq__term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-tag-bg);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: var(--yqb-tag-shadow) var(--yqb-tag-shadow) 0 var(--yqb-violet);
+  }
+
+  .yqb-faq .yqb-faq__term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-sun);
+    border: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  /* Heading */
+  .yqb-faq .yqb-faq__heading {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-heading-size-mobile), 4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 22px;
+  }
+
+  /* Italic text in the heading is rendered as the accent highlight */
+  .yqb-faq .yqb-faq__heading em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-faq .yqb-faq__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    max-width: var(--yqb-intro-max-width);
+    margin: 0 0 32px;
+  }
+
+  .yqb-faq .yqb-faq__intro > *,
+  .yqb-faq .yqb-faq__a-inner > * {
+    margin: 0;
+  }
+
+  .yqb-faq .yqb-faq__intro > * + *,
+  .yqb-faq .yqb-faq__a-inner > * + * {
+    margin-top: 1em;
+  }
+
+  .yqb-faq .yqb-faq__intro a,
+  .yqb-faq .yqb-faq__a-inner a,
+  .yqb-faq .yqb-faq__contact-text a {
+    color: inherit;
+  }
+
+  /* Contact card */
+  .yqb-faq .yqb-faq__contact {
+    background: var(--yqb-card);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    box-shadow: var(--yqb-contact-shadow) var(--yqb-contact-shadow) 0 var(--yqb-aqua);
+    padding: 26px;
+    max-width: var(--yqb-contact-max-width);
+  }
+
+  .yqb-faq .yqb-faq__contact-tag {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    margin: 0 0 10px;
+  }
+
+  .yqb-faq .yqb-faq__contact-text {
+    font-family: var(--yqb-font-heading);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--yqb-ink);
+    margin: 0 0 18px;
+  }
+
+  .yqb-faq .yqb-faq__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--yqb-font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 13px 20px;
+    background: var(--yqb-ink);
+    color: var(--yqb-bg);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .yqb-faq .yqb-faq__btn:hover {
+    background: var(--yqb-violet);
+    border-color: var(--yqb-violet);
+    color: var(--yqb-on-accent);
+  }
+
+  /* Questions */
+  .yqb-faq .yqb-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--yqb-items-gap);
+    min-width: 0;
+  }
+
+  .yqb-faq .yqb-faq__accordion {
+    display: block;
+  }
+
+  .yqb-faq .yqb-faq__item {
+    background: var(--yqb-card);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .yqb-faq .yqb-faq__item[open] {
+    box-shadow: var(--yqb-open-shadow) var(--yqb-open-shadow) 0 var(--yqb-violet);
+    transform: translate(-2px, -2px);
+  }
+
+  .yqb-faq .yqb-faq__q {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 32px;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 20px 24px;
+    cursor: pointer;
+    list-style: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+  }
+
+  .yqb-faq .yqb-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .yqb-faq .yqb-faq__q::marker {
+    content: '';
+  }
+
+  .yqb-faq .yqb-faq__q:focus-visible {
+    outline: var(--yqb-border) solid var(--yqb-violet);
+    outline-offset: -6px;
+    border-radius: var(--yqb-radius);
+  }
+
+  .yqb-faq .yqb-faq__who {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-badge-radius);
+    background: var(--yqb-who-bg, var(--yqb-aqua));
+    color: var(--yqb-who-color, var(--yqb-ink));
+    white-space: nowrap;
+  }
+
+  .yqb-faq .yqb-faq__who--highlight {
+    background: var(--yqb-who-bg, var(--yqb-sun));
+  }
+
+  .yqb-faq .yqb-faq__q-text {
+    font-family: var(--yqb-font-heading);
+    font-size: var(--yqb-question-size);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-faq .yqb-faq__toggle {
+    width: 32px;
+    height: 32px;
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: 8px;
+    position: relative;
+    justify-self: end;
+    background: var(--yqb-toggle-bg);
+    transition: background 0.2s ease;
+  }
+
+  .yqb-faq .yqb-faq__toggle::before,
+  .yqb-faq .yqb-faq__toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--yqb-ink);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .yqb-faq .yqb-faq__toggle::before {
+    width: 12px;
+    height: 2px;
+    transform: translate(-50%, -50%);
+  }
+
+  .yqb-faq .yqb-faq__toggle::after {
+    width: 2px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+  }
+
+  .yqb-faq .yqb-faq__item[open] .yqb-faq__toggle {
+    background: var(--yqb-violet);
+  }
+
+  .yqb-faq .yqb-faq__item[open] .yqb-faq__toggle::before {
+    background: var(--yqb-on-accent);
+  }
+
+  .yqb-faq .yqb-faq__item[open] .yqb-faq__toggle::after {
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+
+  .yqb-faq .yqb-faq__a-inner {
+    padding: 0 24px 22px;
+    font-size: var(--yqb-answer-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+  }
+
+  .yqb-faq .yqb-faq__a-inner > * {
+    max-width: var(--yqb-answer-max-width);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-faq .yqb-faq__item,
+    .yqb-faq .yqb-faq__toggle,
+    .yqb-faq .yqb-faq__toggle::before,
+    .yqb-faq .yqb-faq__toggle::after,
+    .yqb-faq .yqb-faq__btn {
+      transition: none;
+    }
+
+    .yqb-faq .yqb-faq__item[open] {
+      transform: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-faq .yqb-faq__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--yqb-gap-tablet);
+    }
+
+    .yqb-faq--sticky .yqb-faq__left {
+      position: static;
+    }
+
+    .yqb-faq .yqb-faq__contact {
+      max-width: none;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-faq {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-faq .yqb-faq__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-faq .yqb-faq__q {
+      grid-template-columns: minmax(0, 1fr) 32px;
+      padding: 16px 18px;
+      gap: 12px;
+    }
+
+    .yqb-faq .yqb-faq__who {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+
+    .yqb-faq .yqb-faq__q-text {
+      font-size: var(--yqb-question-size-mobile);
+    }
+
+    .yqb-faq .yqb-faq__a-inner {
+      padding: 0 18px 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB FAQ",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Etiqueta",
+          "default": "Owners ask"
+        },
+        {
+          "type": "select",
+          "id": "badge_style",
+          "label": "Estilo de etiqueta",
+          "options": [
+            { "value": "highlight", "label": "Destacado (amarillo)" },
+            { "value": "secondary", "label": "Secundario (aqua)" }
+          ],
+          "default": "highlight"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg",
+          "label": "Fondo personalizado de la etiqueta",
+          "info": "Reemplaza el color del estilo elegido."
+        },
+        {
+          "type": "color",
+          "id": "badge_color",
+          "label": "Texto personalizado de la etiqueta"
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Pregunta",
+          "default": "What exactly do I get when I buy a playbook?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Respuesta",
+          "default": "<p>An instant digital download: the full step-by-step guide as a PDF, plus every parent message, trial script, progress report template, re-enrolment sequence and camp launch email referenced inside it. Yours to keep and reuse every term.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Abierta por defecto",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "Questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "El texto en cursiva se muestra con el color de acento.",
+      "default": "What owners ask us. And what parents ask you."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Descripción",
+      "default": "<p>Nothing hidden, no fine print. If your question is not below, the team replies within one business day.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta de contacto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact",
+      "label": "Mostrar tarjeta de contacto",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contact_tag",
+      "label": "Etiqueta",
+      "default": "Still deciding",
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "contact_text",
+      "label": "Texto",
+      "default": "Tell us where your families are leaking. We will point you to the right level.",
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Email us",
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón",
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_arrow",
+      "label": "Mostrar flecha",
+      "default": true,
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab",
+      "label": "Abrir en una pestaña nueva",
+      "default": false,
+      "visible_if": "{{ section.settings.show_contact }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "left_ratio",
+      "label": "Ancho de la columna izquierda",
+      "min": 25,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Espacio entre columnas (desktop)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "column_gap_tablet",
+      "label": "Espacio entre columnas (tablet y mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "items_gap",
+      "label": "Espacio entre preguntas",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_left",
+      "label": "Columna izquierda fija al hacer scroll",
+      "info": "Solo en desktop.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Distancia superior de la columna fija",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96,
+      "visible_if": "{{ section.settings.sticky_left }}"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño máximo del título",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño mínimo del título",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la descripción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la descripción",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "contact_max_width",
+      "label": "Ancho máximo de la tarjeta de contacto",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "label": "Tamaño de las preguntas (desktop)",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "question_size_mobile",
+      "label": "Tamaño de las preguntas (mobile)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "label": "Tamaño de las respuestas",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "answer_max_width",
+      "label": "Ancho máximo de las respuestas",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 640
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de descripción y respuestas",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (etiqueta, sombra, botón hover, pregunta abierta)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_on_accent",
+      "label": "Texto sobre acento",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (sombra de contacto, etiqueta aqua)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (punto, etiqueta amarilla)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_tag_bg",
+      "label": "Fondo de la etiqueta superior",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de preguntas y tarjeta de contacto",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_toggle_bg",
+      "label": "Fondo del botón +",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de tarjetas",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Radio de etiquetas",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Grosor de bordes",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "tag_shadow",
+      "label": "Sombra de la etiqueta superior",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "contact_shadow",
+      "label": "Sombra de la tarjeta de contacto",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "open_shadow",
+      "label": "Sombra de la pregunta abierta",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "question": "What exactly do I get when I buy a playbook?",
+            "answer": "<p>An instant digital download: the full step-by-step guide as a PDF, plus every parent message, trial script, progress report template, re-enrolment sequence and camp launch email referenced inside it. Yours to keep and reuse every term.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "question": "Does this work for my kind of academy?",
+            "answer": "<p>The playbooks are built for swim schools, football, rugby and tennis academies, gymnastics, dance, cheer and martial-arts schools for children, from 50 to 800 students, one to three sites, whether you own the venue or hire a pool or hall by the hour.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Parents ask",
+            "badge_style": "secondary",
+            "question": "Why should I pay when the trial was free?",
+            "answer": "<p>This is the question Vol. 02 answers for you. The trial is scripted so the parent sees progress, a plan and a held place, and the enrolment conversation happens before they leave, not in a discount email three days later.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "question": "I already use booking software. Do I need this?",
+            "answer": "<p>Yes, and the two work together. Software takes the payment and sends the reminder. The playbooks decide what the parent hears before the trial, what happens at the poolside, when the re-enrolment window opens and how the camp gets sold. No software does that for you.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Parents ask",
+            "badge_style": "secondary",
+            "question": "Is my child actually improving?",
+            "answer": "<p>The question behind every drop-off. Vol. 03 gives you the progress report format, the level-up moment and the mid-term check-in that make progress visible to the parent, so re-enrolment becomes the obvious next step instead of a decision.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "question": "How fast will I see results?",
+            "answer": "<p>Most owners install the trial conversion system in a week and see the next intake convert higher. Retention shows at the next term end. Camps and extras show the first time you run the launch sequence to existing families.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "question": "How do I access my purchase, and what is the refund policy?",
+            "answer": "<p>You receive a download link by email immediately after checkout, and it is also saved to your account. Because these are instant digital products, please review the description before buying. Full terms are in our refund policy.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
