@@ -1639,6 +1639,24 @@
     "yqb_disclosure_b7rMnQ": {
       "type": "yqb-disclosure",
       "blocks": {
+        "sticker_hwWXiX": {
+          "type": "sticker",
+          "settings": {
+            "text": "Full",
+            "bg": "",
+            "color": "",
+            "rotation": -3
+          }
+        },
+        "sticker_Prc4rN": {
+          "type": "sticker",
+          "settings": {
+            "text": "Canva",
+            "bg": "#CFE3F5",
+            "color": "{{ settings.color_palette.foreground }}",
+            "rotation": -3
+          }
+        },
         "sticker_WRDAYd": {
           "type": "sticker",
           "settings": {
@@ -1705,6 +1723,8 @@
         }
       },
       "block_order": [
+        "sticker_hwWXiX",
+        "sticker_Prc4rN",
         "sticker_WRDAYd",
         "sticker_ciNFqU",
         "sticker_ramNM8",
