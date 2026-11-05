@@ -566,20 +566,20 @@
           "type": "step",
           "settings": {
             "number": "",
-            "title": "Hear about you",
-            "body": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not.",
+            "title": "Open a blank canvas",
+            "body": "You need a post for tomorrow, so you open Canva and stare at an empty page.",
             "show_leak": true,
             "leak_label": "Leak",
-            "leak_text": "You have no system for being the name that gets mentioned. Referrals happen by luck, not by design.",
-            "fix_label": "Fixed by Vol. 01"
+            "leak_text": "You start from zero every time. Hours go into deciding layouts instead of creating.",
+            "fix_label": "FIXED BY PACK 01"
           }
         },
         "step_Kbeaez": {
           "type": "step",
           "settings": {
             "number": "",
-            "title": "Book a trial",
-            "body": "They find your page, message you, and book a free trial for Saturday.",
+            "title": "Pick a template",
+            "body": "You choose a ready-made design that fits your message, in seconds.",
             "show_leak": false,
             "leak_label": "Leak",
             "leak_text": "",
@@ -590,20 +590,20 @@
           "type": "step",
           "settings": {
             "number": "",
-            "title": "The trial",
-            "body": "The child has a great time. The coach is lovely. The parent watches from the side.",
+            "title": "Customize it",
+            "body": "You swap colors, fonts, photos and text in a few clicks.",
             "show_leak": true,
             "leak_label": "Leak",
-            "leak_text": "Nobody speaks to the parent before, during or after. No next step, no place held, no follow-up. Six in ten never enrol.",
-            "fix_label": "Fixed by Vol. 02"
+            "leak_text": "Mixing styles from different sources makes your feed look random and unbranded.",
+            "fix_label": "FIXED BY PACK 02"
           }
         },
         "step_TfAHrm": {
           "type": "step",
           "settings": {
             "number": "",
-            "title": "The term",
-            "body": "They enrol. Twelve weeks of lessons. The child progresses. The parent pays monthly.",
+            "title": "Publish",
+            "body": "You download or share straight to your channels, on any device.",
             "show_leak": false,
             "leak_label": "Leak",
             "leak_text": "",
@@ -614,12 +614,12 @@
           "type": "step",
           "settings": {
             "number": "",
-            "title": "Re-enrolment",
-            "body": "Term ends. A generic email says places for next term are open.",
+            "title": "Get followed",
+            "body": "A polished, consistent feed makes people stop, follow and trust you.",
             "show_leak": true,
             "leak_label": "Leak",
-            "leak_text": "A third of families drift away. Not unhappy, just not asked properly, at the right time, with their place already held.",
-            "fix_label": "Fixed by Vol. 03"
+            "leak_text": "Without a full set of matching designs, you run out of formats and go back to improvising.",
+            "fix_label": "FIXED BY PACK 07"
           }
         }
       },
@@ -632,11 +632,11 @@
       ],
       "name": "YQB Journey",
       "settings": {
-        "tag_text": "The parent journey",
+        "tag_text": "THE CONTENT JOURNEY",
         "show_tag_dot": true,
-        "heading": "Five steps from a worried parent to a family that stays. Three of them leak.",
+        "heading": "Five steps from a blank canvas to a feed people follow. Three of them leak.&nbsp;",
         "heading_tag": "h2",
-        "intro": "<p>This is the path every one of your families walks. Most owners have never drawn it, so they post more, discount the trial, and wonder why the groups empty out every January.</p>",
+        "intro": "<p>This is the path every post walks. Most creators have never mapped it, so they redesign from scratch every week, post less, and wonder why their feed never looks consistent.</p>",
         "show_foot": true,
         "foot_text": "Every leak on this path is <em>one playbook</em> away from fixed.",
         "button_label": "See how it works",
