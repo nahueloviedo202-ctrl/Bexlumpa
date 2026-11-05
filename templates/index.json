@@ -593,196 +593,6 @@
         "padding_inline_mobile": 24
       }
     },
-    "yqb_year_kYaGTb": {
-      "type": "yqb-year",
-      "blocks": {
-        "month_P7k97p": {
-          "type": "month",
-          "settings": {
-            "label": "Jan"
-          }
-        },
-        "month_TGwBXD": {
-          "type": "month",
-          "settings": {
-            "label": "Feb"
-          }
-        },
-        "month_VewMpn": {
-          "type": "month",
-          "settings": {
-            "label": "Mar"
-          }
-        },
-        "month_kT6XFp": {
-          "type": "month",
-          "settings": {
-            "label": "Apr"
-          }
-        },
-        "month_iFamhB": {
-          "type": "month",
-          "settings": {
-            "label": "May"
-          }
-        },
-        "month_AtXp4A": {
-          "type": "month",
-          "settings": {
-            "label": "Jun"
-          }
-        },
-        "month_tqBybQ": {
-          "type": "month",
-          "settings": {
-            "label": "Jul"
-          }
-        },
-        "month_JnqrGG": {
-          "type": "month",
-          "settings": {
-            "label": "Aug"
-          }
-        },
-        "month_gBtGz7": {
-          "type": "month",
-          "settings": {
-            "label": "Sep"
-          }
-        },
-        "month_3EtFxw": {
-          "type": "month",
-          "settings": {
-            "label": "Oct"
-          }
-        },
-        "month_YxW8QL": {
-          "type": "month",
-          "settings": {
-            "label": "Nov"
-          }
-        },
-        "month_irJrxY": {
-          "type": "month",
-          "settings": {
-            "label": "Dec"
-          }
-        },
-        "moment_VycAgb": {
-          "type": "moment",
-          "settings": {
-            "when": "Jan launch",
-            "value": "700",
-            "label": "Editable templates in the full collection, ready for any launch&nbsp;",
-            "badge_bg": "#2B2D31",
-            "badge_text": "{{ settings.color_palette.background }}"
-          }
-        },
-        "moment_UbbkFE": {
-          "type": "moment",
-          "settings": {
-            "when": "APR SALE",
-            "value": "100%",
-            "label": "Editable in Canva: change colors, fonts and photos in a click&nbsp;",
-            "badge_bg": "#FFD23F",
-            "badge_text": ""
-          }
-        },
-        "moment_VDprdH": {
-          "type": "moment",
-          "settings": {
-            "when": "JUL CAMPAIGNS",
-            "value": "7",
-            "label": "Template packs, from 100 to 700 designs, to fit any budget&nbsp;",
-            "badge_bg": "#FFD23F",
-            "badge_text": "{{ settings.color_palette.foreground }}"
-          }
-        },
-        "moment_itkp8A": {
-          "type": "moment",
-          "settings": {
-            "when": "ALL YEAR",
-            "value": "0",
-            "label": "Design skills needed to get a polished, professional result&nbsp;",
-            "badge_bg": "#2B2D31",
-            "badge_text": "{{ settings.color_palette.background }}"
-          }
-        }
-      },
-      "block_order": [
-        "month_P7k97p",
-        "month_TGwBXD",
-        "month_VewMpn",
-        "month_kT6XFp",
-        "month_iFamhB",
-        "month_AtXp4A",
-        "month_tqBybQ",
-        "month_JnqrGG",
-        "month_gBtGz7",
-        "month_3EtFxw",
-        "month_YxW8QL",
-        "month_irJrxY",
-        "moment_VycAgb",
-        "moment_UbbkFE",
-        "moment_VDprdH",
-        "moment_itkp8A"
-      ],
-      "name": "YQB Year",
-      "settings": {
-        "tag_text": "THE CONTENT YEAR",
-        "show_tag_dot": true,
-        "heading": "Four moments decide your content year. The templates win all four.&nbsp;",
-        "heading_tag": "h2",
-        "intro": "<p>Built around what matters to a creator or small business owner: launches that look professional, sales that stand out, campaigns that go out on time and a feed that stays consistent all year.</p>",
-        "show_timeline": true,
-        "show_ticks": true,
-        "tablet_month_step": true,
-        "section_width": "full-width",
-        "content_max_width": 1240,
-        "heading_ratio": 52,
-        "intro_align": "end",
-        "head_gap": 64,
-        "head_margin": 48,
-        "head_margin_mobile": 44,
-        "columns_desktop": 4,
-        "columns_tablet": 2,
-        "columns_mobile": "1",
-        "cards_gap": 20,
-        "cards_gap_mobile": 14,
-        "use_custom_fonts": true,
-        "heading_font": "inter_n8",
-        "body_font": "nunito_sans_n4",
-        "heading_size": 52,
-        "heading_size_mobile": 32,
-        "intro_size": 16,
-        "intro_max_width": 440,
-        "value_size": 56,
-        "value_size_mobile": 40,
-        "label_size": 14,
-        "color_bg": "{{ settings.color_palette.background }}",
-        "color_ink": "#1a1b1f",
-        "color_ink_soft": "#44454c",
-        "color_mute": "#74757d",
-        "color_line": "#d6d2c8",
-        "color_accent": "#2B2D31",
-        "color_secondary": "#FFD23F",
-        "color_tag_bg": "#FFD23F",
-        "color_card": "#CFE3F5",
-        "card_radius": 12,
-        "badge_radius": 6,
-        "border_width": 2,
-        "badge_rotation": -2,
-        "tag_shadow": 3,
-        "hover_effect": true,
-        "hover_shadow": 6,
-        "padding_top": 96,
-        "padding_bottom": 96,
-        "padding_inline": 48,
-        "padding_top_mobile": 64,
-        "padding_bottom_mobile": 64,
-        "padding_inline_mobile": 24
-      }
-    },
     "yqb_cta_cPK46h": {
       "type": "yqb-cta",
       "blocks": {
@@ -1481,6 +1291,196 @@
         "padding_inline_mobile": 24
       }
     },
+    "yqb_year_kYaGTb": {
+      "type": "yqb-year",
+      "blocks": {
+        "month_P7k97p": {
+          "type": "month",
+          "settings": {
+            "label": "Jan"
+          }
+        },
+        "month_TGwBXD": {
+          "type": "month",
+          "settings": {
+            "label": "Feb"
+          }
+        },
+        "month_VewMpn": {
+          "type": "month",
+          "settings": {
+            "label": "Mar"
+          }
+        },
+        "month_kT6XFp": {
+          "type": "month",
+          "settings": {
+            "label": "Apr"
+          }
+        },
+        "month_iFamhB": {
+          "type": "month",
+          "settings": {
+            "label": "May"
+          }
+        },
+        "month_AtXp4A": {
+          "type": "month",
+          "settings": {
+            "label": "Jun"
+          }
+        },
+        "month_tqBybQ": {
+          "type": "month",
+          "settings": {
+            "label": "Jul"
+          }
+        },
+        "month_JnqrGG": {
+          "type": "month",
+          "settings": {
+            "label": "Aug"
+          }
+        },
+        "month_gBtGz7": {
+          "type": "month",
+          "settings": {
+            "label": "Sep"
+          }
+        },
+        "month_3EtFxw": {
+          "type": "month",
+          "settings": {
+            "label": "Oct"
+          }
+        },
+        "month_YxW8QL": {
+          "type": "month",
+          "settings": {
+            "label": "Nov"
+          }
+        },
+        "month_irJrxY": {
+          "type": "month",
+          "settings": {
+            "label": "Dec"
+          }
+        },
+        "moment_VycAgb": {
+          "type": "moment",
+          "settings": {
+            "when": "Jan launch",
+            "value": "700",
+            "label": "Editable templates in the full collection, ready for any launch&nbsp;",
+            "badge_bg": "#2B2D31",
+            "badge_text": "{{ settings.color_palette.background }}"
+          }
+        },
+        "moment_UbbkFE": {
+          "type": "moment",
+          "settings": {
+            "when": "APR SALE",
+            "value": "100%",
+            "label": "Editable in Canva: change colors, fonts and photos in a click&nbsp;",
+            "badge_bg": "#FFD23F",
+            "badge_text": ""
+          }
+        },
+        "moment_VDprdH": {
+          "type": "moment",
+          "settings": {
+            "when": "JUL CAMPAIGNS",
+            "value": "7",
+            "label": "Template packs, from 100 to 700 designs, to fit any budget&nbsp;",
+            "badge_bg": "#FFD23F",
+            "badge_text": "{{ settings.color_palette.foreground }}"
+          }
+        },
+        "moment_itkp8A": {
+          "type": "moment",
+          "settings": {
+            "when": "ALL YEAR",
+            "value": "0",
+            "label": "Design skills needed to get a polished, professional result&nbsp;",
+            "badge_bg": "#2B2D31",
+            "badge_text": "{{ settings.color_palette.background }}"
+          }
+        }
+      },
+      "block_order": [
+        "month_P7k97p",
+        "month_TGwBXD",
+        "month_VewMpn",
+        "month_kT6XFp",
+        "month_iFamhB",
+        "month_AtXp4A",
+        "month_tqBybQ",
+        "month_JnqrGG",
+        "month_gBtGz7",
+        "month_3EtFxw",
+        "month_YxW8QL",
+        "month_irJrxY",
+        "moment_VycAgb",
+        "moment_UbbkFE",
+        "moment_VDprdH",
+        "moment_itkp8A"
+      ],
+      "name": "YQB Year",
+      "settings": {
+        "tag_text": "THE CONTENT YEAR",
+        "show_tag_dot": true,
+        "heading": "Four moments decide your content year. The templates win all four.&nbsp;",
+        "heading_tag": "h2",
+        "intro": "<p>Built around what matters to a creator or small business owner: launches that look professional, sales that stand out, campaigns that go out on time and a feed that stays consistent all year.</p>",
+        "show_timeline": true,
+        "show_ticks": true,
+        "tablet_month_step": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "intro_align": "end",
+        "head_gap": 64,
+        "head_margin": 48,
+        "head_margin_mobile": 44,
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": "1",
+        "cards_gap": 20,
+        "cards_gap_mobile": 14,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 52,
+        "heading_size_mobile": 32,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "value_size": 56,
+        "value_size_mobile": 40,
+        "label_size": 14,
+        "color_bg": "{{ settings.color_palette.background }}",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_mute": "#74757d",
+        "color_line": "#d6d2c8",
+        "color_accent": "#2B2D31",
+        "color_secondary": "#FFD23F",
+        "color_tag_bg": "#FFD23F",
+        "color_card": "#CFE3F5",
+        "card_radius": 12,
+        "badge_radius": 6,
+        "border_width": 2,
+        "badge_rotation": -2,
+        "tag_shadow": 3,
+        "hover_effect": true,
+        "hover_shadow": 6,
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "padding_inline": 48,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "padding_inline_mobile": 24
+      }
+    },
     "yqb_faq_Kr4j3Q": {
       "type": "yqb-faq",
       "blocks": {
@@ -1612,7 +1612,7 @@
         "question_size_mobile": 16,
         "answer_size": 15,
         "answer_max_width": 640,
-        "color_bg": "#ffffff",
+        "color_bg": "#CFE3F5",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_accent": "#2B2D31",
