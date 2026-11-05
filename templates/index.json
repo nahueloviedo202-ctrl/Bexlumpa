@@ -569,7 +569,7 @@
         "bundle_price_size": 36,
         "card_title_size": 24,
         "card_price_size": 26,
-        "color_bg": "#CFE3F5",
+        "color_bg": "{{ settings.color_palette.background }}",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_mute": "#74757d",
