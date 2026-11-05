@@ -1,0 +1,1177 @@
+{%- comment -%}
+  YQB Levels: sticky left column (tag, heading, intro, level index, CTA) and a
+  stacked list of level cards on the right.
+
+  Blocks:
+  - level: level card. Its badge, label and volume also feed the index table.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign right_ratio = 100 | minus: s.left_ratio
+  assign line_alpha = s.line_opacity | divided_by: 100.0
+  assign line_color = s.color_line | color_modify: 'alpha', line_alpha
+
+  assign level_blocks = section.blocks | where: 'type', 'level'
+  assign has_index = false
+  for block in level_blocks
+    if block.settings.show_in_index
+      assign has_index = true
+      break
+    endif
+  endfor
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-lvl{% if s.show_stripes %} yqb-lvl--stripes{% endif %}{% if s.sticky_left %} yqb-lvl--sticky{% endif %}{% if s.hover_effect %} yqb-lvl--hover{% endif %}"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ line_color }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-on-sun: {{ s.color_on_highlight }};
+    --yqb-tag-text: {{ s.color_tag_text }};
+    --yqb-radius: {{ s.radius }}px;
+    --yqb-badge-size: {{ s.badge_size }}px;
+    --yqb-badge-size-mobile: {{ s.badge_size_mobile }}px;
+    --yqb-vol-rotate: {{ s.vol_rotation }}deg;
+    --yqb-stripe-height: {{ s.stripe_height }}px;
+    --yqb-stripe-opacity: {{ s.stripe_opacity | divided_by: 100.0 }};
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-cols: minmax(0, {{ s.left_ratio }}fr) minmax(0, {{ right_ratio }}fr);
+    --yqb-gap: {{ s.column_gap }}px;
+    --yqb-gap-tablet: {{ s.column_gap_tablet }}px;
+    --yqb-sticky-top: {{ s.sticky_offset }}px;
+    --yqb-cards-gap: {{ s.cards_gap }}px;
+    --yqb-left-max-width: {{ s.left_max_width }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-title-size: {{ s.title_size }}px;
+    --yqb-title-size-mobile: {{ s.title_size_mobile }}px;
+    --yqb-body-size: {{ s.body_size }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family | escape }}, {{ heading_font.fallback_families | escape }};
+      --yqb-font-body: {{ body_font.family | escape }}, {{ body_font.fallback_families | escape }};
+    {%- endif %}
+  "
+>
+  <div class="yqb-lvl__inner">
+    <div class="yqb-lvl__left">
+      {%- if s.tag_text != blank -%}
+        <span class="yqb-lvl__term">{{ s.tag_text | escape }}</span>
+      {%- endif -%}
+
+      {%- if s.heading != blank -%}
+        <{{ s.heading_tag }} class="yqb-lvl__heading">{{ s.heading }}</{{ s.heading_tag }}>
+      {%- endif -%}
+
+      {%- if s.intro != blank -%}
+        <div class="yqb-lvl__intro">{{ s.intro }}</div>
+      {%- endif -%}
+
+      {%- if s.show_index and has_index -%}
+        <div class="yqb-lvl__index" aria-hidden="true">
+          {%- for block in level_blocks -%}
+            {%- unless block.settings.show_in_index -%}{%- continue -%}{%- endunless -%}
+            <div class="yqb-lvl__index-row">
+              <span class="yqb-lvl__index-num">{{ block.settings.badge_text | escape }}</span>
+              <span>{{ block.settings.label | escape }}</span>
+              <span class="yqb-lvl__index-vol">{{ block.settings.vol | escape }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if s.button_label != blank -%}
+        <a
+          {% if s.button_link != blank %}
+            href="{{ s.button_link }}"
+          {% else %}
+            role="link" aria-disabled="true"
+          {% endif %}
+          {% if s.button_new_tab %}
+            target="_blank" rel="noopener"
+          {% endif %}
+          class="yqb-lvl__btn"
+        >
+          {{- s.button_label | escape -}}
+          {%- if s.button_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if level_blocks.size > 0 -%}
+      <div class="yqb-lvl__levels">
+        {%- for block in level_blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign badge_style = ''
+            if b.badge_bg != blank
+              assign badge_style = badge_style | append: '--yqb-badge-bg: ' | append: b.badge_bg | append: ';'
+            endif
+            if b.badge_color != blank
+              assign badge_style = badge_style | append: '--yqb-badge-color: ' | append: b.badge_color | append: ';'
+            endif
+          -%}
+          <div class="yqb-lvl__level" {{ block.shopify_attributes }}>
+            {%- if b.badge_text != blank or b.badge_small != blank -%}
+              <div class="yqb-lvl__badge"{% if badge_style != blank %} style="{{ badge_style }}"{% endif %}>
+                {{- b.badge_text | escape -}}
+                {%- if b.badge_small != blank -%}
+                  <small>{{ b.badge_small | escape }}</small>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            <div class="yqb-lvl__content">
+              {%- if b.label != blank or b.vol != blank -%}
+                <div class="yqb-lvl__meta">
+                  {%- if b.label != blank -%}
+                    <span class="yqb-lvl__label">{{ b.label | escape }}</span>
+                  {%- endif -%}
+                  {%- if b.vol != blank -%}
+                    <span class="yqb-lvl__vol">{{ b.vol | escape }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+              {%- if b.title != blank -%}
+                <h3 class="yqb-lvl__title">{{ b.title }}</h3>
+              {%- endif -%}
+              {%- if b.body != blank -%}
+                <div class="yqb-lvl__body">{{ b.body }}</div>
+              {%- endif -%}
+              {%- if b.outcome != blank -%}
+                <div class="yqb-lvl__outcome">
+                  {%- if b.outcome_label != blank -%}
+                    <span class="yqb-lvl__outcome-label">{{ b.outcome_label | escape }}</span>
+                  {%- endif -%}
+                  <span>{{ b.outcome }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-lvl {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    position: relative;
+    background: var(--yqb-bg);
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-lvl *,
+  .yqb-lvl *::before,
+  .yqb-lvl *::after {
+    box-sizing: border-box;
+  }
+
+  /* Diagonal stripes on the top edge */
+  .yqb-lvl--stripes::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: var(--yqb-stripe-height);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--yqb-aqua) 0 var(--yqb-stripe-height),
+      transparent var(--yqb-stripe-height) calc(var(--yqb-stripe-height) * 2)
+    );
+    opacity: var(--yqb-stripe-opacity);
+    pointer-events: none;
+  }
+
+  .yqb-lvl .yqb-lvl__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+    display: grid;
+    grid-template-columns: var(--yqb-cols);
+    gap: var(--yqb-gap);
+    align-items: start;
+  }
+
+  .yqb-lvl .yqb-lvl__left {
+    min-width: 0;
+  }
+
+  .yqb-lvl--sticky .yqb-lvl__left {
+    position: sticky;
+    top: var(--yqb-sticky-top);
+  }
+
+  /* Tag */
+  .yqb-lvl .yqb-lvl__term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-tag-text);
+    background: var(--yqb-aqua);
+    border: 2px solid var(--yqb-aqua);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+  }
+
+  /* Heading */
+  .yqb-lvl .yqb-lvl__heading {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-heading-size-mobile), 4.4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 24px;
+  }
+
+  /* Italic text in the heading is rendered as the highlight color */
+  .yqb-lvl .yqb-lvl__heading em {
+    font-style: normal;
+    color: var(--yqb-sun);
+  }
+
+  .yqb-lvl .yqb-lvl__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    margin: 0 0 32px;
+    max-width: var(--yqb-left-max-width);
+  }
+
+  .yqb-lvl .yqb-lvl__intro > *,
+  .yqb-lvl .yqb-lvl__body > * {
+    margin: 0;
+  }
+
+  .yqb-lvl .yqb-lvl__intro > * + *,
+  .yqb-lvl .yqb-lvl__body > * + * {
+    margin-top: 1em;
+  }
+
+  .yqb-lvl .yqb-lvl__intro a,
+  .yqb-lvl .yqb-lvl__body a,
+  .yqb-lvl .yqb-lvl__outcome a {
+    color: inherit;
+  }
+
+  /* Index */
+  .yqb-lvl .yqb-lvl__index {
+    border: 2px solid var(--yqb-line);
+    border-radius: var(--yqb-radius);
+    overflow: hidden;
+    max-width: var(--yqb-left-max-width);
+  }
+
+  .yqb-lvl .yqb-lvl__index-row {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--yqb-line);
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .yqb-lvl .yqb-lvl__index-row:last-child {
+    border-bottom: none;
+  }
+
+  .yqb-lvl .yqb-lvl__index-num {
+    color: var(--yqb-mute);
+  }
+
+  .yqb-lvl .yqb-lvl__index-vol {
+    color: var(--yqb-sun);
+  }
+
+  /* Button */
+  .yqb-lvl .yqb-lvl__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+    text-decoration: none;
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 16px 26px;
+    background: var(--yqb-sun);
+    color: var(--yqb-on-sun);
+    border: 2px solid var(--yqb-sun);
+    border-radius: var(--yqb-radius);
+    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .yqb-lvl .yqb-lvl__btn:hover {
+    transform: translateY(-2px);
+    background: var(--yqb-aqua);
+    border-color: var(--yqb-aqua);
+  }
+
+  /* Level cards */
+  .yqb-lvl .yqb-lvl__levels {
+    display: flex;
+    flex-direction: column;
+    gap: var(--yqb-cards-gap);
+    min-width: 0;
+  }
+
+  .yqb-lvl .yqb-lvl__level {
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-line);
+    border-radius: var(--yqb-radius);
+    padding: 32px 32px 28px;
+    display: grid;
+    grid-template-columns: calc(var(--yqb-badge-size) + 16px) minmax(0, 1fr);
+    gap: 24px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .yqb-lvl--hover .yqb-lvl__level:hover {
+      border-color: var(--yqb-aqua);
+      transform: translateY(-3px);
+    }
+  }
+
+  .yqb-lvl .yqb-lvl__content {
+    min-width: 0;
+  }
+
+  .yqb-lvl .yqb-lvl__badge {
+    width: var(--yqb-badge-size);
+    height: var(--yqb-badge-size);
+    border-radius: 50%;
+    border: 3px solid var(--yqb-ink);
+    background: var(--yqb-badge-bg, var(--yqb-aqua));
+    color: var(--yqb-badge-color, var(--yqb-on-sun));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: calc(var(--yqb-badge-size) / 3);
+    line-height: 1;
+  }
+
+  .yqb-lvl .yqb-lvl__badge small {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    font-weight: 700;
+  }
+
+  .yqb-lvl .yqb-lvl__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .yqb-lvl .yqb-lvl__label {
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-lvl .yqb-lvl__vol {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 6px;
+    background: var(--yqb-sun);
+    color: var(--yqb-on-sun);
+    transform: rotate(var(--yqb-vol-rotate));
+  }
+
+  .yqb-lvl .yqb-lvl__title {
+    font-family: var(--yqb-font-heading);
+    font-size: var(--yqb-title-size);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 12px;
+  }
+
+  .yqb-lvl .yqb-lvl__body {
+    font-size: var(--yqb-body-size);
+    line-height: 1.65;
+    color: var(--yqb-ink-soft);
+    margin: 0 0 16px;
+  }
+
+  .yqb-lvl .yqb-lvl__outcome {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    padding-top: 14px;
+    border-top: 1px dashed var(--yqb-line);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--yqb-ink);
+    font-weight: 600;
+  }
+
+  .yqb-lvl .yqb-lvl__outcome-label {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-aqua);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-lvl .yqb-lvl__btn,
+    .yqb-lvl .yqb-lvl__level {
+      transition: none;
+    }
+
+    .yqb-lvl .yqb-lvl__btn:hover,
+    .yqb-lvl--hover .yqb-lvl__level:hover {
+      transform: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-lvl .yqb-lvl__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--yqb-gap-tablet);
+    }
+
+    .yqb-lvl--sticky .yqb-lvl__left {
+      position: static;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-lvl {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-lvl .yqb-lvl__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-lvl .yqb-lvl__level {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      padding: 24px 20px 22px;
+    }
+
+    .yqb-lvl .yqb-lvl__badge {
+      width: var(--yqb-badge-size-mobile);
+      height: var(--yqb-badge-size-mobile);
+      font-size: calc(var(--yqb-badge-size-mobile) / 3);
+    }
+
+    .yqb-lvl .yqb-lvl__title {
+      font-size: var(--yqb-title-size-mobile);
+    }
+
+    .yqb-lvl .yqb-lvl__btn {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Levels",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "level",
+      "name": "Nivel",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Insignia"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Texto principal",
+          "default": "L1"
+        },
+        {
+          "type": "text",
+          "id": "badge_small",
+          "label": "Texto secundario",
+          "default": "Level"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg",
+          "label": "Fondo",
+          "info": "Si se deja vacío usa el color secundario de la sección."
+        },
+        {
+          "type": "color",
+          "id": "badge_color",
+          "label": "Texto",
+          "info": "Si se deja vacío usa el color de texto sobre destacado."
+        },
+        {
+          "type": "header",
+          "content": "Contenido"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Attract"
+        },
+        {
+          "type": "text",
+          "id": "vol",
+          "label": "Volumen",
+          "default": "Vol. 01"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Título",
+          "default": "Become the name parents mention"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Texto",
+          "default": "<p>The parent pipeline built on trust, not ads: the school and nursery partnerships, the referral routine that makes families bring families, the local presence and the content that shows parents exactly what their child will get.</p>"
+        },
+        {
+          "type": "text",
+          "id": "outcome_label",
+          "label": "Etiqueta del resultado",
+          "default": "Outcome"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "outcome",
+          "label": "Resultado",
+          "default": "A steady flow of trial bookings from parents who already trust you"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_in_index",
+          "label": "Mostrar en el índice",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "How it works"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "El texto en cursiva se muestra con el color destacado.",
+      "default": "Four levels. One playbook each. Set up between terms."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Descripción",
+      "default": "<p>No agency retainer, no booking-software upsell, no six-week course. Pick the level where your families are leaking, install the playbook over a quiet week, and run next term on the new system.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_index",
+      "label": "Mostrar índice de niveles",
+      "info": "Se genera a partir de los bloques Nivel.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Botón"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto",
+      "default": "Browse the playbooks"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_arrow",
+      "label": "Mostrar flecha",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab",
+      "label": "Abrir en una pestaña nueva",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "left_ratio",
+      "label": "Ancho de la columna izquierda",
+      "min": 25,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Espacio entre columnas (desktop)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "column_gap_tablet",
+      "label": "Espacio entre columnas (tablet y mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "left_max_width",
+      "label": "Ancho máximo de descripción e índice",
+      "min": 240,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Espacio entre tarjetas",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_left",
+      "label": "Columna izquierda fija al hacer scroll",
+      "info": "Solo en desktop.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Distancia superior de la columna fija",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96,
+      "visible_if": "{{ section.settings.sticky_left }}"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño máximo del título",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño mínimo del título",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la descripción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Tamaño del título de tarjetas (desktop)",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Tamaño del título de tarjetas (mobile)",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto de tarjetas",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#231A4D"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas",
+      "default": "#2D2360"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto principal y borde de insignias",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de descripciones",
+      "default": "#CFC9DD"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#9A93B5"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Bordes y separadores",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "range",
+      "id": "line_opacity",
+      "label": "Opacidad de bordes y separadores",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (etiqueta, rayas, hover, resultado)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_tag_text",
+      "label": "Texto de la etiqueta superior",
+      "default": "#231A4D"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (botón, volumen, índice)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_on_highlight",
+      "label": "Texto sobre destacado",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de tarjetas, índice y botón",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Tamaño de insignias (desktop)",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "badge_size_mobile",
+      "label": "Tamaño de insignias (mobile)",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "vol_rotation",
+      "label": "Rotación de la etiqueta de volumen",
+      "min": -8,
+      "max": 8,
+      "step": 1,
+      "unit": "°",
+      "default": -2
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Efecto hover en tarjetas",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stripes",
+      "label": "Mostrar rayas superiores",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stripe_height",
+      "label": "Alto de las rayas",
+      "min": 4,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "range",
+      "id": "stripe_opacity",
+      "label": "Opacidad de las rayas",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Levels",
+      "blocks": [
+        {
+          "type": "level",
+          "settings": {
+            "badge_text": "L1",
+            "badge_small": "Level",
+            "badge_bg": "#7FD6C2",
+            "label": "Attract",
+            "vol": "Vol. 01",
+            "title": "Become the name parents mention",
+            "body": "<p>The parent pipeline built on trust, not ads: the school and nursery partnerships, the referral routine that makes families bring families, the local presence and the content that shows parents exactly what their child will get.</p>",
+            "outcome_label": "Outcome",
+            "outcome": "A steady flow of trial bookings from parents who already trust you"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "badge_text": "L2",
+            "badge_small": "Level",
+            "badge_bg": "#FFD166",
+            "label": "Convert",
+            "vol": "Vol. 02",
+            "title": "Turn the free trial into an enrolment",
+            "body": "<p>The trial experience, scripted for the parent, not just the child: the pre-trial call, the poolside or pitchside conversation, the held place, and the follow-up that closes within 48 hours without a discount.</p>",
+            "outcome_label": "Outcome",
+            "outcome": "Trial-to-enrolment conversion from 40 percent to 70 percent and beyond"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "badge_text": "L3",
+            "badge_small": "Level",
+            "badge_bg": "#F7F4EC",
+            "label": "Keep",
+            "vol": "Vol. 03",
+            "title": "Keep families term after term",
+            "body": "<p>The retention system that catches drop-off before it happens: progress reports parents actually read, the mid-term check-in, the level-up moment, and the re-enrolment window that fills next term before it opens.</p>",
+            "outcome_label": "Outcome",
+            "outcome": "Term-to-term re-enrolment above 90 percent"
+          }
+        },
+        {
+          "type": "level",
+          "settings": {
+            "badge_text": "L4",
+            "badge_small": "Level",
+            "badge_bg": "#5B3CC4",
+            "badge_color": "#FFFFFF",
+            "label": "Grow",
+            "vol": "Vol. 04",
+            "title": "Sell out camps and extras",
+            "body": "<p>The second revenue layer: holiday camps, intensives, private lessons, birthday parties and siblings, sold to the families you already have, with the calendar, pricing and launch sequence that fills them in days.</p>",
+            "outcome_label": "Outcome",
+            "outcome": "A camp and extras line worth 25 to 40 percent of term revenue"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

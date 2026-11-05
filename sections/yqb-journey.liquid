@@ -1,0 +1,1117 @@
+{%- comment -%}
+  YQB Journey: header (tag, heading, intro), a grid of numbered steps that can
+  flag a "leak" with a fix sticker, and a dark CTA strip.
+
+  Blocks:
+  - step: numbered journey card (optional leak note + fix sticker)
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign intro_ratio = 100 | minus: s.heading_ratio
+  assign leak_bg_alpha = s.leak_bg_opacity | divided_by: 100.0
+  assign leak_bg = s.color_alert | color_modify: 'alpha', leak_bg_alpha
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+{%- comment -%}
+  Dynamic values live in a scoped <style> (not a style="" attribute): font
+  fallback_families can contain double quotes that would break the attribute.
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .yqb-jny {
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-coral: {{ s.color_alert }};
+    --yqb-on-coral: {{ s.color_on_alert }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-leak-bg: {{ leak_bg }};
+    --yqb-foot-bg: {{ s.color_foot_bg }};
+    --yqb-foot-text: {{ s.color_foot_text }};
+    --yqb-foot-highlight: {{ s.color_foot_highlight }};
+    --yqb-btn-bg: {{ s.color_button_bg }};
+    --yqb-btn-text: {{ s.color_button_text }};
+    --yqb-btn-hover: {{ s.color_button_hover }};
+    --yqb-radius: {{ s.radius }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-head-cols: minmax(0, {{ s.heading_ratio }}fr) minmax(0, {{ intro_ratio }}fr);
+    --yqb-head-gap: {{ s.head_gap }}px;
+    --yqb-head-mb: {{ s.head_margin }}px;
+    --yqb-head-mb-mobile: {{ s.head_margin_mobile }}px;
+    --yqb-cols: {{ s.columns_desktop }};
+    --yqb-cols-tablet: {{ s.columns_tablet }};
+    --yqb-cols-mobile: {{ s.columns_mobile }};
+    --yqb-steps-gap: {{ s.steps_gap }}px;
+    --yqb-steps-gap-mobile: {{ s.steps_gap_mobile }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-intro-size: {{ s.intro_size }}px;
+    --yqb-intro-max-width: {{ s.intro_max_width }}px;
+    --yqb-step-title-size: {{ s.step_title_size }}px;
+    --yqb-step-body-size: {{ s.step_body_size }}px;
+    --yqb-num-size: {{ s.number_size }}px;
+    --yqb-foot-mt: {{ s.foot_margin }}px;
+    --yqb-foot-size: {{ s.foot_text_size }}px;
+  }
+</style>
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-jny{% if s.span_last_tablet %} yqb-jny--span-last{% endif %}">
+  <div class="yqb-jny__inner">
+    {%- if s.tag_text != blank or s.heading != blank or s.intro != blank -%}
+      <div class="yqb-jny__head">
+        <div>
+          {%- if s.tag_text != blank -%}
+            <span class="yqb-term{% if s.show_tag_dot %} yqb-term--dot{% endif %}">{{ s.tag_text }}</span>
+          {%- endif -%}
+          {%- if s.heading != blank -%}
+            <{{ s.heading_tag }} class="yqb-jny__heading">{{ s.heading }}</{{ s.heading_tag }}>
+          {%- endif -%}
+        </div>
+        {%- if s.intro != blank -%}
+          <div class="yqb-jny__intro">{{ s.intro }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="yqb-steps">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign is_leak = false
+            if b.show_leak and b.leak_text != blank
+              assign is_leak = true
+            endif
+          -%}
+          <div class="yqb-step{% if is_leak %} yqb-step--break{% endif %}" {{ block.shopify_attributes }}>
+            <div class="yqb-step__num">
+              {%- if b.number != blank -%}{{ b.number | escape }}{%- else -%}{{ forloop.index }}{%- endif -%}
+            </div>
+            {%- if b.title != blank -%}
+              <h3 class="yqb-step__title">{{ b.title | escape }}</h3>
+            {%- endif -%}
+            {%- if b.body != blank -%}
+              <p class="yqb-step__body">{{ b.body | escape }}</p>
+            {%- endif -%}
+            {%- if is_leak -%}
+              <div class="yqb-step__break">
+                {%- if b.leak_label != blank -%}
+                  <strong>{{ b.leak_label | escape }}</strong>
+                {%- endif -%}
+                {{- b.leak_text | escape -}}
+              </div>
+            {%- endif -%}
+            {%- if b.fix_label != blank -%}
+              <span class="yqb-step__fix">{{ b.fix_label | escape }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if s.show_foot -%}
+      <div class="yqb-jny__foot">
+        {%- if s.foot_text != blank -%}
+          <p>{{ s.foot_text }}</p>
+        {%- endif -%}
+        {%- if s.button_label != blank -%}
+          <a
+            {% if s.button_link != blank %}
+              href="{{ s.button_link }}"
+            {% else %}
+              role="link" aria-disabled="true"
+            {% endif %}
+            {% if s.button_new_tab %}
+              target="_blank" rel="noopener"
+            {% endif %}
+            class="yqb-btn"
+          >
+            {{- s.button_label | escape -}}
+            {%- if s.button_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-jny {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-jny *,
+  .yqb-jny *::before,
+  .yqb-jny *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-jny .yqb-jny__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  /* Head */
+  .yqb-jny .yqb-jny__head {
+    display: grid;
+    grid-template-columns: var(--yqb-head-cols);
+    gap: var(--yqb-head-gap);
+    align-items: end;
+    margin-bottom: var(--yqb-head-mb);
+  }
+
+  .yqb-jny .yqb-term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-violet);
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    box-shadow: 3px 3px 0 var(--yqb-violet);
+  }
+
+  .yqb-jny .yqb-term--dot::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yqb-coral);
+    border: 2px solid var(--yqb-ink);
+  }
+
+  .yqb-jny .yqb-jny__heading {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-weight: 800;
+    font-size: clamp(34px, 4.4vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0;
+    max-width: var(--yqb-heading-max-width);
+  }
+
+  .yqb-jny .yqb-jny__heading em {
+    font-style: normal;
+    color: var(--yqb-coral);
+  }
+
+  .yqb-jny .yqb-jny__intro {
+    font-size: var(--yqb-intro-size);
+    line-height: 1.7;
+    color: var(--yqb-ink-soft);
+    margin: 0;
+    max-width: var(--yqb-intro-max-width);
+  }
+
+  .yqb-jny .yqb-jny__intro p {
+    margin: 0;
+  }
+
+  .yqb-jny .yqb-jny__intro p + p {
+    margin-top: 1em;
+  }
+
+  /* Steps */
+  .yqb-jny .yqb-steps {
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-cols), minmax(0, 1fr));
+    gap: var(--yqb-steps-gap);
+  }
+
+  .yqb-jny .yqb-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    padding: 24px 20px 22px;
+  }
+
+  .yqb-jny .yqb-step--break {
+    border-color: var(--yqb-coral);
+  }
+
+  .yqb-jny .yqb-step__num {
+    width: var(--yqb-num-size);
+    height: var(--yqb-num-size);
+    border: 2px solid var(--yqb-ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--yqb-ink);
+    background: var(--yqb-aqua);
+    margin-bottom: 18px;
+  }
+
+  .yqb-jny .yqb-step--break .yqb-step__num {
+    background: var(--yqb-coral);
+    color: var(--yqb-on-coral);
+    border-color: var(--yqb-coral);
+  }
+
+  .yqb-jny .yqb-step__title {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-size: var(--yqb-step-title-size);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 10px;
+  }
+
+  .yqb-jny .yqb-step__body {
+    font-size: var(--yqb-step-body-size);
+    line-height: 1.55;
+    color: var(--yqb-ink-soft);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .yqb-jny .yqb-step__break {
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--yqb-leak-bg);
+    border-left: 3px solid var(--yqb-coral);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-jny .yqb-step__break strong {
+    display: block;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-coral);
+    margin-bottom: 4px;
+  }
+
+  .yqb-jny .yqb-step__fix {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 12px;
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-ink);
+    padding: 5px 9px;
+    border: 2px solid var(--yqb-ink);
+    border-radius: 6px;
+    background: var(--yqb-sun);
+    transform: rotate(-2deg);
+  }
+
+  /* Foot */
+  .yqb-jny .yqb-jny__foot {
+    margin-top: var(--yqb-foot-mt);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 28px 32px;
+    background: var(--yqb-foot-bg);
+    color: var(--yqb-foot-text);
+    border-radius: var(--yqb-radius);
+  }
+
+  .yqb-jny .yqb-jny__foot p {
+    font-family: var(--yqb-font-heading);
+    font-size: clamp(20px, 2vw, var(--yqb-foot-size));
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--yqb-foot-text);
+    margin: 0;
+    max-width: 720px;
+  }
+
+  .yqb-jny .yqb-jny__foot p em {
+    font-style: normal;
+    color: var(--yqb-foot-highlight);
+  }
+
+  .yqb-jny .yqb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 16px 26px;
+    background: var(--yqb-btn-bg);
+    color: var(--yqb-btn-text);
+    border: 2px solid var(--yqb-btn-bg);
+    border-radius: var(--yqb-radius);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .yqb-jny .yqb-btn:hover {
+    transform: translateY(-2px);
+    background: var(--yqb-btn-hover);
+    border-color: var(--yqb-btn-hover);
+    color: var(--yqb-btn-text);
+  }
+
+  .yqb-jny .yqb-btn:focus-visible {
+    outline: 2px solid var(--yqb-btn-bg);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-jny .yqb-btn {
+      transition: none;
+    }
+
+    .yqb-jny .yqb-btn:hover {
+      transform: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1100px) {
+    .yqb-jny .yqb-steps {
+      grid-template-columns: repeat(var(--yqb-cols-tablet), minmax(0, 1fr));
+    }
+
+    .yqb-jny--span-last .yqb-step:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .yqb-jny {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-jny .yqb-jny__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-jny .yqb-jny__head {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: var(--yqb-head-mb-mobile);
+    }
+
+    .yqb-jny .yqb-jny__foot {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 24px 22px;
+    }
+
+    .yqb-jny .yqb-btn {
+      width: 100%;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .yqb-jny .yqb-steps {
+      grid-template-columns: repeat(var(--yqb-cols-mobile), minmax(0, 1fr));
+      gap: var(--yqb-steps-gap-mobile);
+    }
+
+    .yqb-jny--span-last .yqb-step:last-child {
+      grid-column: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Journey",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Número",
+          "info": "Vacío = numeración automática"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Hear about you"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Texto",
+          "default": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_leak",
+          "label": "Marcar como fuga",
+          "info": "Aplica el borde y número de color de alerta",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "leak_label",
+          "label": "Etiqueta de la fuga",
+          "default": "Leak",
+          "visible_if": "{{ block.settings.show_leak }}"
+        },
+        {
+          "type": "textarea",
+          "id": "leak_text",
+          "label": "Texto de la fuga",
+          "visible_if": "{{ block.settings.show_leak }}"
+        },
+        {
+          "type": "text",
+          "id": "fix_label",
+          "label": "Sticker inferior",
+          "info": "Vacío = oculto"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "The parent journey"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_dot",
+      "label": "Mostrar punto en la etiqueta",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "Usa cursiva para resaltar con el color de alerta.",
+      "default": "Five steps from a worried parent to a family that stays. Three of them leak."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introducción",
+      "default": "<p>This is the path every one of your families walks. Most owners have never drawn it, so they post more, discount the trial, and wonder why the groups empty out every January.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Franja inferior"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_foot",
+      "label": "Mostrar franja inferior",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "foot_text",
+      "label": "Texto",
+      "info": "Usa cursiva para resaltar.",
+      "default": "Every leak on this path is <em>one playbook</em> away from fixed.",
+      "visible_if": "{{ section.settings.show_foot }}"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "See how it works",
+      "visible_if": "{{ section.settings.show_foot }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón",
+      "visible_if": "{{ section.settings.show_foot }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_new_tab",
+      "label": "Abrir en una pestaña nueva",
+      "default": false,
+      "visible_if": "{{ section.settings.show_foot }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_arrow",
+      "label": "Mostrar flecha",
+      "default": true,
+      "visible_if": "{{ section.settings.show_foot }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "heading_ratio",
+      "label": "Ancho de la columna del título",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "head_gap",
+      "label": "Espacio entre título e introducción",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas en desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columnas en tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "span_last_tablet",
+      "label": "Último paso a todo el ancho en tablet",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "steps_gap",
+      "label": "Espacio entre pasos",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "steps_gap_mobile",
+      "label": "Espacio entre pasos (mobile)",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "head_margin",
+      "label": "Espacio bajo el encabezado",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "head_margin_mobile",
+      "label": "Espacio bajo el encabezado (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "foot_margin",
+      "label": "Espacio sobre la franja inferior",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva, usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 34,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Tamaño de la introducción",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Ancho máximo de la introducción",
+      "min": 280,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "step_title_size",
+      "label": "Tamaño del título del paso",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "step_body_size",
+      "label": "Tamaño del texto del paso",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Tamaño del círculo numérico",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "foot_text_size",
+      "label": "Tamaño del texto inferior",
+      "min": 20,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto secundario",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (etiqueta superior)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Círculo numérico",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Sticker inferior",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_alert",
+      "label": "Alerta (fugas, resaltado del título)",
+      "default": "#F26B5B"
+    },
+    {
+      "type": "color",
+      "id": "color_on_alert",
+      "label": "Número sobre alerta",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "leak_bg_opacity",
+      "label": "Opacidad del fondo de la fuga",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de tarjetas y etiqueta",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_foot_bg",
+      "label": "Fondo de la franja inferior",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_foot_text",
+      "label": "Texto de la franja inferior",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_foot_highlight",
+      "label": "Resaltado de la franja inferior",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_button_bg",
+      "label": "Fondo del botón",
+      "default": "#FFD166"
+    },
+    {
+      "type": "color",
+      "id": "color_button_text",
+      "label": "Texto del botón",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_button_hover",
+      "label": "Fondo del botón (hover)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de tarjetas, franja y botón",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Journey",
+      "settings": {
+        "button_link": "shopify://collections/all"
+      },
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Hear about you",
+            "body": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "You have no system for being the name that gets mentioned. Referrals happen by luck, not by design.",
+            "fix_label": "Fixed by Vol. 01"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Book a trial",
+            "body": "They find your page, message you, and book a free trial for Saturday.",
+            "show_leak": false
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "The trial",
+            "body": "The child has a great time. The coach is lovely. The parent watches from the side.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "Nobody speaks to the parent before, during or after. No next step, no place held, no follow-up. Six in ten never enrol.",
+            "fix_label": "Fixed by Vol. 02"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "The term",
+            "body": "They enrol. Twelve weeks of lessons. The child progresses. The parent pays monthly.",
+            "show_leak": false
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Re-enrolment",
+            "body": "Term ends. A generic email says places for next term are open.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "A third of families drift away. Not unhappy, just not asked properly, at the right time, with their place already held.",
+            "fix_label": "Fixed by Vol. 03"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
