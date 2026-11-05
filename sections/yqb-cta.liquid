@@ -1,0 +1,1090 @@
+{%- comment -%}
+  YQB CTA: dark closing call to action with tag, heading, text, buttons and
+  social proof, plus a decorative "status" card with a big sticker and lines.
+
+  Blocks:
+  - button: call to action rendered in the CTA group
+  - line: label/value row inside the status card
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign copy_ratio = s.copy_ratio
+  assign card_ratio = 100 | minus: copy_ratio
+
+  assign button_blocks = section.blocks | where: 'type', 'button'
+  assign line_blocks = section.blocks | where: 'type', 'line'
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_text, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+{%- comment -%}
+  Dynamic values live in a scoped <style> (not a style="" attribute): font
+  fallback_families can contain double quotes that would break the attribute.
+{%- endcomment -%}
+<style>
+  #shopify-section-{{ section.id }} .yqb-cta {
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-ink: {{ s.color_text }};
+    --yqb-ink-soft: {{ s.color_text_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-dark: {{ s.color_dark }};
+    --yqb-aqua: {{ s.color_secondary }};
+    --yqb-sun: {{ s.color_highlight }};
+    --yqb-radius: {{ s.radius }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --yqb-font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    {%- endif %}
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-cols: minmax(0, {{ copy_ratio }}fr) minmax(0, {{ card_ratio }}fr);
+    --yqb-gap: {{ s.gap }}px;
+    --yqb-gap-tablet: {{ s.gap_tablet }}px;
+    --yqb-card-max-width-tablet: {{ s.card_max_width_tablet }}px;
+    --yqb-heading-size: {{ s.heading_size }}px;
+    --yqb-heading-size-mobile: {{ s.heading_size_mobile }}px;
+    --yqb-heading-max-width: {{ s.heading_max_width }}px;
+    --yqb-sub-size: {{ s.sub_size }}px;
+    --yqb-sub-size-mobile: {{ s.sub_size_mobile }}px;
+    --yqb-sub-max-width: {{ s.sub_max_width }}px;
+    --yqb-button-shadow: {{ s.button_shadow }}px;
+    --yqb-sticker-size: {{ s.sticker_size }}px;
+    --yqb-sticker-size-mobile: {{ s.sticker_size_mobile }}px;
+    --yqb-sticker-rotate: {{ s.sticker_rotation }}deg;
+    --yqb-stripe-height: {{ s.stripe_height }}px;
+    --yqb-stripe-opacity: {{ s.stripe_opacity | divided_by: 100.0 }};
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+  }
+</style>
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-cta{% if s.show_stripes %} yqb-cta--stripes{% endif %}{% if s.card_position == 'left' %} yqb-cta--card-left{% endif %}">
+  <div class="yqb-cta__inner">
+    <div class="yqb-cta__copy">
+      {%- if s.tag_text != blank -%}
+        <span class="yqb-term">{{ s.tag_text | escape }}</span>
+      {%- endif -%}
+
+      {%- if s.heading != blank -%}
+        <{{ s.heading_tag }} class="yqb-cta__heading">{{ s.heading }}</{{ s.heading_tag }}>
+      {%- endif -%}
+
+      {%- if s.subheading != blank -%}
+        <div class="yqb-cta__sub">{{ s.subheading }}</div>
+      {%- endif -%}
+
+      {%- if button_blocks.size > 0 -%}
+        <div class="yqb-cta__ctas">
+          {%- for block in button_blocks -%}
+            <a
+              {% if block.settings.link != blank %}
+                href="{{ block.settings.link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              {% if block.settings.open_new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+              class="yqb-btn yqb-btn--{{ block.settings.style }}"
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.label | escape -}}
+              {%- if block.settings.show_arrow %} <span aria-hidden="true">&rarr;</span>{% endif -%}
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if s.show_proof -%}
+        <div class="yqb-cta__proof">
+          {%- if s.stars_count > 0 -%}
+            <span class="yqb-cta__proof-stars" aria-hidden="true">
+              {%- for i in (1..s.stars_count) -%}&#9733;{%- endfor -%}
+            </span>
+          {%- endif -%}
+          {%- if s.proof_text != blank -%}
+            <span>{{ s.proof_text | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if s.show_card -%}
+      <div class="yqb-card"{% if s.card_decorative %} aria-hidden="true"{% endif %}>
+        {%- if s.card_label_left != blank or s.card_label_right != blank -%}
+          <div class="yqb-card__head">
+            <span>{{ s.card_label_left | escape }}</span>
+            <span class="yqb-card__head-note">{{ s.card_label_right | escape }}</span>
+          </div>
+        {%- endif -%}
+        {%- if s.sticker_text != blank -%}
+          <div class="yqb-card__sticker-area">
+            <div class="yqb-sticker-big">
+              {{- s.sticker_text | escape -}}
+              {%- if s.sticker_small != blank -%}
+                <small>{{ s.sticker_small | escape }}</small>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+        {%- if line_blocks.size > 0 -%}
+          <div class="yqb-card__lines">
+            {%- for block in line_blocks -%}
+              <div class="yqb-card__line" {{ block.shopify_attributes }}>
+                <span>{{ block.settings.label | escape }}</span>
+                <span class="yqb-card__value">{{ block.settings.value | escape }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-cta {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+    overflow: hidden;
+  }
+
+  .yqb-cta *,
+  .yqb-cta *::before,
+  .yqb-cta *::after {
+    box-sizing: border-box;
+  }
+
+  /* Lane stripes at the top edge */
+  .yqb-cta--stripes::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: var(--yqb-stripe-height);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--yqb-aqua) 0 var(--yqb-stripe-height),
+      transparent var(--yqb-stripe-height) calc(var(--yqb-stripe-height) * 2)
+    );
+    opacity: var(--yqb-stripe-opacity);
+    pointer-events: none;
+  }
+
+  .yqb-cta .yqb-cta__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+    display: grid;
+    grid-template-columns: var(--yqb-cols);
+    gap: var(--yqb-gap);
+    align-items: center;
+  }
+
+  .yqb-cta--card-left .yqb-card {
+    order: -1;
+  }
+
+  .yqb-cta .yqb-cta__copy {
+    min-width: 0;
+  }
+
+  .yqb-cta .yqb-term {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-bg);
+    background: var(--yqb-sun);
+    border: 2px solid var(--yqb-sun);
+    border-radius: 999px;
+    padding: 8px 16px;
+    margin-bottom: 28px;
+  }
+
+  .yqb-cta .yqb-cta__heading {
+    font-family: var(--yqb-font-heading);
+    font-style: normal;
+    font-weight: 800;
+    font-size: clamp(38px, 5vw, var(--yqb-heading-size));
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-transform: none;
+    color: var(--yqb-ink);
+    margin: 0 0 24px;
+    max-width: var(--yqb-heading-max-width);
+  }
+
+  .yqb-cta .yqb-cta__heading em {
+    font-style: normal;
+    color: var(--yqb-aqua);
+  }
+
+  .yqb-cta .yqb-cta__sub {
+    font-size: var(--yqb-sub-size);
+    line-height: 1.65;
+    color: var(--yqb-ink-soft);
+    max-width: var(--yqb-sub-max-width);
+    margin: 0 0 36px;
+  }
+
+  .yqb-cta .yqb-cta__sub p {
+    margin: 0;
+  }
+
+  .yqb-cta .yqb-cta__sub p + p {
+    margin-top: 1em;
+  }
+
+  .yqb-cta .yqb-cta__ctas {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .yqb-cta .yqb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    font-family: var(--yqb-font-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 17px 28px;
+    border: 2px solid var(--yqb-dark);
+    border-radius: var(--yqb-radius);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .yqb-cta .yqb-btn--primary {
+    background: var(--yqb-sun);
+    color: var(--yqb-dark);
+    box-shadow: var(--yqb-button-shadow) var(--yqb-button-shadow) 0 var(--yqb-dark);
+  }
+
+  .yqb-cta .yqb-btn--primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--yqb-button-shadow) + 2px) calc(var(--yqb-button-shadow) + 2px) 0 var(--yqb-dark);
+    background: var(--yqb-aqua);
+    color: var(--yqb-dark);
+  }
+
+  .yqb-cta .yqb-btn--ghost {
+    background: transparent;
+    color: var(--yqb-ink);
+    border-color: var(--yqb-ink);
+  }
+
+  .yqb-cta .yqb-btn--ghost:hover {
+    background: var(--yqb-ink);
+    color: var(--yqb-bg);
+  }
+
+  .yqb-cta .yqb-btn:focus-visible {
+    outline: 2px solid var(--yqb-sun);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-cta .yqb-btn {
+      transition: none;
+    }
+
+    .yqb-cta .yqb-btn--primary:hover {
+      transform: none;
+    }
+  }
+
+  .yqb-cta .yqb-cta__proof {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-cta .yqb-cta__proof-stars {
+    color: var(--yqb-sun);
+    letter-spacing: 0.08em;
+    font-size: 16px;
+  }
+
+  /* Status card */
+  .yqb-cta .yqb-card {
+    min-width: 0;
+    background: var(--yqb-card);
+    border: 2px solid var(--yqb-line);
+    border-radius: var(--yqb-radius);
+    overflow: hidden;
+  }
+
+  .yqb-cta .yqb-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 2px solid var(--yqb-line);
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-cta .yqb-card__head-note {
+    color: var(--yqb-aqua);
+  }
+
+  .yqb-cta .yqb-card__sticker-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    border-bottom: 2px solid var(--yqb-line);
+  }
+
+  .yqb-cta .yqb-sticker-big {
+    display: inline-block;
+    max-width: 100%;
+    transform: rotate(var(--yqb-sticker-rotate));
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(26px, 3vw, var(--yqb-sticker-size));
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    padding: 12px 24px;
+    background: var(--yqb-aqua);
+    color: var(--yqb-dark);
+    border: 3px solid var(--yqb-dark);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 var(--yqb-dark);
+  }
+
+  .yqb-cta .yqb-sticker-big small {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--yqb-font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    white-space: normal;
+  }
+
+  .yqb-cta .yqb-card__lines {
+    padding: 8px 24px 12px;
+  }
+
+  .yqb-cta .yqb-card__line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--yqb-line);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--yqb-ink-soft);
+  }
+
+  .yqb-cta .yqb-card__line:last-child {
+    border-bottom: none;
+  }
+
+  .yqb-cta .yqb-card__value {
+    font-family: var(--yqb-font-heading);
+    font-weight: 700;
+    text-align: right;
+    color: var(--yqb-sun);
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-cta .yqb-cta__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--yqb-gap-tablet);
+    }
+
+    .yqb-cta--card-left .yqb-card {
+      order: 0;
+    }
+
+    .yqb-cta .yqb-card {
+      max-width: var(--yqb-card-max-width-tablet);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-cta {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-cta .yqb-cta__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-cta .yqb-cta__heading {
+      font-size: clamp(34px, 9.5vw, var(--yqb-heading-size-mobile));
+    }
+
+    .yqb-cta .yqb-cta__sub {
+      font-size: var(--yqb-sub-size-mobile);
+      margin-bottom: 32px;
+    }
+
+    .yqb-cta .yqb-btn {
+      width: 100%;
+    }
+
+    .yqb-cta .yqb-card {
+      max-width: none;
+    }
+
+    .yqb-cta .yqb-card__head,
+    .yqb-cta .yqb-card__lines {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+
+    .yqb-cta .yqb-card__sticker-area {
+      padding: 32px 18px;
+    }
+
+    .yqb-cta .yqb-sticker-big {
+      font-size: clamp(22px, 7vw, var(--yqb-sticker-size-mobile));
+      padding: 10px 18px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB CTA",
+  "tag": "div",
+  "class": "section-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Botón",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Browse the playbooks"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "Abrir en una pestaña nueva",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Estilo",
+          "options": [
+            { "value": "primary", "label": "Primario" },
+            { "value": "ghost", "label": "Secundario" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_arrow",
+          "label": "Mostrar flecha",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "line",
+      "name": "Fila de la tarjeta",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Trial to enrolment"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valor",
+          "default": "70% and up"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenido"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Etiqueta superior",
+      "default": "Your move"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Título",
+      "info": "Usa cursiva para resaltar con el color secundario.",
+      "default": "Next term starts with one playbook."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Etiqueta HTML del título",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Descripción",
+      "default": "<p>Stop discounting the trial and hoping families come back in January. Pick the level where your groups are leaking, and run the next intake on a system built to enrol.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Prueba social"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_proof",
+      "label": "Mostrar prueba social",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stars_count",
+      "label": "Cantidad de estrellas",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5,
+      "visible_if": "{{ section.settings.show_proof }}"
+    },
+    {
+      "type": "text",
+      "id": "proof_text",
+      "label": "Texto",
+      "default": "Rated 4.9/5 by 1,300+ academy and swim school owners",
+      "visible_if": "{{ section.settings.show_proof }}"
+    },
+    {
+      "type": "header",
+      "content": "Tarjeta de estado"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card",
+      "label": "Mostrar tarjeta",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "card_decorative",
+      "label": "Tarjeta decorativa",
+      "info": "La oculta a lectores de pantalla, como en el original.",
+      "default": true,
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "text",
+      "id": "card_label_left",
+      "label": "Texto superior izquierdo",
+      "default": "Next term",
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "text",
+      "id": "card_label_right",
+      "label": "Texto superior derecho",
+      "default": "Status",
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "text",
+      "id": "sticker_text",
+      "label": "Sticker: texto principal",
+      "default": "Enrolled",
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "text",
+      "id": "sticker_small",
+      "label": "Sticker: texto secundario",
+      "default": "Waitlist open",
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "range",
+      "id": "sticker_rotation",
+      "label": "Sticker: rotación",
+      "min": -15,
+      "max": 15,
+      "step": 1,
+      "unit": "deg",
+      "default": -5,
+      "visible_if": "{{ section.settings.show_card }}"
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "select",
+      "id": "card_position",
+      "label": "Posición de la tarjeta en desktop",
+      "options": [
+        { "value": "right", "label": "Derecha" },
+        { "value": "left", "label": "Izquierda" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "copy_ratio",
+      "label": "Ancho de la columna de texto",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espacio entre columnas (desktop)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "gap_tablet",
+      "label": "Espacio entre bloques (tablet y mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "card_max_width_tablet",
+      "label": "Ancho máximo de la tarjeta (tablet)",
+      "min": 320,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva, usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título (desktop)",
+      "min": 36,
+      "max": 110,
+      "step": 2,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Tamaño máximo del título (mobile)",
+      "min": 34,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Ancho máximo del título",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "sub_size",
+      "label": "Tamaño de la descripción (desktop)",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "sub_size_mobile",
+      "label": "Tamaño de la descripción (mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "sub_max_width",
+      "label": "Ancho máximo de la descripción",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "sticker_size",
+      "label": "Tamaño del sticker (desktop)",
+      "min": 26,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "sticker_size_mobile",
+      "label": "Tamaño máximo del sticker (mobile)",
+      "min": 22,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#231A4D"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Texto principal",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_text_soft",
+      "label": "Texto de la descripción y filas",
+      "default": "#CFC9DD"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario",
+      "default": "#9A93B5"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de la tarjeta",
+      "default": "#2D2360"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Bordes de la tarjeta",
+      "alpha": true,
+      "default": "#F7F4EC29"
+    },
+    {
+      "type": "color",
+      "id": "color_dark",
+      "label": "Bordes y sombras de botón y sticker",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": "Secundario (sticker, rayas, hover)",
+      "default": "#7FD6C2"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "Destacado (etiqueta, botón, estrellas, valores)",
+      "default": "#FFD166"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de botones y tarjeta",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_shadow",
+      "label": "Sombra del botón primario",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stripes",
+      "label": "Mostrar rayas superiores",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stripe_height",
+      "label": "Alto de las rayas",
+      "min": 4,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "range",
+      "id": "stripe_opacity",
+      "label": "Opacidad de las rayas",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50,
+      "visible_if": "{{ section.settings.show_stripes }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB CTA",
+      "blocks": [
+        {
+          "type": "button",
+          "settings": {
+            "label": "Browse the playbooks",
+            "link": "shopify://collections/all",
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "label": "Get the full kit",
+            "link": "shopify://collections/all",
+            "style": "ghost",
+            "show_arrow": false
+          }
+        },
+        { "type": "line", "settings": { "label": "Trial to enrolment", "value": "70% and up" } },
+        { "type": "line", "settings": { "label": "Re-enrolment", "value": "90% and up" } },
+        { "type": "line", "settings": { "label": "Discount given", "value": "None" } },
+        { "type": "line", "settings": { "label": "Camps", "value": "Sold out" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

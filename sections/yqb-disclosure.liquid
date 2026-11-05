@@ -1,0 +1,1008 @@
+{%- comment -%}
+  YQB Disclosure: company "report card" with brand wordmark, stickers, legal
+  info columns, disclaimer and a footer with copyright and policy links.
+
+  Blocks:
+  - sticker: rotated label next to the brand
+  - info: legal / contact information column
+  - link: extra footer link
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_font = s.heading_font
+  assign body_font = s.body_font
+
+  assign stickers_ratio = 100 | minus: s.brand_ratio
+
+  assign sticker_blocks = section.blocks | where: 'type', 'sticker'
+  assign info_blocks = section.blocks | where: 'type', 'info'
+  assign link_blocks = section.blocks | where: 'type', 'link'
+
+  assign current_year = 'now' | date: '%Y'
+  assign copyright = s.copyright | replace: '[year]', current_year | replace: '[shop]', shop.name
+
+  render 'contrast-override', background_color: s.color_bg, text_color: s.color_ink, section_id: section.id
+-%}
+
+{%- if s.use_custom_fonts -%}
+  {%- liquid
+    assign heading_600 = heading_font | font_modify: 'weight', '600'
+    assign heading_700 = heading_font | font_modify: 'weight', '700'
+    assign heading_800 = heading_font | font_modify: 'weight', '800'
+    assign body_600 = body_font | font_modify: 'weight', '600'
+    assign body_700 = body_font | font_modify: 'weight', '700'
+  -%}
+  <style>
+    {{ heading_font | font_face: font_display: 'swap' }}
+    {%- if heading_600 %}{{ heading_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_700 %}{{ heading_700 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if heading_800 %}{{ heading_800 | font_face: font_display: 'swap' }}{% endif -%}
+    {{ body_font | font_face: font_display: 'swap' }}
+    {%- if body_600 %}{{ body_600 | font_face: font_display: 'swap' }}{% endif -%}
+    {%- if body_700 %}{{ body_700 | font_face: font_display: 'swap' }}{% endif -%}
+  </style>
+{%- endif -%}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<section
+  class="section section--{{ s.section_width }} color-custom-{{ section.id }} yqb-disc"
+  style="
+    --yqb-bg: {{ s.color_bg }};
+    --yqb-card: {{ s.color_card }};
+    --yqb-ink: {{ s.color_ink }};
+    --yqb-ink-soft: {{ s.color_ink_soft }};
+    --yqb-mute: {{ s.color_mute }};
+    --yqb-line: {{ s.color_line }};
+    --yqb-violet: {{ s.color_accent }};
+    --yqb-radius: {{ s.radius }}px;
+    --yqb-badge-radius: {{ s.badge_radius }}px;
+    --yqb-border: {{ s.border_width }}px;
+    --yqb-max-width: {{ s.content_max_width }}px;
+    --yqb-top-cols: minmax(0, {{ s.brand_ratio }}fr) minmax(0, {{ stickers_ratio }}fr);
+    --yqb-cols-desktop: {{ s.columns_desktop }};
+    --yqb-cols-tablet: {{ s.columns_tablet }};
+    --yqb-cols-mobile: {{ s.columns_mobile }};
+    --yqb-wordmark-size: {{ s.wordmark_size }}px;
+    --yqb-wordmark-size-mobile: {{ s.wordmark_size_mobile }}px;
+    --yqb-logo-width: {{ s.logo_width }}px;
+    --yqb-body-size: {{ s.body_size }}px;
+    --yqb-legal-size: {{ s.legal_size }}px;
+    --yqb-legal-label-width: {{ s.legal_label_width }}px;
+    --yqb-legal-max-width: {{ s.legal_max_width }}px;
+    --yqb-pt: {{ s.padding_top }}px;
+    --yqb-pb: {{ s.padding_bottom }}px;
+    --yqb-px: {{ s.padding_inline }}px;
+    --yqb-pt-mobile: {{ s.padding_top_mobile }}px;
+    --yqb-pb-mobile: {{ s.padding_bottom_mobile }}px;
+    --yqb-px-mobile: {{ s.padding_inline_mobile }}px;
+    {%- if s.use_custom_fonts %}
+      --yqb-font-heading: {{ heading_font.family | escape }}, {{ heading_font.fallback_families | escape }};
+      --yqb-font-body: {{ body_font.family | escape }}, {{ body_font.fallback_families | escape }};
+    {%- endif %}
+  "
+>
+  <div class="yqb-disc__inner">
+    <div class="yqb-disc__card">
+      <div class="yqb-disc__top{% if sticker_blocks.size == 0 %} yqb-disc__top--single{% endif %}">
+        <div class="yqb-disc__brand">
+          {%- if s.logo != blank -%}
+            <div class="yqb-disc__logo">
+              {{
+                s.logo
+                | image_url: width: 800
+                | image_tag: loading: 'lazy', widths: '200, 400, 600, 800', sizes: '(min-width: 750px) 400px, 60vw', alt: shop.name
+              }}
+            </div>
+          {%- else -%}
+            <p class="yqb-disc__wordmark">
+              {%- if s.wordmark != blank -%}
+                {{ s.wordmark }}
+              {%- else -%}
+                {{ shop.name | escape }}<em>.</em>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+          {%- if s.masthead != blank -%}
+            <p class="yqb-disc__masthead">{{ s.masthead | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if sticker_blocks.size > 0 -%}
+          <div class="yqb-disc__stickers" aria-hidden="true">
+            {%- for block in sticker_blocks -%}
+              {%- liquid
+                assign b = block.settings
+                assign sticker_style = '--yqb-sticker-rotate: ' | append: b.rotation | append: 'deg;'
+                if b.bg != blank
+                  assign sticker_style = sticker_style | append: '--yqb-sticker-bg: ' | append: b.bg | append: ';'
+                endif
+                if b.color != blank
+                  assign sticker_style = sticker_style | append: '--yqb-sticker-color: ' | append: b.color | append: ';'
+                endif
+              -%}
+              <span class="yqb-disc__sticker" style="{{ sticker_style }}" {{ block.shopify_attributes }}>
+                {{- b.text | escape -}}
+              </span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if info_blocks.size > 0 -%}
+        <div class="yqb-disc__grid-wrap">
+          <div class="yqb-disc__grid">
+            {%- for block in info_blocks -%}
+              <div class="yqb-disc__col" {{ block.shopify_attributes }}>
+                {%- if block.settings.label != blank -%}
+                  <p class="yqb-disc__label">{{ block.settings.label | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <div class="yqb-disc__body">{{ block.settings.body }}</div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if s.show_legal and s.legal_text != blank -%}
+        <div class="yqb-disc__legal">
+          <p class="yqb-disc__label">{{ s.legal_label | escape }}</p>
+          <div class="yqb-disc__legal-body">{{ s.legal_text }}</div>
+        </div>
+      {%- endif -%}
+
+      {%- if copyright != blank or s.show_policies or link_blocks.size > 0 -%}
+        <div class="yqb-disc__foot">
+          {%- if copyright != blank -%}
+            <span>{{ copyright | escape }}</span>
+          {%- endif -%}
+          <div class="yqb-disc__links">
+            {%- if s.show_policies -%}
+              {%- for policy in shop.policies -%}
+                {%- if policy != blank -%}
+                  <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- for block in link_blocks -%}
+              {%- if block.settings.label != blank -%}
+                <a
+                  {% if block.settings.link != blank %}
+                    href="{{ block.settings.link }}"
+                  {% else %}
+                    role="link" aria-disabled="true"
+                  {% endif %}
+                  {% if block.settings.new_tab %}
+                    target="_blank" rel="noopener"
+                  {% endif %}
+                  {{ block.shopify_attributes }}
+                >
+                  {{- block.settings.label | escape -}}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .yqb-disc {
+    --yqb-font-heading: var(--font-heading--family);
+    --yqb-font-body: var(--font-body--family);
+
+    background: var(--yqb-bg);
+    color: var(--yqb-ink);
+    font-family: var(--yqb-font-body);
+    padding-block: var(--yqb-pt) var(--yqb-pb);
+  }
+
+  .yqb-disc *,
+  .yqb-disc *::before,
+  .yqb-disc *::after {
+    box-sizing: border-box;
+  }
+
+  .yqb-disc .yqb-disc__inner {
+    width: 100%;
+    max-width: var(--yqb-max-width);
+    margin: 0 auto;
+    padding-inline: var(--yqb-px);
+  }
+
+  .yqb-disc .yqb-disc__card {
+    background: var(--yqb-card);
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-radius);
+    overflow: hidden;
+  }
+
+  .yqb-disc .yqb-disc__card > :last-child {
+    border-bottom: none;
+  }
+
+  /* Top: brand + stickers */
+  .yqb-disc .yqb-disc__top {
+    display: grid;
+    grid-template-columns: var(--yqb-top-cols);
+    border-bottom: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  .yqb-disc .yqb-disc__top--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .yqb-disc .yqb-disc__brand {
+    padding: 32px 36px;
+    border-right: var(--yqb-border) solid var(--yqb-ink);
+    min-width: 0;
+  }
+
+  .yqb-disc .yqb-disc__top--single .yqb-disc__brand {
+    border-right: none;
+  }
+
+  .yqb-disc .yqb-disc__wordmark {
+    font-family: var(--yqb-font-heading);
+    font-weight: 800;
+    font-size: clamp(var(--yqb-wordmark-size-mobile), 4.4vw, var(--yqb-wordmark-size));
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--yqb-ink);
+    margin: 0 0 12px;
+  }
+
+  /* Italic text in the wordmark is rendered as the accent highlight */
+  .yqb-disc .yqb-disc__wordmark em {
+    font-style: normal;
+    color: var(--yqb-violet);
+  }
+
+  .yqb-disc .yqb-disc__logo {
+    max-width: var(--yqb-logo-width);
+    margin: 0 0 12px;
+  }
+
+  .yqb-disc .yqb-disc__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .yqb-disc .yqb-disc__masthead {
+    font-family: var(--yqb-font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+    margin: 0;
+  }
+
+  .yqb-disc .yqb-disc__stickers {
+    padding: 24px 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-content: center;
+    min-width: 0;
+  }
+
+  .yqb-disc .yqb-disc__sticker {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 7px 11px;
+    border: var(--yqb-border) solid var(--yqb-ink);
+    border-radius: var(--yqb-badge-radius);
+    background: var(--yqb-sticker-bg, var(--yqb-bg));
+    color: var(--yqb-sticker-color, var(--yqb-ink));
+    transform: rotate(var(--yqb-sticker-rotate, 0deg));
+    white-space: nowrap;
+  }
+
+  /* Info grid: borders drawn on every cell, outer edges hidden by the wrapper */
+  .yqb-disc .yqb-disc__grid-wrap {
+    overflow: hidden;
+    border-bottom: var(--yqb-border) solid var(--yqb-ink);
+  }
+
+  .yqb-disc .yqb-disc__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-cols-desktop), minmax(0, 1fr));
+    margin: 0 -1px -1px 0;
+  }
+
+  .yqb-disc .yqb-disc__col {
+    padding: 22px 26px;
+    border-right: 1px solid var(--yqb-line);
+    border-bottom: 1px solid var(--yqb-line);
+    min-width: 0;
+  }
+
+  .yqb-disc .yqb-disc__label {
+    font-family: var(--yqb-font-heading);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+    margin: 0 0 10px;
+  }
+
+  .yqb-disc .yqb-disc__body {
+    font-size: var(--yqb-body-size);
+    line-height: 1.6;
+    color: var(--yqb-ink-soft);
+    overflow-wrap: anywhere;
+  }
+
+  .yqb-disc .yqb-disc__body > * {
+    margin: 0;
+  }
+
+  .yqb-disc .yqb-disc__body strong {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 700;
+    color: var(--yqb-ink);
+  }
+
+  .yqb-disc .yqb-disc__body a {
+    color: var(--yqb-violet);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .yqb-disc .yqb-disc__body a:hover {
+    text-decoration: underline;
+  }
+
+  /* Disclaimer */
+  .yqb-disc .yqb-disc__legal {
+    padding: 20px 26px;
+    border-bottom: var(--yqb-border) solid var(--yqb-ink);
+    display: grid;
+    grid-template-columns: var(--yqb-legal-label-width) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .yqb-disc .yqb-disc__legal .yqb-disc__label {
+    margin: 0;
+  }
+
+  .yqb-disc .yqb-disc__legal-body {
+    font-size: var(--yqb-legal-size);
+    line-height: 1.65;
+    color: var(--yqb-mute);
+    max-width: var(--yqb-legal-max-width);
+  }
+
+  .yqb-disc .yqb-disc__legal-body > * {
+    margin: 0;
+  }
+
+  .yqb-disc .yqb-disc__legal-body > * + * {
+    margin-top: 1em;
+  }
+
+  .yqb-disc .yqb-disc__legal-body a {
+    color: inherit;
+  }
+
+  /* Footer */
+  .yqb-disc .yqb-disc__foot {
+    padding: 16px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: var(--yqb-font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yqb-mute);
+  }
+
+  .yqb-disc .yqb-disc__links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .yqb-disc .yqb-disc__links a {
+    color: var(--yqb-mute);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .yqb-disc .yqb-disc__links a:hover {
+    color: var(--yqb-violet);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .yqb-disc .yqb-disc__links a {
+      transition: none;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .yqb-disc .yqb-disc__grid {
+      grid-template-columns: repeat(var(--yqb-cols-tablet), minmax(0, 1fr));
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .yqb-disc {
+      padding-block: var(--yqb-pt-mobile) var(--yqb-pb-mobile);
+    }
+
+    .yqb-disc .yqb-disc__inner {
+      padding-inline: var(--yqb-px-mobile);
+    }
+
+    .yqb-disc .yqb-disc__top {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .yqb-disc .yqb-disc__brand {
+      border-right: none;
+      border-bottom: var(--yqb-border) solid var(--yqb-ink);
+      padding: 24px 20px;
+    }
+
+    .yqb-disc .yqb-disc__top--single .yqb-disc__brand {
+      border-bottom: none;
+    }
+
+    .yqb-disc .yqb-disc__stickers {
+      padding: 18px 20px;
+    }
+
+    .yqb-disc .yqb-disc__col {
+      padding: 18px 20px;
+    }
+
+    .yqb-disc .yqb-disc__legal {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      padding: 18px 20px;
+    }
+
+    .yqb-disc .yqb-disc__foot {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .yqb-disc .yqb-disc__grid {
+      grid-template-columns: repeat(var(--yqb-cols-mobile), minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Disclosure",
+  "tag": "div",
+  "class": "section-wrapper",
+  "blocks": [
+    {
+      "type": "sticker",
+      "name": "Sticker",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "Full"
+        },
+        {
+          "type": "color",
+          "id": "bg",
+          "label": "Fondo",
+          "info": "Si se deja vacío usa el fondo de la sección."
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Texto",
+          "info": "Si se deja vacío usa el color de texto de la sección."
+        },
+        {
+          "type": "range",
+          "id": "rotation",
+          "label": "Rotación",
+          "min": -8,
+          "max": 8,
+          "step": 1,
+          "unit": "°",
+          "default": -3
+        }
+      ]
+    },
+    {
+      "type": "info",
+      "name": "Columna de información",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Legal entity"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Texto",
+          "info": "El texto en negrita se muestra en una línea propia y más oscuro.",
+          "default": "<p><strong>Your Company LLC</strong>EIN: 00-0000000</p>"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Enlace del pie",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Link"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        },
+        {
+          "type": "checkbox",
+          "id": "new_tab",
+          "label": "Abrir en una pestaña nueva",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Marca"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "wordmark",
+      "label": "Wordmark",
+      "info": "Si se deja vacío usa el nombre de la tienda. El texto en cursiva se muestra con el color de acento."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Si se elige, reemplaza al wordmark."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Ancho del logo",
+      "min": 60,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 220
+    },
+    {
+      "type": "text",
+      "id": "masthead",
+      "label": "Bajada",
+      "default": "Growth systems for swim schools and kids sports academies"
+    },
+    {
+      "type": "header",
+      "content": "Disclaimer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_legal",
+      "label": "Mostrar disclaimer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "legal_label",
+      "label": "Etiqueta",
+      "default": "Disclaimer",
+      "visible_if": "{{ section.settings.show_legal }}"
+    },
+    {
+      "type": "richtext",
+      "id": "legal_text",
+      "label": "Texto",
+      "default": "<p>The information, digital products, and services provided on this website are for educational and informational purposes only and do not constitute legal, financial, tax, investment, child-safeguarding, coaching-qualification or professional advice. Users remain responsible for compliance with all safeguarding, licensing and insurance requirements applicable to working with children in their jurisdiction. Results are not typical and depend on individual effort, implementation, market conditions and many other factors outside our control.</p>",
+      "visible_if": "{{ section.settings.show_legal }}"
+    },
+    {
+      "type": "header",
+      "content": "Pie"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright",
+      "info": "[year] se reemplaza por el año actual y [shop] por el nombre de la tienda.",
+      "default": "Copyright [year] [shop]. All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policies",
+      "label": "Mostrar políticas de la tienda",
+      "info": "Enlaces automáticos a las políticas configuradas en Ajustes > Políticas. Se suman los bloques Enlace del pie.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Ancho máximo del contenido",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "brand_ratio",
+      "label": "Ancho de la columna de marca",
+      "min": 30,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas de información en desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columnas de información en tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas de información en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "legal_label_width",
+      "label": "Ancho de la etiqueta del disclaimer",
+      "min": 80,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "legal_max_width",
+      "label": "Ancho máximo del disclaimer",
+      "min": 400,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "default": 960
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_fonts",
+      "label": "Usar fuentes propias de la sección",
+      "info": "Si se desactiva usa las fuentes del theme.",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Fuente de títulos",
+      "default": "inter_n8",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Fuente de texto",
+      "default": "nunito_sans_n4",
+      "visible_if": "{{ section.settings.use_custom_fonts }}"
+    },
+    {
+      "type": "range",
+      "id": "wordmark_size",
+      "label": "Tamaño máximo del wordmark",
+      "min": 24,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "wordmark_size_mobile",
+      "label": "Tamaño mínimo del wordmark",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto de columnas",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "legal_size",
+      "label": "Tamaño del disclaimer",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "color_card",
+      "label": "Fondo de la tarjeta",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "color_ink",
+      "label": "Texto y bordes",
+      "default": "#1A1B1F"
+    },
+    {
+      "type": "color",
+      "id": "color_ink_soft",
+      "label": "Texto de columnas",
+      "default": "#44454C"
+    },
+    {
+      "type": "color",
+      "id": "color_mute",
+      "label": "Texto secundario (etiquetas, disclaimer, pie)",
+      "default": "#74757D"
+    },
+    {
+      "type": "color",
+      "id": "color_line",
+      "label": "Separadores de columnas",
+      "default": "#D6D2C8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Acento (wordmark, enlaces)",
+      "default": "#5B3CC4"
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de la tarjeta",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Radio de stickers",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Grosor de bordes",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Espaciado desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Espaciado mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Superior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Inferior",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Lateral",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Disclosure",
+      "blocks": [
+        {
+          "type": "sticker",
+          "settings": { "text": "Full", "bg": "#7FD6C2", "rotation": -3 }
+        },
+        {
+          "type": "sticker",
+          "settings": { "text": "Waitlist", "bg": "#FFD166", "rotation": 2 }
+        },
+        {
+          "type": "sticker",
+          "settings": { "text": "Enrolled", "bg": "#5B3CC4", "color": "#FFFFFF", "rotation": -2 }
+        },
+        {
+          "type": "sticker",
+          "settings": { "text": "Term 1 to 3", "bg": "#F7F4EC", "rotation": 3 }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "label": "Legal entity",
+            "body": "<p><strong>Your Company LLC</strong>EIN: 00-0000000</p>"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "label": "Registered address",
+            "body": "<p>Street address, City, State ZIP, Country</p>"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "label": "Operations",
+            "body": "<p>Remote-first company. Operates globally and provides online services and digital products to clients worldwide.</p>"
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "label": "Contact",
+            "body": "<p><a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Insert phone number here</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
