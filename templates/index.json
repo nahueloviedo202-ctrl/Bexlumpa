@@ -783,6 +783,122 @@
         "padding_inline_mobile": 24
       }
     },
+    "yqb_cta_cPK46h": {
+      "type": "yqb-cta",
+      "blocks": {
+        "button_yahcLG": {
+          "type": "button",
+          "settings": {
+            "label": "Browse the templates",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "primary",
+            "show_arrow": true
+          }
+        },
+        "button_ppPgAJ": {
+          "type": "button",
+          "settings": {
+            "label": "Get the full kit",
+            "link": "shopify://collections/all",
+            "open_new_tab": false,
+            "style": "ghost",
+            "show_arrow": false
+          }
+        },
+        "line_VNAJGg": {
+          "type": "line",
+          "settings": {
+            "label": "Templates in the library",
+            "value": "700"
+          }
+        },
+        "line_krjdFQ": {
+          "type": "line",
+          "settings": {
+            "label": "Editable in Canva",
+            "value": "100%"
+          }
+        },
+        "line_9rL4xa": {
+          "type": "line",
+          "settings": {
+            "label": "Design skills neded",
+            "value": "None"
+          }
+        },
+        "line_M8txrp": {
+          "type": "line",
+          "settings": {
+            "label": "Delivery",
+            "value": "Instant"
+          }
+        }
+      },
+      "block_order": [
+        "button_yahcLG",
+        "button_ppPgAJ",
+        "line_VNAJGg",
+        "line_krjdFQ",
+        "line_9rL4xa",
+        "line_M8txrp"
+      ],
+      "name": "YQB CTA",
+      "settings": {
+        "tag_text": "Your move",
+        "heading": "Your next post starts with one template pack.&nbsp;",
+        "heading_tag": "h2",
+        "subheading": "<p>Stop starting from a blank canvas and hoping your feed looks consistent. Pick the pack that fits your goal, and make your next post from a design that’s already built to look good.</p>",
+        "show_proof": true,
+        "stars_count": 5,
+        "proof_text": "Instant download · 100% editable in Canva · Free account works",
+        "show_card": true,
+        "card_decorative": true,
+        "card_label_left": "Next post",
+        "card_label_right": "Status",
+        "sticker_text": "READY",
+        "sticker_small": "EDITABLE IN CANVA",
+        "sticker_rotation": -5,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "card_position": "left",
+        "copy_ratio": 56,
+        "gap": 72,
+        "gap_tablet": 48,
+        "card_max_width_tablet": 560,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 70,
+        "heading_size_mobile": 50,
+        "heading_max_width": 600,
+        "sub_size": 17,
+        "sub_size_mobile": 16,
+        "sub_max_width": 520,
+        "sticker_size": 42,
+        "sticker_size_mobile": 32,
+        "color_bg": "#2B2D31",
+        "color_text": "#f7f4ec",
+        "color_text_soft": "#A3A7AD",
+        "color_mute": "#FFD23F",
+        "color_card": "#2B2D31",
+        "color_line": "#f7f4ec29",
+        "color_dark": "#1a1b1f",
+        "color_secondary": "#CFE3F5",
+        "color_highlight": "#FFD23F",
+        "radius": 12,
+        "button_shadow": 4,
+        "show_stripes": true,
+        "stripe_height": 14,
+        "stripe_opacity": 50,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_inline": 48,
+        "padding_top_mobile": 80,
+        "padding_bottom_mobile": 80,
+        "padding_inline_mobile": 24
+      }
+    },
     "yqb_journey_yaXYtm": {
       "type": "yqb-journey",
       "blocks": {
@@ -1520,122 +1636,6 @@
         "padding_inline_mobile": 24
       }
     },
-    "yqb_cta_cPK46h": {
-      "type": "yqb-cta",
-      "blocks": {
-        "button_yahcLG": {
-          "type": "button",
-          "settings": {
-            "label": "Browse the templates",
-            "link": "shopify://collections/all",
-            "open_new_tab": false,
-            "style": "primary",
-            "show_arrow": true
-          }
-        },
-        "button_ppPgAJ": {
-          "type": "button",
-          "settings": {
-            "label": "Get the full kit",
-            "link": "shopify://collections/all",
-            "open_new_tab": false,
-            "style": "ghost",
-            "show_arrow": false
-          }
-        },
-        "line_VNAJGg": {
-          "type": "line",
-          "settings": {
-            "label": "Templates in the library",
-            "value": "700"
-          }
-        },
-        "line_krjdFQ": {
-          "type": "line",
-          "settings": {
-            "label": "Editable in Canva",
-            "value": "100%"
-          }
-        },
-        "line_9rL4xa": {
-          "type": "line",
-          "settings": {
-            "label": "Design skills neded",
-            "value": "None"
-          }
-        },
-        "line_M8txrp": {
-          "type": "line",
-          "settings": {
-            "label": "Delivery",
-            "value": "Instant"
-          }
-        }
-      },
-      "block_order": [
-        "button_yahcLG",
-        "button_ppPgAJ",
-        "line_VNAJGg",
-        "line_krjdFQ",
-        "line_9rL4xa",
-        "line_M8txrp"
-      ],
-      "name": "YQB CTA",
-      "settings": {
-        "tag_text": "Your move",
-        "heading": "Your next post starts with one template pack.&nbsp;",
-        "heading_tag": "h2",
-        "subheading": "<p>Stop starting from a blank canvas and hoping your feed looks consistent. Pick the pack that fits your goal, and make your next post from a design that’s already built to look good.</p>",
-        "show_proof": true,
-        "stars_count": 5,
-        "proof_text": "Instant download · 100% editable in Canva · Free account works",
-        "show_card": true,
-        "card_decorative": true,
-        "card_label_left": "Next post",
-        "card_label_right": "Status",
-        "sticker_text": "READY",
-        "sticker_small": "EDITABLE IN CANVA",
-        "sticker_rotation": -5,
-        "section_width": "full-width",
-        "content_max_width": 1240,
-        "card_position": "left",
-        "copy_ratio": 56,
-        "gap": 72,
-        "gap_tablet": 48,
-        "card_max_width_tablet": 560,
-        "use_custom_fonts": true,
-        "heading_font": "inter_n8",
-        "body_font": "nunito_sans_n4",
-        "heading_size": 70,
-        "heading_size_mobile": 50,
-        "heading_max_width": 600,
-        "sub_size": 17,
-        "sub_size_mobile": 16,
-        "sub_max_width": 520,
-        "sticker_size": 42,
-        "sticker_size_mobile": 32,
-        "color_bg": "#2B2D31",
-        "color_text": "#f7f4ec",
-        "color_text_soft": "#A3A7AD",
-        "color_mute": "#FFD23F",
-        "color_card": "#2B2D31",
-        "color_line": "#f7f4ec29",
-        "color_dark": "#1a1b1f",
-        "color_secondary": "#CFE3F5",
-        "color_highlight": "#FFD23F",
-        "radius": 12,
-        "button_shadow": 4,
-        "show_stripes": true,
-        "stripe_height": 14,
-        "stripe_opacity": 50,
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "padding_inline": 48,
-        "padding_top_mobile": 80,
-        "padding_bottom_mobile": 80,
-        "padding_inline_mobile": 24
-      }
-    },
     "yqb_disclosure_b7rMnQ": {
       "type": "yqb-disclosure",
       "blocks": {
@@ -1739,7 +1739,7 @@
         "wordmark_size_mobile": 34,
         "body_size": 14,
         "legal_size": 12,
-        "color_bg": "#CFE3F5",
+        "color_bg": "{{ settings.color_palette.background }}",
         "color_card": "#ffffff",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
@@ -1762,13 +1762,13 @@
     "product_list_fa6P9H",
     "yqb_hero_4wJndU",
     "yqb_playbooks_ipYVXQ",
-    "yqb_year_kYaGTb",
+    "yqb_cta_cPK46h",
     "yqb_journey_yaXYtm",
     "yqb_levels_R8ryfH",
     "yqb_reports_yhQK9G",
     "yqb_eligibility_mJTUkk",
+    "yqb_year_kYaGTb",
     "yqb_faq_Kr4j3Q",
-    "yqb_cta_cPK46h",
     "yqb_disclosure_b7rMnQ"
   ]
 }
