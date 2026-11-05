@@ -662,17 +662,17 @@
         "title_size": 26,
         "title_size_mobile": 22,
         "body_size": 15,
-        "color_bg": "#231A4D",
-        "color_card": "#2D2360",
-        "color_ink": "#F7F4EC",
-        "color_ink_soft": "#CFC9DD",
-        "color_mute": "#9A93B5",
-        "color_line": "#F7F4EC",
+        "color_bg": "#231a4d",
+        "color_card": "#2d2360",
+        "color_ink": "#f7f4ec",
+        "color_ink_soft": "#cfc9dd",
+        "color_mute": "#9a93b5",
+        "color_line": "#f7f4ec",
         "line_opacity": 16,
-        "color_secondary": "#7FD6C2",
-        "color_tag_text": "#231A4D",
-        "color_highlight": "#FFD166",
-        "color_on_highlight": "#1A1B1F",
+        "color_secondary": "#7fd6c2",
+        "color_tag_text": "#231a4d",
+        "color_highlight": "#ffd166",
+        "color_on_highlight": "#1a1b1f",
         "radius": 12,
         "badge_size": 72,
         "badge_size_mobile": 60,
@@ -688,12 +688,146 @@
         "padding_bottom_mobile": 72,
         "padding_inline_mobile": 24
       }
+    },
+    "yqb_journey_yaXYtm": {
+      "type": "yqb-journey",
+      "blocks": {
+        "step_nCaBAF": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Hear about you",
+            "body": "A parent asks the school WhatsApp group where to take their four-year-old. Someone mentions you. Or does not.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "You have no system for being the name that gets mentioned. Referrals happen by luck, not by design.",
+            "fix_label": "Fixed by Vol. 01"
+          }
+        },
+        "step_Kbeaez": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Book a trial",
+            "body": "They find your page, message you, and book a free trial for Saturday.",
+            "show_leak": false,
+            "leak_label": "Leak",
+            "leak_text": "",
+            "fix_label": ""
+          }
+        },
+        "step_qpz4Lh": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "The trial",
+            "body": "The child has a great time. The coach is lovely. The parent watches from the side.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "Nobody speaks to the parent before, during or after. No next step, no place held, no follow-up. Six in ten never enrol.",
+            "fix_label": "Fixed by Vol. 02"
+          }
+        },
+        "step_TfAHrm": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "The term",
+            "body": "They enrol. Twelve weeks of lessons. The child progresses. The parent pays monthly.",
+            "show_leak": false,
+            "leak_label": "Leak",
+            "leak_text": "",
+            "fix_label": ""
+          }
+        },
+        "step_ddyPHP": {
+          "type": "step",
+          "settings": {
+            "number": "",
+            "title": "Re-enrolment",
+            "body": "Term ends. A generic email says places for next term are open.",
+            "show_leak": true,
+            "leak_label": "Leak",
+            "leak_text": "A third of families drift away. Not unhappy, just not asked properly, at the right time, with their place already held.",
+            "fix_label": "Fixed by Vol. 03"
+          }
+        }
+      },
+      "block_order": [
+        "step_nCaBAF",
+        "step_Kbeaez",
+        "step_qpz4Lh",
+        "step_TfAHrm",
+        "step_ddyPHP"
+      ],
+      "name": "YQB Journey",
+      "settings": {
+        "tag_text": "The parent journey",
+        "show_tag_dot": true,
+        "heading": "Five steps from a worried parent to a family that stays. Three of them leak.",
+        "heading_tag": "h2",
+        "intro": "<p>This is the path every one of your families walks. Most owners have never drawn it, so they post more, discount the trial, and wonder why the groups empty out every January.</p>",
+        "show_foot": true,
+        "foot_text": "Every leak on this path is <em>one playbook</em> away from fixed.",
+        "button_label": "See how it works",
+        "button_link": "shopify://collections/all",
+        "button_new_tab": false,
+        "button_arrow": true,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "head_gap": 72,
+        "columns_desktop": 5,
+        "columns_tablet": 2,
+        "columns_mobile": "1",
+        "span_last_tablet": true,
+        "steps_gap": 16,
+        "steps_gap_mobile": 14,
+        "head_margin": 56,
+        "head_margin_mobile": 36,
+        "foot_margin": 44,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 60,
+        "heading_max_width": 620,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "step_title_size": 19,
+        "step_body_size": 14,
+        "number_size": 40,
+        "foot_text_size": 26,
+        "color_bg": "#F7F4EC",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_accent": "#5B3CC4",
+        "color_secondary": "#7FD6C2",
+        "color_highlight": "#FFD166",
+        "color_alert": "#F26B5B",
+        "color_on_alert": "#FFFFFF",
+        "leak_bg_opacity": 10,
+        "color_card": "#FFFFFF",
+        "color_foot_bg": "#1A1B1F",
+        "color_foot_text": "#F7F4EC",
+        "color_foot_highlight": "#7FD6C2",
+        "color_button_bg": "#FFD166",
+        "color_button_text": "#1A1B1F",
+        "color_button_hover": "#7FD6C2",
+        "radius": 12,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
+        "padding_inline_mobile": 24
+      }
     }
   },
   "order": [
     "product_list_fa6P9H",
     "yqb_hero_4wJndU",
     "yqb_year_kYaGTb",
+    "yqb_journey_yaXYtm",
     "yqb_levels_R8ryfH"
   ]
 }
