@@ -1598,7 +1598,7 @@
         "sticker_rotation": -5,
         "section_width": "full-width",
         "content_max_width": 1240,
-        "card_position": "right",
+        "card_position": "left",
         "copy_ratio": 56,
         "gap": 72,
         "gap_tablet": 48,
