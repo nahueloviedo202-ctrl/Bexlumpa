@@ -333,7 +333,7 @@
         "limit_details_width": false,
         "gap": 40,
         "enable_sticky_add_to_cart": true,
-        "background_color": "#F3F1E5",
+        "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 60,
         "padding-block-end": 60
       }
