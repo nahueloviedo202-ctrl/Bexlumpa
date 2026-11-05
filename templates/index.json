@@ -344,7 +344,7 @@
         "subheading_size": 18,
         "subheading_size_mobile": 16,
         "subheading_max_width": 540,
-        "color_bg": "#F3F1E5",
+        "color_bg": "#f3f1e5",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_mute": "#74757d",
@@ -667,7 +667,7 @@
         "step_body_size": 14,
         "number_size": 40,
         "foot_text_size": 26,
-        "color_bg": "#F3F1E5",
+        "color_bg": "#f3f1e5",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_accent": "#5b3cc4",
@@ -1022,7 +1022,7 @@
         "bundle_price_size": 36,
         "card_title_size": 24,
         "card_price_size": 26,
-        "color_bg": "#F3F1E5",
+        "color_bg": "#f3f1e5",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_mute": "#74757d",
@@ -1345,7 +1345,7 @@
         "intro_max_width": 440,
         "col_title_size": 20,
         "item_size": 15,
-        "color_bg": "#F3F1E5",
+        "color_bg": "#f3f1e5",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
         "color_mute": "#74757d",
@@ -1700,7 +1700,7 @@
           "type": "info",
           "settings": {
             "label": "Contact",
-            "body": "<p><a href=\"mailto:hello@example.com\">hello@example.com</a></p><p>Phone: +1 (661) 244-9822</p>"
+            "body": "<p><a href=\"mailto:info@bexlumpa.com\" target=\"_blank\">info@bexlumpa.com</a></p><p>Phone: +1 (661) 244-9822</p>"
           }
         }
       },
@@ -1739,7 +1739,7 @@
         "wordmark_size_mobile": 34,
         "body_size": 14,
         "legal_size": 12,
-        "color_bg": "#F3F1E5",
+        "color_bg": "#f3f1e5",
         "color_card": "#ffffff",
         "color_ink": "#1a1b1f",
         "color_ink_soft": "#44454c",
