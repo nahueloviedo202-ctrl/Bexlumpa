@@ -746,16 +746,16 @@
         "level_zkM9XF": {
           "type": "level",
           "settings": {
-            "badge_text": "L4",
-            "badge_small": "Level",
+            "badge_text": "4",
+            "badge_small": "Goal",
             "badge_bg": "#5b3cc4",
             "badge_color": "#ffffff",
             "label": "Grow",
-            "vol": "Vol. 04",
-            "title": "Sell out camps and extras",
-            "body": "<p>The second revenue layer: holiday camps, intensives, private lessons, birthday parties and siblings, sold to the families you already have, with the calendar, pricing and launch sequence that fills them in days.</p>",
+            "vol": "PACKS 05–07",
+            "title": "<strong>Run your whole brand from one library</strong>&nbsp;",
+            "body": "<p>Presentations, media kits, invoices, resumes, planners and more, so you stop starting from a blank canvas every time something new comes up.</p>",
             "outcome_label": "Outcome",
-            "outcome": "A camp and extras line worth 25 to 40 percent of term revenue",
+            "outcome": "Everything you need in one place, ready to edit&nbsp;",
             "show_in_index": true
           }
         }
