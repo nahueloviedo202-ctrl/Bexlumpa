@@ -992,18 +992,18 @@
         "bundle_price_size": 36,
         "card_title_size": 24,
         "card_price_size": 26,
-        "color_bg": "#F7F4EC",
-        "color_ink": "#1A1B1F",
-        "color_ink_soft": "#44454C",
-        "color_mute": "#74757D",
-        "color_line": "#D6D2C8",
-        "color_accent": "#5B3CC4",
-        "color_secondary": "#7FD6C2",
-        "color_highlight": "#FFD166",
-        "color_card": "#FFFFFF",
-        "color_bundle_bg": "#231A4D",
-        "color_bundle_media_bg": "#5B3CC4",
-        "color_bundle_text": "#F7F4EC",
+        "color_bg": "#f7f4ec",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_mute": "#74757d",
+        "color_line": "#d6d2c8",
+        "color_accent": "#5b3cc4",
+        "color_secondary": "#7fd6c2",
+        "color_highlight": "#ffd166",
+        "color_card": "#ffffff",
+        "color_bundle_bg": "#231a4d",
+        "color_bundle_media_bg": "#5b3cc4",
+        "color_bundle_text": "#f7f4ec",
         "radius": 12,
         "bundle_shadow": 10,
         "card_hover_shadow": 6,
@@ -1189,18 +1189,18 @@
         "intro_max_width": 440,
         "quote_size": 15,
         "quote_italic": true,
-        "color_bg": "#FFFFFF",
-        "color_ink": "#1A1B1F",
-        "color_ink_soft": "#44454C",
-        "color_mute": "#74757D",
-        "color_line": "#D6D2C8",
-        "color_accent": "#5B3CC4",
-        "color_on_accent": "#FFFFFF",
-        "color_secondary": "#7FD6C2",
-        "color_highlight": "#FFD166",
-        "color_tag_bg": "#FFFFFF",
-        "color_card": "#F7F4EC",
-        "color_card_head": "#FFFFFF",
+        "color_bg": "#ffffff",
+        "color_ink": "#1a1b1f",
+        "color_ink_soft": "#44454c",
+        "color_mute": "#74757d",
+        "color_line": "#d6d2c8",
+        "color_accent": "#5b3cc4",
+        "color_on_accent": "#ffffff",
+        "color_secondary": "#7fd6c2",
+        "color_highlight": "#ffd166",
+        "color_tag_bg": "#ffffff",
+        "color_card": "#f7f4ec",
+        "color_card_head": "#ffffff",
         "card_radius": 12,
         "badge_radius": 6,
         "border_width": 2,
@@ -1208,6 +1208,280 @@
         "tag_shadow": 3,
         "hover_effect": true,
         "hover_shadow": 6,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
+        "padding_inline_mobile": 24
+      }
+    },
+    "yqb_eligibility_mJTUkk": {
+      "type": "yqb-eligibility",
+      "blocks": {
+        "yes_item_J9irdg": {
+          "type": "yes_item",
+          "settings": {
+            "text": "You run a swim school, sports academy, dance, gymnastics or martial-arts school for children, with 50 to 800 students across one to three sites."
+          }
+        },
+        "yes_item_8BnKqh": {
+          "type": "yes_item",
+          "settings": {
+            "text": "You are excellent with kids, but talking to parents about enrolment, re-enrolment and money is the part you avoid."
+          }
+        },
+        "yes_item_Rte4tB": {
+          "type": "yes_item",
+          "settings": {
+            "text": "You lose a quarter or more of your families every term end and have accepted it as normal."
+          }
+        },
+        "yes_item_6XcjtU": {
+          "type": "yes_item",
+          "settings": {
+            "text": "You want ready-to-use parent messages, trial scripts, progress report templates and camp launch sequences, not a theory course."
+          }
+        },
+        "yes_item_TNYxUy": {
+          "type": "yes_item",
+          "settings": {
+            "text": "You are ready to set a system up once, between terms, and run every intake on it from then on."
+          }
+        },
+        "no_item_ndGhEn": {
+          "type": "no_item",
+          "settings": {
+            "text": "You want a booking app to fill the groups for you so you never have to talk to a parent."
+          }
+        },
+        "no_item_nLdGVz": {
+          "type": "no_item",
+          "settings": {
+            "text": "You are going to buy the playbook and leave it unopened in your downloads folder."
+          }
+        },
+        "no_item_FQmfdk": {
+          "type": "no_item",
+          "settings": {
+            "text": "You believe the free trial plus a discount is the only way to enrol a family, and you are not willing to change how you run it."
+          }
+        },
+        "no_item_XtyE7p": {
+          "type": "no_item",
+          "settings": {
+            "text": "You run a national franchise or a leisure-centre chain with an in-house marketing team."
+          }
+        }
+      },
+      "block_order": [
+        "yes_item_J9irdg",
+        "yes_item_8BnKqh",
+        "yes_item_Rte4tB",
+        "yes_item_6XcjtU",
+        "yes_item_TNYxUy",
+        "no_item_ndGhEn",
+        "no_item_nLdGVz",
+        "no_item_FQmfdk",
+        "no_item_XtyE7p"
+      ],
+      "name": "YQB Eligibility",
+      "settings": {
+        "tag_text": "Eligibility check",
+        "show_tag_dot": true,
+        "heading": "Built for owners who still coach on Saturdays. Not for everyone.",
+        "heading_tag": "h2",
+        "intro": "<p>We would rather lose a sale than send a playbook to someone who will never open it between terms. Tick both columns honestly before checkout.</p>",
+        "form_label_left": "Enrolment form / owner",
+        "form_label_right": "Tick all that apply",
+        "yes_sub": "Section A",
+        "yes_title": "This is for you if",
+        "yes_icon": "✓",
+        "no_sub": "Section B",
+        "no_title": "This is not for you if",
+        "no_icon": "✕",
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "heading_ratio": 52,
+        "head_gap": 72,
+        "head_margin": 44,
+        "head_margin_mobile": 32,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 60,
+        "heading_max_width": 620,
+        "intro_size": 16,
+        "intro_max_width": 440,
+        "col_title_size": 20,
+        "item_size": 15,
+        "color_bg": "#F7F4EC",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_mute": "#74757D",
+        "color_line": "#D6D2C8",
+        "color_accent": "#5B3CC4",
+        "color_secondary": "#7FD6C2",
+        "color_card": "#FFFFFF",
+        "color_form_head_bg": "#F7F4EC",
+        "color_no_box_bg": "#FFFFFF",
+        "radius": 12,
+        "form_shadow": 10,
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "padding_inline": 48,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72,
+        "padding_inline_mobile": 24
+      }
+    },
+    "yqb_faq_Kr4j3Q": {
+      "type": "yqb-faq",
+      "blocks": {
+        "question_GKr4iG": {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "What exactly do I get when I buy a playbook?",
+            "answer": "<p>An instant digital download: the full step-by-step guide as a PDF, plus every parent message, trial script, progress report template, re-enrolment sequence and camp launch email referenced inside it. Yours to keep and reuse every term.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_ayLiGw": {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "Does this work for my kind of academy?",
+            "answer": "<p>The playbooks are built for swim schools, football, rugby and tennis academies, gymnastics, dance, cheer and martial-arts schools for children, from 50 to 800 students, one to three sites, whether you own the venue or hire a pool or hall by the hour.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_tJ84f8": {
+          "type": "question",
+          "settings": {
+            "badge": "Parents ask",
+            "badge_style": "secondary",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "Why should I pay when the trial was free?",
+            "answer": "<p>This is the question Vol. 02 answers for you. The trial is scripted so the parent sees progress, a plan and a held place, and the enrolment conversation happens before they leave, not in a discount email three days later.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_xTKAkx": {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "I already use booking software. Do I need this?",
+            "answer": "<p>Yes, and the two work together. Software takes the payment and sends the reminder. The playbooks decide what the parent hears before the trial, what happens at the poolside, when the re-enrolment window opens and how the camp gets sold. No software does that for you.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_AtnFN9": {
+          "type": "question",
+          "settings": {
+            "badge": "Parents ask",
+            "badge_style": "secondary",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "Is my child actually improving?",
+            "answer": "<p>The question behind every drop-off. Vol. 03 gives you the progress report format, the level-up moment and the mid-term check-in that make progress visible to the parent, so re-enrolment becomes the obvious next step instead of a decision.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_jUx6qd": {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "How fast will I see results?",
+            "answer": "<p>Most owners install the trial conversion system in a week and see the next intake convert higher. Retention shows at the next term end. Camps and extras show the first time you run the launch sequence to existing families.</p>",
+            "open_by_default": false
+          }
+        },
+        "question_gUXdNj": {
+          "type": "question",
+          "settings": {
+            "badge": "Owners ask",
+            "badge_style": "highlight",
+            "badge_bg": "",
+            "badge_color": "",
+            "question": "How do I access my purchase, and what is the refund policy?",
+            "answer": "<p>You receive a download link by email immediately after checkout, and it is also saved to your account. Because these are instant digital products, please review the description before buying. Full terms are in our refund policy.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "question_GKr4iG",
+        "question_ayLiGw",
+        "question_tJ84f8",
+        "question_xTKAkx",
+        "question_AtnFN9",
+        "question_jUx6qd",
+        "question_gUXdNj"
+      ],
+      "name": "YQB FAQ",
+      "settings": {
+        "tag_text": "Questions",
+        "show_tag_dot": true,
+        "heading": "What owners ask us. And what parents ask you.",
+        "heading_tag": "h2",
+        "intro": "<p>Nothing hidden, no fine print. If your question is not below, the team replies within one business day.</p>",
+        "show_contact": true,
+        "contact_tag": "Still deciding",
+        "contact_text": "Tell us where your families are leaking. We will point you to the right level.",
+        "button_label": "Email us",
+        "button_link": "",
+        "button_arrow": true,
+        "button_new_tab": false,
+        "section_width": "full-width",
+        "content_max_width": 1240,
+        "left_ratio": 38,
+        "column_gap": 80,
+        "column_gap_tablet": 44,
+        "items_gap": 12,
+        "sticky_left": false,
+        "sticky_offset": 96,
+        "use_custom_fonts": true,
+        "heading_font": "inter_n8",
+        "body_font": "nunito_sans_n4",
+        "heading_size": 54,
+        "heading_size_mobile": 32,
+        "intro_size": 16,
+        "intro_max_width": 400,
+        "contact_max_width": 420,
+        "question_size": 18,
+        "question_size_mobile": 16,
+        "answer_size": 15,
+        "answer_max_width": 640,
+        "color_bg": "#FFFFFF",
+        "color_ink": "#1A1B1F",
+        "color_ink_soft": "#44454C",
+        "color_accent": "#5B3CC4",
+        "color_on_accent": "#FFFFFF",
+        "color_secondary": "#7FD6C2",
+        "color_highlight": "#FFD166",
+        "color_tag_bg": "#FFFFFF",
+        "color_card": "#F7F4EC",
+        "color_toggle_bg": "#FFFFFF",
+        "radius": 12,
+        "badge_radius": 6,
+        "border_width": 2,
+        "tag_shadow": 3,
+        "contact_shadow": 6,
+        "open_shadow": 6,
         "padding_top": 112,
         "padding_bottom": 112,
         "padding_inline": 48,
@@ -1224,6 +1498,8 @@
     "yqb_journey_yaXYtm",
     "yqb_levels_R8ryfH",
     "yqb_playbooks_ipYVXQ",
-    "yqb_reports_yhQK9G"
+    "yqb_reports_yhQK9G",
+    "yqb_eligibility_mJTUkk",
+    "yqb_faq_Kr4j3Q"
   ]
 }
