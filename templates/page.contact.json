@@ -136,9 +136,9 @@
               "settings": {
                 "label": "Submit",
                 "style_class": "button-custom",
-                "custom_button_background": "#2d1b4e",
+                "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "#2d1b4e",
+                "custom_button_border": "{{ settings.color_palette.foreground }}",
                 "width": "custom",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
