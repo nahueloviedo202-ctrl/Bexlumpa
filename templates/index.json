@@ -828,49 +828,49 @@
         "include_jHUePN": {
           "type": "include",
           "settings": {
-            "text": "Vol. 01 The Parent Pipeline"
+            "text": "170 Instagram posts"
           }
         },
         "include_rMNm7M": {
           "type": "include",
           "settings": {
-            "text": "Vol. 02 The Trial Conversion"
+            "text": "120 Instagram stories"
           }
         },
         "include_r9ybpD": {
           "type": "include",
           "settings": {
-            "text": "Vol. 03 The Term Retention"
+            "text": "80 carousel slides"
           }
         },
         "include_gnzcQM": {
           "type": "include",
           "settings": {
-            "text": "Vol. 04 The Camp and Extras Engine"
+            "text": "70 Reels covers"
           }
         },
         "include_PEBh6y": {
           "type": "include",
           "settings": {
-            "text": "Operating blueprints"
+            "text": "60 flyers and brochures"
           }
         },
         "include_FtxKU8": {
           "type": "include",
           "settings": {
-            "text": "Academy year calendar"
+            "text": "60 presentation slides"
           }
         },
         "include_4WwXAX": {
           "type": "include",
           "settings": {
-            "text": "62 scripts and templates"
+            "text": "50 resumes and CVs"
           }
         },
         "include_rgaxpD": {
           "type": "include",
           "settings": {
-            "text": "36 AI prompts"
+            "text": "90 planners, invoices and media kits"
           }
         },
         "card_N4U3mp": {
@@ -946,21 +946,21 @@
       ],
       "name": "YQB Playbooks",
       "settings": {
-        "tag_text": "The enrolment kit",
+        "tag_text": "THE TEMPLATE COLLECTION",
         "show_tag_dot": true,
-        "heading": "Four levels. Or the whole academy in one kit.",
+        "heading": "Seven packs. Or the whole library in one.&nbsp;",
         "heading_tag": "h2",
-        "intro": "<p>Pick the level where your families are leaking this term. Instant download, yours forever. Read once, set up once, run every intake on the new system.</p>",
-        "viewall_label": "View all playbooks",
+        "intro": "<p>Pick the pack that fits your goal. Instant download, ready to edit in Canva. Download once, customize in minutes.</p>",
+        "viewall_label": "View all packs",
         "viewall_link": "shopify://collections/all",
         "viewall_arrow": true,
         "show_bundle": true,
-        "bundle_product": "",
+        "bundle_product": "700-canva-templates-the-ultimate-collection",
         "bundle_placeholder": "Kit cover",
         "bundle_sticker": "Full kit",
-        "bundle_meta": "Vol. 05 / Complete system",
-        "bundle_title": "The Full-Enrolment Academy System",
-        "bundle_desc": "All four playbooks connected end to end, plus the operating blueprints that run them in two hours a week and keep every group full, every term, with a waitlist behind it.",
+        "bundle_meta": "PACK 07 / COMPLETE LIBRARY",
+        "bundle_title": "{{ section.settings.bundle_product.title }}",
+        "bundle_desc": "The complete BEXLUMPA library in one download: social media, marketing, presentations, documents and planners, all fully editable and designed to work together.",
         "bundle_price_was": "$119.99",
         "bundle_price_now": "$79.99",
         "bundle_button": "Get the full kit",
