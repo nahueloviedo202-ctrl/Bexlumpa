@@ -1444,7 +1444,7 @@
           "type": "question",
           "settings": {
             "badge": "After you buy",
-            "badge_style": "highlight",
+            "badge_style": "secondary",
             "badge_bg": "",
             "badge_color": "",
             "question": "How do I access my purchase, and what is the refund policy?",
