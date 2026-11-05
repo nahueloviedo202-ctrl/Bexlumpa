@@ -698,32 +698,32 @@
         "level_j3aWkk": {
           "type": "level",
           "settings": {
-            "badge_text": "L1",
-            "badge_small": "Level",
+            "badge_text": "1",
+            "badge_small": "Goal",
             "badge_bg": "#7fd6c2",
             "badge_color": "",
             "label": "Attract",
-            "vol": "Vol. 01",
-            "title": "Become the name parents mention",
-            "body": "<p>The parent pipeline built on trust, not ads: the school and nursery partnerships, the referral routine that makes families bring families, the local presence and the content that shows parents exactly what their child will get.</p>",
+            "vol": "PACKS 01–02",
+            "title": "<strong>Become the feed people stop for</strong>&nbsp;",
+            "body": "<p>Scroll-stopping posts, stories, carousels and highlight covers in matching styles, so every piece you publish looks like it belongs to one brand.</p>",
             "outcome_label": "Outcome",
-            "outcome": "A steady flow of trial bookings from parents who already trust you",
+            "outcome": "A polished feed that earns the follow&nbsp;",
             "show_in_index": true
           }
         },
         "level_87BRVB": {
           "type": "level",
           "settings": {
-            "badge_text": "L2",
-            "badge_small": "Level",
+            "badge_text": "2",
+            "badge_small": "Goal",
             "badge_bg": "#ffd166",
             "badge_color": "",
             "label": "Convert",
-            "vol": "Vol. 02",
-            "title": "Turn the free trial into an enrolment",
-            "body": "<p>The trial experience, scripted for the parent, not just the child: the pre-trial call, the poolside or pitchside conversation, the held place, and the follow-up that closes within 48 hours without a discount.</p>",
+            "vol": "PACK 03",
+            "title": "<strong>Turn attention into customers</strong>&nbsp;",
+            "body": "<p>Flyers, price lists, business cards and sale announcements, ready to edit, so your offers look as professional as the products behind them.</p>",
             "outcome_label": "Outcome",
-            "outcome": "Trial-to-enrolment conversion from 40 percent to 70 percent and beyond",
+            "outcome": "Promotions that look credible and get noticed&nbsp;",
             "show_in_index": true
           }
         },
@@ -769,10 +769,10 @@
       "name": "YQB Levels",
       "settings": {
         "tag_text": "How it works",
-        "heading": "Four levels. One playbook each. Set up between terms.",
+        "heading": "Four goals. One pack for each. Set up in an afternoon.&nbsp;",
         "heading_tag": "h2",
-        "intro": "<p>No agency retainer, no booking-software upsell, no six-week course. Pick the level where your families are leaking, install the playbook over a quiet week, and run next term on the new system.</p>",
-        "show_index": true,
+        "intro": "<p>No agency fees, no design degree, no waiting for a designer. Pick the goal you want to solve, download the pack in seconds, and start editing in Canva today.</p>",
+        "show_index": false,
         "button_label": "Browse the playbooks",
         "button_link": "shopify://collections/all",
         "button_arrow": true,
