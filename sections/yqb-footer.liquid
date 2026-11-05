@@ -1,0 +1,286 @@
+{%- comment -%}
+  YQB Footer: footer grid that reuses Horizon's native theme blocks
+  (text, group, email-signup, menu, social-links, etc.) with editable
+  columns per breakpoint. Mirrors the layout of sections/footer.liquid
+  without modifying it.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign has_custom_colors = false
+  if s.background_color != blank or s.text_color != blank
+    assign has_custom_colors = true
+    render 'contrast-override', background_color: s.background_color, text_color: s.text_color, section_id: section.id
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .yqb-footer__grid {
+    --yqb-footer-gap: {{ s.gap }}px;
+    --yqb-footer-gap-mobile: {{ s.gap_mobile }}px;
+    --yqb-footer-cols: {{ s.columns_desktop }};
+    --yqb-footer-cols-tablet: {{ s.columns_tablet }};
+    --yqb-footer-cols-mobile: {{ s.columns_mobile }};
+    --yqb-footer-align: {{ s.vertical_alignment }};
+  }
+</style>
+
+<div class="section-background{% if has_custom_colors %} color-custom-{{ section.id }}{% endif %}"></div>
+<div class="section section--{{ s.section_width }}{% if has_custom_colors %} color-custom-{{ section.id }}{% endif %} yqb-footer">
+  <div
+    class="yqb-footer__grid spacing-style{% if s.border_top %} yqb-footer__grid--border{% endif %}"
+    style="{% render 'spacing-style', settings: s %}"
+  >
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .yqb-footer .yqb-footer__grid {
+    contain: content;
+    content-visibility: auto;
+    display: grid;
+    grid-template-columns: repeat(var(--yqb-footer-cols-mobile), minmax(0, 1fr));
+    gap: var(--yqb-footer-gap-mobile);
+    align-items: var(--yqb-footer-align);
+  }
+
+  .yqb-footer .yqb-footer__grid--border {
+    border-top: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-10-25, 0.1));
+  }
+
+  .yqb-footer .menu__heading__default {
+    font-weight: var(--font-heading--weight);
+  }
+
+  @media screen and (min-width: 750px) {
+    .yqb-footer .yqb-footer__grid {
+      grid-template-columns: repeat(var(--yqb-footer-cols-tablet), minmax(0, 1fr));
+      gap: var(--yqb-footer-gap);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .yqb-footer .yqb-footer__grid {
+      grid-template-columns: repeat(var(--yqb-footer-cols), minmax(0, 1fr));
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "YQB Footer",
+  "class": "section-wrapper",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "blocks": [
+    { "type": "_divider" },
+    { "type": "@app" },
+    { "type": "button" },
+    { "type": "follow-on-shop" },
+    { "type": "group" },
+    { "type": "icon" },
+    { "type": "image" },
+    { "type": "menu" },
+    { "type": "payment-icons" },
+    { "type": "text" },
+    { "type": "logo" },
+    { "type": "jumbo-text" },
+    { "type": "social-links" },
+    { "type": "email-signup" }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Diseño"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de sección",
+      "options": [
+        { "value": "page-width", "label": "Página" },
+        { "value": "full-width", "label": "Completo" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columnas en desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columnas en tablet",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Alineación vertical de columnas",
+      "options": [
+        { "value": "start", "label": "Arriba" },
+        { "value": "center", "label": "Centro" },
+        { "value": "end", "label": "Abajo" }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espacio entre columnas",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Espacio entre columnas (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "border_top",
+      "label": "Línea superior",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Fondo",
+      "default": "#F7F4EC"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texto",
+      "info": "Vacío = contraste automático del theme."
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Superior",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Inferior",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": "YQB Footer",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>BEXLUMPA LLC<br/>EIN: 43-2663062</strong></p><p>1209 Mountain Road Pl NE, Ste R, Albuquerque, NM 87110, US</p><p>Email: info@bexlumpa.com</p><p>Phone: +1 (661) 244-9822</p>",
+            "width": "fit-content",
+            "type_preset": "rte"
+          }
+        },
+        {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 6,
+            "width": "fill",
+            "height": "fit"
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<h2>Join our email list</h2>",
+                "width": "100%",
+                "type_preset": "h4"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "width": "100%",
+                "type_preset": "rte"
+              }
+            }
+          ]
+        },
+        {
+          "type": "email-signup",
+          "settings": {
+            "width": "fill",
+            "border_style": "all",
+            "input_style": "custom",
+            "border_width": 1,
+            "border_radius": 100,
+            "input_background_color": "#FFFFFF",
+            "input_text_color": "#333333",
+            "input_border_color": "#DFDFDF",
+            "style_class": "button-unstyled",
+            "display_type": "arrow",
+            "integrated_button": true
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "menu": "footer",
+            "heading": "Links",
+            "menu_spacing": 12,
+            "show_as_accordion": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
